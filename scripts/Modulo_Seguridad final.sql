@@ -1,5 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS `bdproyectop312022` DEFAULT CHARACTER SET utf8 ;
-USE `bdproyectop312022` ;
+CREATE SCHEMA IF NOT EXISTS `proyectobd122022` DEFAULT CHARACTER SET utf8 ;
+USE `proyectobd122022` ;
 
 CREATE TABLE IF NOT EXISTS tbl_usuario (
 	usuid INT NOT NULL AUTO_INCREMENT,
@@ -33,8 +33,15 @@ CREATE TABLE IF NOT EXISTS tbl_modulo (
 	PRIMARY KEY (modid) )
 ENGINE = InnoDB CHARACTER SET = latin1;
 
+CREATE TABLE IF NOT EXISTS tbl_aplicacionmodulo (
+	aplid INT NOT NULL,
+    modid INT NOT NULL,
+    PRIMARY KEY (aplid, modid),
+    FOREIGN KEY (aplid) REFERENCES tbl_aplicacion ( aplid),
+    FOREIGN KEY (modid) REFERENCES tbl_modulo (modid) )
+    ENGINE = InnoDB CHARACTER SET = latin1;
     
- CREATE TABLE IF NOT EXISTS tbl_aplicacionPerfil(
+ CREATE TABLE IF NOT EXISTS tbl_aplicacionperfil(
 	aplid INT NOT NULL,
     perid INT NOT NULL,
     PRIMARY KEY(aplid, perid),
@@ -68,5 +75,4 @@ CREATE TABLE IF NOT EXISTS tbl_bitacora (
 	FOREIGN KEY (usuid) references tbl_usuario (usuid)    
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;	
 
-   
 

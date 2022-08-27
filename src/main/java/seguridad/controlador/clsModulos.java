@@ -9,19 +9,19 @@ package seguridad.controlador;
  *
  * @author visitante
  */
-public class clsAplicacion {
+public class clsModulos {
     int aplid;
     String aplnombre;
     String aplestatus;
 
-    public clsAplicacion() {
+    public clsModulos() {
     }
 
-    public clsAplicacion(int id_aplicacion) {
+    public clsModulos(int id_aplicacion) {
         this.aplid= id_aplicacion;
     }
 
-    public clsAplicacion(String nombreAplicacion, String estadoAplicacion) {
+    public clsModulos(String nombreAplicacion, String estadoAplicacion) {
         this.aplnombre = nombreAplicacion;
         this.aplestatus = estadoAplicacion;
     }

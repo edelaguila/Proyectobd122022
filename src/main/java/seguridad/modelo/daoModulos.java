@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author visitante
  */
-public class daoAplicacion {
+public class daoModulos {
 
     private static final String SQL_SELECT = "SELECT aplid, aplnombre, aplestatus FROM tbl_aplicacion";
     private static final String SQL_INSERT = "INSERT INTO tbl_aplicacion(aplnombre, aplestatus) VALUES(?, ?)";

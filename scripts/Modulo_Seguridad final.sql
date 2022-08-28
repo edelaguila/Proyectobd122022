@@ -44,8 +44,10 @@ CREATE TABLE IF NOT EXISTS tbl_aplicacionmodulo (
  CREATE TABLE IF NOT EXISTS tbl_aplicacionperfil(
 	aplid INT NOT NULL,
     perid INT NOT NULL,
-    PRIMARY KEY(aplid, perid),
-    FOREIGN KEY (aplid) REFERENCES tbl_aplicacion (aplid),     
+    aplnombre VARCHAR (60) NOT NULL,
+    PRIMARY KEY(aplid, perid,aplnombre),
+    FOREIGN KEY (aplid) REFERENCES tbl_aplicacion (aplid),
+    FOREIGN KEY (aplnombre) REFERENCES tbl_aplicacion (aplnombre),
     FOREIGN KEY (perid) REFERENCES tbl_perfil (perid)
  ) ENGINE=InnoDB CHARACTER SET = latin1;     
 

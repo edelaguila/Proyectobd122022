@@ -52,7 +52,7 @@ public class frmMantenimientoPerfilAplicacion extends javax.swing.JInternalFrame
     {
         clsPerfilAplicacion AConsultar = new clsPerfilAplicacion();
         daoPerfilAplicacion perDAO = new daoPerfilAplicacion();
-        AConsultar.setPerid(txtperid.getText());
+        AConsultar.setPerid(Integer.parseInt(txtperid.getText()));
         DefaultTableModel modelo = new DefaultTableModel();
             
         modelo.addColumn("PerfilID");
@@ -65,8 +65,8 @@ public class frmMantenimientoPerfilAplicacion extends javax.swing.JInternalFrame
                 
         String[] dato = new String[3];
         for (int i = 0; i < aplicaciones.size(); i++) {
-            dato[0] = aplicaciones.get(i).getAplid();
-            dato[1] = aplicaciones.get(i).getPerid();
+            dato[0] = Integer.toString(aplicaciones.get(i).getAplid());
+            dato[1] =Integer.toString(aplicaciones.get(i).getPerid());
             dato[2] = aplicaciones.get(i).getAplnombre();
            
             //System.out.println("vendedor:" + vendedores);
@@ -227,8 +227,8 @@ public class frmMantenimientoPerfilAplicacion extends javax.swing.JInternalFrame
                                                
            daoPerfilAplicacion vendedorDAO = new daoPerfilAplicacion();
         clsPerfilAplicacion vendedorAInsertar = new clsPerfilAplicacion();
-        vendedorAInsertar.setPerid(txtperid.getText());
-         vendedorAInsertar.setAplid(txtapid.getText());
+        vendedorAInsertar.setPerid(Integer.parseInt(txtperid.getText()));
+         vendedorAInsertar.setPerid(Integer.parseInt(txtapid.getText()));
         vendedorDAO.insert(vendedorAInsertar);
         llenadoDeTablas();
    

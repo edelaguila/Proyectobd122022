@@ -169,14 +169,14 @@ public class daoPerfilAplicacion {
             stmt = conn.prepareStatement(SQL_QUERY2);
             //stmt.setString(1, perfil.getAplnombre());
             
-            stmt.setString(1, perfil.getPerid());
+            stmt.setInt(1, perfil.getPerid());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 int perfilid = rs.getInt("perid");
                 String nombreapl= rs.getString("aplnombre");
                 
                 perfil = new clsPerfilAplicacion();
-                perfil.setPerid(String.valueOf(perfilid));
+                perfil.setPerid(perfilid);
                 perfil.setAplnombre(nombreapl);
                 
             }
@@ -201,7 +201,7 @@ public class daoPerfilAplicacion {
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_QUERY2);
-            stmt.setString(1, perApl.getPerid());            
+            stmt.setInt(1, perApl.getPerid());            
             rs = stmt.executeQuery();
             while (rs.next()) {
                 
@@ -211,8 +211,8 @@ public class daoPerfilAplicacion {
 
                 usuario = new clsPerfilAplicacion();
                
-                usuario.setPerid(String.valueOf(perfil));
-                usuario.setAplid(String.valueOf(aplicacion));
+                usuario.setPerid(perfil);
+                usuario.setAplid(aplicacion);
                 usuario.setAplnombre(String.valueOf(nombreAplicacion));
                 usuarios.add(usuario);
             }

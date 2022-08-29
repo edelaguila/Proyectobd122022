@@ -5,7 +5,7 @@
  */
 package seguridad.modelo;
 
-import seguridad.controlador.clsPerfilAplicaciones;
+import seguridad.controlador.clsPerfilAplicacion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author visitante
  */
-public class daoPerfilApps {
+public class daoPerfilAplicacion {
 
     private static final String SQL_SELECT = "SELECT  perid,aplid FROM tbl_aplicacionperfil";
    
@@ -25,12 +25,12 @@ public class daoPerfilApps {
     private static final String SQL_QUERY = "SELECT  perid, aplid FROM tbl_aplicacionperfil WHERE perid = ?";
      private static final String SQL_QUERY2 = "SELECT tbl_aplicacionperfil.aplid, tbl_aplicacionperfil.perid , tbl_aplicacion.aplnombre FROM tbl_aplicacionperfil INNER JOIN tbl_aplicacion ON tbl_aplicacionperfil.aplid=tbl_aplicacion.aplid  WHERE tbl_aplicacionperfil.perid=?";
 
-    public List<clsPerfilAplicaciones> select() {
+    public List<clsPerfilAplicacion> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsPerfilAplicaciones usuario = null;
-        List<clsPerfilAplicaciones> usuarios = new ArrayList<clsPerfilAplicaciones>();
+        clsPerfilAplicacion usuario = null;
+        List<clsPerfilAplicacion> usuarios = new ArrayList<clsPerfilAplicacion>();
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
@@ -40,10 +40,10 @@ public class daoPerfilApps {
                 int perfil = rs.getInt("perid");
                 int aplicacion = rs.getInt("aplid");
 
-                usuario = new clsPerfilAplicaciones();
+                usuario = new clsPerfilAplicacion();
                
-                usuario.setPerid(String.valueOf(perfil));
-                usuario.setAplid(String.valueOf(aplicacion));
+                usuario.setPerid(perfil);
+                usuario.setAplid(aplicacion);
 
                 usuarios.add(usuario);
             }
@@ -59,15 +59,15 @@ public class daoPerfilApps {
         return usuarios;
     }
 
-    public int insert(clsPerfilAplicaciones perfil_app) {
+    public int insert(clsPerfilAplicacion perfil_app) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, perfil_app.getPerid());
-            stmt.setString(2, perfil_app.getAplid());
+            stmt.setInt(1, perfil_app.getPerid());
+            stmt.setInt(2, perfil_app.getAplid());
 
             System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
@@ -82,7 +82,7 @@ public class daoPerfilApps {
         return rows;
     }
 
-    public int update(clsPerfilAplicaciones perfil_app) {
+    public int update(clsPerfilAplicacion perfil_app) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -90,8 +90,8 @@ public class daoPerfilApps {
             conn = clsConexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, perfil_app.getPerid());
-            stmt.setString(2, perfil_app.getAplid());
+            stmt.setInt(1, perfil_app.getPerid());
+            stmt.setInt(2, perfil_app.getAplid());
             
 
             rows = stmt.executeUpdate();
@@ -107,7 +107,7 @@ public class daoPerfilApps {
         return rows;
     }
 
-    public int delete(clsPerfilAplicaciones perfil_app) {
+    public int delete(clsPerfilAplicacion perfil_app) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -159,7 +159,7 @@ public class daoPerfilApps {
         //return personas;  // Si se utiliza un ArrayList
         return perfil_app;
     }*/
-        public clsPerfilAplicaciones query2(clsPerfilAplicaciones perfil) {
+        public clsPerfilAplicacion query2(clsPerfilAplicacion perfil) {
          Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -169,14 +169,14 @@ public class daoPerfilApps {
             stmt = conn.prepareStatement(SQL_QUERY2);
             //stmt.setString(1, perfil.getAplnombre());
             
-            stmt.setString(1, perfil.getPerid());
+            stmt.setInt(1, perfil.getPerid());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 int perfilid = rs.getInt("perid");
                 String nombreapl= rs.getString("aplnombre");
                 
-                perfil = new clsPerfilAplicaciones();
-                perfil.setPerid(String.valueOf(perfilid));
+                perfil = new clsPerfilAplicacion();
+                perfil.setPerid(perfilid);
                 perfil.setAplnombre(nombreapl);
                 
             }
@@ -192,16 +192,16 @@ public class daoPerfilApps {
         //return personas;  // Si se utiliza un ArrayList
         return perfil;
     }
- public List<clsPerfilAplicaciones> select2(clsPerfilAplicaciones perApl) {
+ public List<clsPerfilAplicacion> select2(clsPerfilAplicacion perApl) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsPerfilAplicaciones usuario = null;
-        List<clsPerfilAplicaciones> usuarios = new ArrayList<clsPerfilAplicaciones>();
+        clsPerfilAplicacion usuario = null;
+        List<clsPerfilAplicacion> usuarios = new ArrayList<clsPerfilAplicacion>();
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_QUERY2);
-            stmt.setString(1, perApl.getPerid());            
+            stmt.setInt(1, perApl.getPerid());            
             rs = stmt.executeQuery();
             while (rs.next()) {
                 
@@ -209,10 +209,10 @@ public class daoPerfilApps {
                 int perfil = rs.getInt("perid");
                 String nombreAplicacion = rs.getString("aplnombre");
 
-                usuario = new clsPerfilAplicaciones();
+                usuario = new clsPerfilAplicacion();
                
-                usuario.setPerid(String.valueOf(perfil));
-                usuario.setAplid(String.valueOf(aplicacion));
+                usuario.setPerid(perfil);
+                usuario.setAplid(aplicacion);
                 usuario.setAplnombre(String.valueOf(nombreAplicacion));
                 usuarios.add(usuario);
             }

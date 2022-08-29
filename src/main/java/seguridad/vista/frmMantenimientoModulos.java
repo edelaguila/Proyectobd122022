@@ -6,8 +6,8 @@
 package seguridad.vista;
 
 
-import seguridad.modelo.daoAplicacion;
-import seguridad.controlador.clsAplicacion;
+import seguridad.modelo.daoModulos;
+import seguridad.controlador.clsModulos;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -16,11 +16,11 @@ import java.io.File;
  *
  * @author visitante
  */
-public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
+public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
 
     public void llenadoDeCombos() {
-        daoAplicacion AplicacionDAO = new daoAplicacion();
-        List<clsAplicacion> aplicaciones = AplicacionDAO.select();
+        daoModulos AplicacionDAO = new daoModulos();
+        List<clsModulos> aplicaciones = AplicacionDAO.select();
         cbox_aplicacion.addItem("Seleccione una opción");
         for (int i = 0; i < aplicaciones.size(); i++) {
             cbox_aplicacion.addItem(aplicaciones.get(i).getNombreAplicacion());
@@ -32,8 +32,8 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         modelo.addColumn("ID Aplicacion");
         modelo.addColumn("Nombre");
         modelo.addColumn("Estado");
-        daoAplicacion aplicacionDAO = new daoAplicacion();
-        List<clsAplicacion> aplicaciones = aplicacionDAO.select();
+        daoModulos aplicacionDAO = new daoModulos();
+        List<clsModulos> aplicaciones = aplicacionDAO.select();
         tablaAplicaciones.setModel(modelo);
         String[] dato = new String[3];
         for (int i = 0; i < aplicaciones.size(); i++) {
@@ -46,15 +46,15 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
     }
 
     public void buscaraplicacion() {
-        clsAplicacion aplicacionAConsultar = new clsAplicacion();
-        daoAplicacion aplicacionDAO = new daoAplicacion();
+        clsModulos aplicacionAConsultar = new clsModulos();
+        daoModulos aplicacionDAO = new daoModulos();
         aplicacionAConsultar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
         aplicacionAConsultar = aplicacionDAO.query(aplicacionAConsultar);
         txtNombre.setText(aplicacionAConsultar.getNombreAplicacion());
         txtEstado.setText(aplicacionAConsultar.getestadoAplicacion());
     }
 
-    public frmMantenimientoAplicaciones() {
+    public frmMantenimientoModulos() {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
@@ -96,7 +96,7 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Mantenimiento Aplicacion");
+        setTitle("Mantenimiento Modulos");
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
@@ -277,21 +277,23 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
+        getAccessibleContext().setAccessibleName("Mantenimiento Modulos");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        daoAplicacion aplicacionDAO = new daoAplicacion();
-        clsAplicacion aplicacionAEliminar = new clsAplicacion();
+        daoModulos aplicacionDAO = new daoModulos();
+        clsModulos aplicacionAEliminar = new clsModulos();
         aplicacionAEliminar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
         aplicacionDAO.delete(aplicacionAEliminar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        daoAplicacion aplicacionDAO = new daoAplicacion();
-        clsAplicacion aplicacionAInsertar = new clsAplicacion();
+        daoModulos aplicacionDAO = new daoModulos();
+        clsModulos aplicacionAInsertar = new clsModulos();
         aplicacionAInsertar.setNombreAplicacion(txtNombre.getText());
         aplicacionAInsertar.setestadoAplicacion(txtEstado.getText());
         aplicacionDAO.insert(aplicacionAInsertar);
@@ -305,8 +307,8 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
-        daoAplicacion aplicacionDAO = new daoAplicacion();
-        clsAplicacion aplicacionAActualizar = new clsAplicacion();
+        daoModulos aplicacionDAO = new daoModulos();
+        clsModulos aplicacionAActualizar = new clsModulos();
         aplicacionAActualizar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
         aplicacionAActualizar.setNombreAplicacion(txtNombre.getText());
         aplicacionAActualizar.setestadoAplicacion(txtEstado.getText());

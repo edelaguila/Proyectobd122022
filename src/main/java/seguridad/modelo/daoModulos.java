@@ -5,7 +5,7 @@
  */
 package seguridad.modelo;
 
-import seguridad.controlador.clsAplicacion;
+import seguridad.controlador.clsModulos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,31 +17,31 @@ import java.util.List;
  *
  * @author visitante
  */
-public class daoAplicacion {
+public class daoModulos {
 
-    private static final String SQL_SELECT = "SELECT aplid, aplnombre, aplestatus FROM tbl_aplicacion";
-    private static final String SQL_INSERT = "INSERT INTO tbl_aplicacion(aplnombre, aplestatus) VALUES(?, ?)";
-    private static final String SQL_UPDATE = "UPDATE tbl_aplicacion SET aplnombre=?, aplestatus=? WHERE aplid = ?";
-    private static final String SQL_DELETE = "DELETE FROM tbl_aplicacion WHERE aplid=?";
-    private static final String SQL_QUERY = "SELECT aplid, aplnombre, aplestatus FROM tbl_aplicacion WHERE aplid = ?";
+    private static final String SQL_SELECT = "SELECT modid, modnombre, modestatus FROM tbl_modulo";
+    private static final String SQL_INSERT = "INSERT INTO tbl_modulo(modnombre, modestatus) VALUES(?, ?)";
+    private static final String SQL_UPDATE = "UPDATE tbl_modulo SET modnombre=?, modestatus=? WHERE modid = ?";
+    private static final String SQL_DELETE = "DELETE FROM tbl_modulo WHERE modid=?";
+    private static final String SQL_QUERY = "SELECT modid, modnombre, modestatus FROM tbl_modulo WHERE modid = ?";
 
-    public List<clsAplicacion> select() {
+    public List<clsModulos> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsAplicacion aplicacion = null;
-        List<clsAplicacion> aplicaciones = new ArrayList<clsAplicacion>();
+        clsModulos aplicacion = null;
+        List<clsModulos> aplicaciones = new ArrayList<clsModulos>();
 
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_aplicacion = rs.getInt("aplid");
-                String nombre = rs.getString("aplnombre");
-                String estado = rs.getString("aplestatus");
+                int id_aplicacion = rs.getInt("modid");
+                String nombre = rs.getString("modnombre");
+                String estado = rs.getString("modestatus");
                 
-                aplicacion = new clsAplicacion();
+                aplicacion = new clsModulos();
                 aplicacion.setId_aplicacion(id_aplicacion);
                 aplicacion.setNombreAplicacion(nombre);
                 aplicacion.setestadoAplicacion(estado);
@@ -60,7 +60,7 @@ public class daoAplicacion {
         return aplicaciones;
     }
 
-    public int insert(clsAplicacion aplicacion) {
+    public int insert(clsModulos aplicacion) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -84,7 +84,7 @@ public class daoAplicacion {
         return rows;
     }
 
-    public int update(clsAplicacion aplicacion) {
+    public int update(clsModulos aplicacion) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -110,7 +110,7 @@ public class daoAplicacion {
         return rows;
     }
 
-    public int delete(clsAplicacion aplicacion) {
+    public int delete(clsModulos aplicacion) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -133,11 +133,11 @@ public class daoAplicacion {
     }
 
 //    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public clsAplicacion query(clsAplicacion aplicacion) {    
+    public clsModulos query(clsModulos aplicacion) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<clsAplicacion> aplicaciones = new ArrayList<clsAplicacion>();
+        List<clsModulos> aplicaciones = new ArrayList<clsModulos>();
         int rows = 0;
 
         try {
@@ -147,11 +147,11 @@ public class daoAplicacion {
             stmt.setInt(1, aplicacion.getId_aplicacion());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_aplicacion = rs.getInt("aplid");
-                String nombre = rs.getString("aplnombre");
-                String estado = rs.getString("aplestatus");
+                int id_aplicacion = rs.getInt("modid");
+                String nombre = rs.getString("modnombre");
+                String estado = rs.getString("modestatus");
                 
-                aplicacion = new clsAplicacion();
+                aplicacion = new clsModulos();
                 aplicacion.setId_aplicacion(id_aplicacion);
                 aplicacion.setNombreAplicacion(nombre);
                 aplicacion.setestadoAplicacion(estado);

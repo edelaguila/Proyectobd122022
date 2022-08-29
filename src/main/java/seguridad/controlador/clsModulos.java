@@ -9,50 +9,50 @@ package seguridad.controlador;
  *
  * @author visitante
  */
-public class clsAplicacion {
-    int aplid;
-    String aplnombre;
-    String aplestatus;
+public class clsModulos {
+    int modid;
+    String modnombre;
+    String modestatus;
 
-    public clsAplicacion() {
+    public clsModulos() {
     }
 
-    public clsAplicacion(int id_aplicacion) {
-        this.aplid= id_aplicacion;
+    public clsModulos(int id_aplicacion) {
+        this.modid= id_aplicacion;
     }
 
-    public clsAplicacion(String nombreAplicacion, String estadoAplicacion) {
-        this.aplnombre = nombreAplicacion;
-        this.aplestatus = estadoAplicacion;
+    public clsModulos(String nombreAplicacion, String estadoAplicacion) {
+        this.modnombre = nombreAplicacion;
+        this.modestatus = estadoAplicacion;
     }
 
     public int getId_aplicacion() {
-        return aplid;
+        return modid;
     }
 
     public void setId_aplicacion(int id_aplicacion) {
-        this.aplid = id_aplicacion;
+        this.modid = id_aplicacion;
     }
 
     public String getNombreAplicacion() {
-        return aplnombre;
+        return modnombre;
     }
 
     public void setNombreAplicacion(String nombreAplicacion) {
-        this.aplnombre = nombreAplicacion;
+        this.modnombre = nombreAplicacion;
     }
 
     public String getestadoAplicacion() {
-        return aplestatus;
+        return modestatus;
     }
 
     public void setestadoAplicacion(String estadoAplicacion) {
-        this.aplestatus = estadoAplicacion;
+        this.modestatus = estadoAplicacion;
     }
 
     @Override
     public String toString() {
-        return "tbl_aplicacion{" + "aplid=" + aplid + ", aplnombre=" + aplnombre + ", aplestatus=" + aplestatus + '}';
+        return "tbl_modulos{" + "modid=" + modid + ", modnombre=" + modnombre + ", modestatus=" + modestatus + '}';
     }
     
 }

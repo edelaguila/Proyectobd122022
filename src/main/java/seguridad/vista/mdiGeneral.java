@@ -6,6 +6,7 @@
 package seguridad.vista;
 
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,6 +41,7 @@ public class mdiGeneral extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        mCierreSesion = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -72,6 +74,15 @@ public class mdiGeneral extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Archivo");
+
+        mCierreSesion.setText("Cierre sesión");
+        mCierreSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCierreSesionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mCierreSesion);
+
         jMenuBar1.add(jMenu1);
 
         jMenu4.setText("Catalogos");
@@ -187,6 +198,14 @@ public class mdiGeneral extends javax.swing.JFrame {
         ventana5.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);            
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void mCierreSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCierreSesionActionPerformed
+        int respuesta_cs = JOptionPane.showConfirmDialog(this, "¿Desea Cerrar Sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION);
+
+        if (respuesta_cs == 0) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_mCierreSesionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -246,5 +265,6 @@ public class mdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem mCierreSesion;
     // End of variables declaration//GEN-END:variables
 }

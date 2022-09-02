@@ -27,6 +27,13 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         }
     }
 
+    public void estados() {    
+        cbox_estado.addItem("seleccione: "); 
+        cbox_estado.addItem("activo");
+        cbox_estado.addItem("inactivo");
+        cbox_estado.addItem("bloqueado");
+    } 
+    
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID Aplicacion");
@@ -51,13 +58,14 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         aplicacionAConsultar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
         aplicacionAConsultar = aplicacionDAO.query(aplicacionAConsultar);
         txtNombre.setText(aplicacionAConsultar.getNombreAplicacion());
-        txtEstado.setText(aplicacionAConsultar.getestadoAplicacion());
+         cbox_estado.setSelectedItem(aplicacionAConsultar.getestadoAplicacion());
     }
 
     public frmMantenimientoAplicaciones() {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
+        estados();
     }
 
     /**
@@ -84,10 +92,10 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         tablaAplicaciones = new javax.swing.JTable();
         cbox_aplicacion = new javax.swing.JComboBox<>();
         label4 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
         label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        cbox_estado = new javax.swing.JComboBox<>();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -96,7 +104,7 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Mantenimiento Aplicacion");
+        setTitle("Mantenimiento Aplicaciones");
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
@@ -173,10 +181,6 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         label4.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label4.setText("Aplicacion");
 
-        txtEstado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtEstado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtEstado.setOpaque(false);
-
         label5.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label5.setText("Estado");
 
@@ -187,6 +191,13 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        cbox_estado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cbox_estado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_estadoActionPerformed(evt);
             }
         });
 
@@ -218,12 +229,19 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
                             .addComponent(label5))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                            .addComponent(txtNombre))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                            .addComponent(cbox_estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                        .addComponent(label4)
+                        .addGap(46, 46, 46)
+                        .addComponent(cbox_aplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
                         .addContainerGap())
@@ -231,14 +249,6 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(label1)
                         .addGap(294, 294, 294))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(135, 135, 135)
-                .addComponent(label4)
-                .addGap(46, 46, 46)
-                .addComponent(cbox_aplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,8 +266,8 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
                                     .addComponent(label3))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label5)))
+                                    .addComponent(label5)
+                                    .addComponent(cbox_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(lb))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -270,11 +280,12 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
                             .addComponent(btnBuscar)
                             .addComponent(btnLimpiar))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label4)
-                    .addComponent(cbox_aplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label4)
+                        .addComponent(cbox_aplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,7 +304,7 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         daoAplicacion aplicacionDAO = new daoAplicacion();
         clsAplicacion aplicacionAInsertar = new clsAplicacion();
         aplicacionAInsertar.setNombreAplicacion(txtNombre.getText());
-        aplicacionAInsertar.setestadoAplicacion(txtEstado.getText());
+        aplicacionAInsertar.setestadoAplicacion(cbox_estado.getSelectedItem().toString());
         aplicacionDAO.insert(aplicacionAInsertar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -309,7 +320,7 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         clsAplicacion aplicacionAActualizar = new clsAplicacion();
         aplicacionAActualizar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
         aplicacionAActualizar.setNombreAplicacion(txtNombre.getText());
-        aplicacionAActualizar.setestadoAplicacion(txtEstado.getText());
+        aplicacionAActualizar.setestadoAplicacion(cbox_estado.getSelectedItem().toString());
         aplicacionDAO.update(aplicacionAActualizar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -317,8 +328,8 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         cbox_aplicacion.setSelectedIndex(0);
         txtNombre.setText("");
-        txtEstado.setText("");
         txtbuscado.setText("");
+        cbox_estado.setSelectedIndex(0);
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
@@ -348,6 +359,10 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void cbox_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_estadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbox_estadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -356,6 +371,7 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cbox_aplicacion;
+    private javax.swing.JComboBox<String> cbox_estado;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
@@ -366,7 +382,6 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
     private javax.swing.JTable tablaAplicaciones;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables

@@ -3,6 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/*
+int perid; //per_idPerfil;
+String pernombre;//per_NombrePerfil;
+String perestatus; //per_EstatusPerfil; 
+actualización 0209 Juan Miguel Sandoval Chile
+*/
 package seguridad.modelo;
 
 import seguridad.controlador.clsPerfil;

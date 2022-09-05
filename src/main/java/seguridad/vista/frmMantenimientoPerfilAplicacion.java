@@ -6,9 +6,9 @@
 package seguridad.vista;
 
 
-import seguridad.modelo.daoPerfilApps;
+import seguridad.modelo.daoPerfilAplicacion;
 import seguridad.modelo.daoAplicacion;
-import seguridad.controlador.clsPerfilAplicaciones;
+import seguridad.controlador.clsPerfilAplicacion;
 import seguridad.controlador.clsAplicacion;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +20,7 @@ import seguridad.modelo.daoPerfil;
  *
  * @author visitante
  */
-public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
+public class frmMantenimientoPerfilAplicacion extends javax.swing.JInternalFrame {
     
 
 
@@ -50,9 +50,9 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
    
     public void buscarVendedor()
     {
-        clsPerfilAplicaciones AConsultar = new clsPerfilAplicaciones();
-        daoPerfilApps perDAO = new daoPerfilApps();
-        AConsultar.setPerid(txtperid.getText());
+        clsPerfilAplicacion AConsultar = new clsPerfilAplicacion();
+        daoPerfilAplicacion perDAO = new daoPerfilAplicacion();
+        AConsultar.setPerid(Integer.parseInt(txtperid.getText()));
         DefaultTableModel modelo = new DefaultTableModel();
             
         modelo.addColumn("PerfilID");
@@ -60,13 +60,13 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
         modelo.addColumn("NombreAPL");
         
         //daoPerfilApps aplicacion = new daoPerfilApps();
-        List<clsPerfilAplicaciones> aplicaciones = perDAO.select2(AConsultar);
+        List<clsPerfilAplicacion> aplicaciones = perDAO.select2(AConsultar);
         tablaAsignacion.setModel(modelo);
                 
         String[] dato = new String[3];
         for (int i = 0; i < aplicaciones.size(); i++) {
-            dato[0] = aplicaciones.get(i).getAplid();
-            dato[1] = aplicaciones.get(i).getPerid();
+            dato[0] = Integer.toString(aplicaciones.get(i).getAplid());
+            dato[1] =Integer.toString(aplicaciones.get(i).getPerid());
             dato[2] = aplicaciones.get(i).getAplnombre();
            
             //System.out.println("vendedor:" + vendedores);
@@ -81,7 +81,7 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
 
    
 
-    public frmMantenimientoPapps() {
+    public frmMantenimientoPerfilAplicacion() {
         initComponents();
         llenadoDeTablas(); 
      
@@ -225,10 +225,10 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
                                                
-           daoPerfilApps vendedorDAO = new daoPerfilApps();
-        clsPerfilAplicaciones vendedorAInsertar = new clsPerfilAplicaciones();
-        vendedorAInsertar.setPerid(txtperid.getText());
-         vendedorAInsertar.setAplid(txtapid.getText());
+           daoPerfilAplicacion vendedorDAO = new daoPerfilAplicacion();
+        clsPerfilAplicacion vendedorAInsertar = new clsPerfilAplicacion();
+        vendedorAInsertar.setPerid(Integer.parseInt(txtperid.getText()));
+         vendedorAInsertar.setPerid(Integer.parseInt(txtapid.getText()));
         vendedorDAO.insert(vendedorAInsertar);
         llenadoDeTablas();
    

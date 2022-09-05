@@ -1,38 +1,33 @@
 package seguridad.controlador;
 
-public class clsPerfilAplicaciones {
+public class clsPerfilAplicacion {
 
-    private String perid;
-    private String aplid;
+    private int perid;
+    private int aplid;
     private String aplnombre;
 
-    public clsPerfilAplicaciones() {
+    public clsPerfilAplicacion() {
     }
 
-    public clsPerfilAplicaciones(String perid, String aplid, String aplnombre) {
+    public clsPerfilAplicacion(int perid, int aplid, String aplnombre) {
         this.perid = perid;
         this.aplid = aplid;
         this.aplnombre = aplnombre;
     }
 
-   
-    
-    
-    
-
-    public String getPerid() {
+    public int getPerid() {
         return perid;
     }
 
-    public void setPerid(String perid) {
+    public void setPerid(int perid) {
         this.perid = perid;
     }
 
-    public String getAplid() {
+    public int getAplid() {
         return aplid;
     }
 
-    public void setAplid(String aplid) {
+    public void setAplid(int aplid) {
         this.aplid = aplid;
     }
 
@@ -46,7 +41,7 @@ public class clsPerfilAplicaciones {
 
     @Override
     public String toString() {
-        return "clsPerfilAplicaciones{" + "perid=" + perid + ", aplid=" + aplid + ", aplnombre=" + aplnombre + '}';
+        return "clsPerfilAplicacion{" + "perid=" + perid + ", aplid=" + aplid + ", aplnombre=" + aplnombre + '}';
     }
     
 }

@@ -1,6 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package seguridad.controlador;
 
 public class clsUsuario {
+    
     private int usuid;
     private String usunombre;
     private String usucontrasena;
@@ -16,7 +21,7 @@ public class clsUsuario {
     public clsUsuario(int p_usuid) {
         this.usuid = p_usuid;
     }
-    
+
     public clsUsuario(String p_usunombre, String p_usucontrasena) {
         this.usunombre = p_usunombre;
         this.usucontrasena = p_usucontrasena;
@@ -104,4 +109,5 @@ public class clsUsuario {
     public void setUsudireccion(String usudireccion) {
         this.usudireccion = usudireccion;
     }
+
 }

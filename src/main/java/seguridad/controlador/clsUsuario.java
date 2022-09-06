@@ -9,7 +9,6 @@ public class clsUsuario {
     private int usuid;
     private String usunombre;
     private String usucontrasena;
-    private String usuultimasesion;
     private String usuestatus;
     private String usunombrereal;
     private String usucorreoe;
@@ -60,14 +59,6 @@ public class clsUsuario {
 
     public void setUsucontrasena(String usucontrasena) {
         this.usucontrasena = usucontrasena;
-    }
-
-    public String getUsuultimasesion() {
-        return usuultimasesion;
-    }
-
-    public void setUsuultimasesion(String usuultimasesion) {
-        this.usuultimasesion = usuultimasesion;
     }
 
     public String getUsuestatus() {

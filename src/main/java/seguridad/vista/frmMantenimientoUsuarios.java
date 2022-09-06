@@ -33,7 +33,6 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         modelo.addColumn("ID");
         modelo.addColumn("nombre");
         modelo.addColumn("Contraseña");
-        modelo.addColumn("Ultima sesion");
         modelo.addColumn("Estatus");
         modelo.addColumn("Nombre real");
         modelo.addColumn("Correo");
@@ -42,17 +41,16 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         daoUsuario usuarioDAO = new daoUsuario();
         List<clsUsuario> usuarios = usuarioDAO.select();
         tablaVendedores.setModel(modelo);
-        String[] dato = new String[9];
+        String[] dato = new String[8];
         for (int i = 0; i < usuarios.size(); i++) {
             dato[0] = Integer.toString(usuarios.get(i).getUsuid());
             dato[1] = usuarios.get(i).getUsunombre();
             dato[2] = usuarios.get(i).getUsucontrasena();
-            dato[3] = usuarios.get(i).getUsuultimasesion();
-            dato[4] = usuarios.get(i).getUsuestatus();
-            dato[5] = usuarios.get(i).getUsunombrereal();
-            dato[6] = usuarios.get(i).getUsucorreoe();
-            dato[7] = usuarios.get(i).getUsutelefono();
-            dato[8] = usuarios.get(i).getUsudireccion();
+            dato[3] = usuarios.get(i).getUsuestatus();
+            dato[4] = usuarios.get(i).getUsunombrereal();
+            dato[5] = usuarios.get(i).getUsucorreoe();
+            dato[6] = usuarios.get(i).getUsutelefono();
+            dato[7] = usuarios.get(i).getUsudireccion();
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
@@ -63,7 +61,13 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         daoUsuario usuarioDAO = new daoUsuario();
         usuarioAConsultar.setUsuid(Integer.parseInt(txtbuscado.getText()));
         usuarioAConsultar = usuarioDAO.query(usuarioAConsultar);
-        txtNombre.setText(usuarioAConsultar.getUsunombre());        
+        txtNombre.setText(usuarioAConsultar.getUsunombre());
+        txtContrasena.setText(usuarioAConsultar.getUsucontrasena());
+        txtEstatus.setText(usuarioAConsultar.getUsuestatus());
+        txtNombreReal.setText(usuarioAConsultar.getUsunombrereal());
+        txtCorreoE.setText(usuarioAConsultar.getUsucorreoe());
+        txtTelefono.setText(usuarioAConsultar.getUsutelefono());
+        txtDireccion.setText(usuarioAConsultar.getUsudireccion());
     }
 
     public frmMantenimientoUsuarios() {
@@ -99,13 +103,11 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        txtUltimaSesion = new javax.swing.JTextField();
         txtEstatus = new javax.swing.JTextField();
         txtNombreReal = new javax.swing.JTextField();
         txtCorreoE = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
-        label6 = new javax.swing.JLabel();
         label7 = new javax.swing.JLabel();
         label8 = new javax.swing.JLabel();
         label9 = new javax.swing.JLabel();
@@ -204,10 +206,6 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        txtUltimaSesion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtUltimaSesion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtUltimaSesion.setOpaque(false);
-
         txtEstatus.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtEstatus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
         txtEstatus.setOpaque(false);
@@ -233,9 +231,6 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         txtDireccion.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
         txtDireccion.setOpaque(false);
 
-        label6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label6.setText("FecUltimaSesion");
-
         label7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label7.setText("Estatus");
 
@@ -258,54 +253,56 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(lblUsuarioRegistrado, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)
-                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(label5)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(29, 29, 29)
+                                .addComponent(lblUsuarioRegistrado, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(80, 80, 80)
+                                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(label11)
-                                    .addComponent(label10)
-                                    .addComponent(label9)
-                                    .addComponent(label8)
-                                    .addComponent(label7)
-                                    .addComponent(label6))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(label5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(label3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombreReal, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCorreoE, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUltimaSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label3)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtbuscado, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)))))
+                        .addGap(0, 2, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(label11)
+                            .addComponent(label10)
+                            .addComponent(label9)
+                            .addComponent(label8)
+                            .addComponent(label7))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtbuscado, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 20, Short.MAX_VALUE)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombreReal, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCorreoE, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
@@ -337,11 +334,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtUltimaSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label7))
@@ -359,12 +352,11 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                             .addComponent(label10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(label11)
-                                .addGap(40, 40, 40)))
+                                .addGap(1, 1, 1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegistrar)
                             .addComponent(btnEliminar)
@@ -377,7 +369,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar)
                     .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -396,8 +388,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         daoUsuario usuarioDAO = new daoUsuario();
         clsUsuario usuarioAInsertar = new clsUsuario();
         usuarioAInsertar.setUsunombre(txtNombre.getText());
-        usuarioAInsertar.setUsucontrasena(txtContrasena.getText());
-        usuarioAInsertar.setUsuultimasesion(txtUltimaSesion.getText());        
+        usuarioAInsertar.setUsucontrasena(txtContrasena.getText());      
         usuarioAInsertar.setUsuestatus(txtEstatus.getText());
         usuarioAInsertar.setUsunombrereal(txtNombreReal.getText());        
         usuarioAInsertar.setUsucorreoe(txtCorreoE.getText());
@@ -420,7 +411,6 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioAActualizar.setUsuid(Integer.parseInt(txtbuscado.getText()));
         usuarioAActualizar.setUsunombre(txtNombre.getText());
         usuarioAActualizar.setUsucontrasena(txtContrasena.getText());        
-        usuarioAActualizar.setUsuultimasesion(txtUltimaSesion.getText());
         usuarioAActualizar.setUsuestatus(txtEstatus.getText());
         usuarioAActualizar.setUsunombrereal(txtNombreReal.getText());
         usuarioAActualizar.setUsucorreoe(txtCorreoE.getText());
@@ -433,7 +423,6 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtNombre.setText("");
         txtContrasena.setText("");
-        txtUltimaSesion.setText("");
         txtEstatus.setText("");
         txtNombreReal.setText("");        
         txtCorreoE.setText("");
@@ -482,7 +471,6 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel label11;
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label5;
-    private javax.swing.JLabel label6;
     private javax.swing.JLabel label7;
     private javax.swing.JLabel label8;
     private javax.swing.JLabel label9;
@@ -498,7 +486,6 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombreReal;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtUltimaSesion;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
 }

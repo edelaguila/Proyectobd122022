@@ -32,6 +32,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("nombre");
+        modelo.addColumn("Contraseña");
         modelo.addColumn("Ultima sesion");
         modelo.addColumn("Estatus");
         modelo.addColumn("Nombre real");
@@ -41,16 +42,17 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         daoUsuario usuarioDAO = new daoUsuario();
         List<clsUsuario> usuarios = usuarioDAO.select();
         tablaVendedores.setModel(modelo);
-        String[] dato = new String[8];
+        String[] dato = new String[9];
         for (int i = 0; i < usuarios.size(); i++) {
             dato[0] = Integer.toString(usuarios.get(i).getUsuid());
             dato[1] = usuarios.get(i).getUsunombre();
-            dato[2] = usuarios.get(i).getUsuultimasesion();
-            dato[3] = usuarios.get(i).getUsuestatus();
-            dato[4] = usuarios.get(i).getUsunombrereal();
-            dato[5] = usuarios.get(i).getUsucorreoe();
-            dato[6] = usuarios.get(i).getUsutelefono();
-            dato[7] = usuarios.get(i).getUsudireccion();
+            dato[2] = usuarios.get(i).getUsucontrasena();
+            dato[3] = usuarios.get(i).getUsuultimasesion();
+            dato[4] = usuarios.get(i).getUsuestatus();
+            dato[5] = usuarios.get(i).getUsunombrereal();
+            dato[6] = usuarios.get(i).getUsucorreoe();
+            dato[7] = usuarios.get(i).getUsutelefono();
+            dato[8] = usuarios.get(i).getUsudireccion();
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
@@ -209,6 +211,11 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         txtEstatus.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtEstatus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
         txtEstatus.setOpaque(false);
+        txtEstatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEstatusActionPerformed(evt);
+            }
+        });
 
         txtNombreReal.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtNombreReal.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -456,6 +463,10 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtEstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEstatusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

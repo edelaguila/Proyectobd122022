@@ -12,10 +12,9 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- *
- * @author visitante
+ *@author visitante
  */
-public class daoPerfilApps {
+public class daoPerfilAplicaciones {
 
     private static final String SQL_SELECT = "SELECT  perid,aplid FROM tbl_aplicacionperfil";
    
@@ -128,37 +127,7 @@ public class daoPerfilApps {
         return rows;
     }
 
-    /*public clsPerfilAplicaciones query(clsPerfilAplicaciones perfil_app) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        try {
-            conn = clsConexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_QUERY);
-            stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setString(1, perfil_app.getPerid());
-            
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                int username = rs.getInt("perid");
-                int password = rs.getInt("aplid");
-
-                perfil_app = new clsPerfilAplicaciones();
-                perfil_app.setPerid(String.valueOf(username));
-                perfil_app.setAplid(String.valueOf(password));
-            }
-            //System.out.println("Registros buscado:" + persona);
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            clsConexion.close(rs);
-            clsConexion.close(stmt);
-            clsConexion.close(conn);
-        }
-
-        //return personas;  // Si se utiliza un ArrayList
-        return perfil_app;
-    }*/
+  
         public clsPerfilAplicaciones query2(clsPerfilAplicaciones perfil) {
          Connection conn = null;
         PreparedStatement stmt = null;

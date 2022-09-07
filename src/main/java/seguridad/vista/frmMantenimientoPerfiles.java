@@ -46,6 +46,7 @@ public class frmMantenimientoPerfiles extends javax.swing.JInternalFrame {
             modelo.addRow(dato);
         }
     }
+    
 
     public void buscarVendedor() {
         clsPerfil vendedorAConsultar = new clsPerfil();

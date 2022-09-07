@@ -6,7 +6,7 @@
 package seguridad.vista;
 
 
-import seguridad.modelo.daoPerfilApps;
+import seguridad.modelo.daoPerfilAplicaciones;
 import seguridad.modelo.daoAplicacion;
 import seguridad.controlador.clsPerfilAplicaciones;
 import seguridad.controlador.clsAplicacion;
@@ -20,7 +20,7 @@ import seguridad.modelo.daoPerfil;
  *
  * @author visitante
  */
-public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
+public class frmMantenimientoPerfilAplicaciones extends javax.swing.JInternalFrame {
     
 
 
@@ -29,10 +29,9 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
         
         modelo.addColumn("ID");
         modelo.addColumn("Aplicacion");
-        
         daoAplicacion aplicacionDAO = new daoAplicacion();
         List<clsAplicacion> aplicaciones = aplicacionDAO.select();
-        tablaVendedores.setModel(modelo);
+        tablaAplicaciones.setModel(modelo);
         
         String[] dato = new String[3];
         for (int i = 0; i < aplicaciones.size(); i++) {
@@ -46,20 +45,21 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
         }
         
     }
-      
-   
-    public void buscarVendedor()
+           
+    
+    public void buscarAsignacion()
     {
         clsPerfilAplicaciones AConsultar = new clsPerfilAplicaciones();
-        daoPerfilApps perDAO = new daoPerfilApps();
+        daoPerfilAplicaciones perDAO = new daoPerfilAplicaciones();
         AConsultar.setPerid(txtperid.getText());
         DefaultTableModel modelo = new DefaultTableModel();
             
-        modelo.addColumn("PerfilID");
+        
         modelo.addColumn("AplicacionID");
+        modelo.addColumn("PerfilID");
         modelo.addColumn("NombreAPL");
         
-        //daoPerfilApps aplicacion = new daoPerfilApps();
+        //daoPerfilApps aplicacion = new daoPerfilAplicaciones();
         List<clsPerfilAplicaciones> aplicaciones = perDAO.select2(AConsultar);
         tablaAsignacion.setModel(modelo);
                 
@@ -81,7 +81,7 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
 
    
 
-    public frmMantenimientoPapps() {
+    public frmMantenimientoPerfilAplicaciones() {
         initComponents();
         llenadoDeTablas(); 
      
@@ -104,15 +104,14 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         lbl_code = new javax.swing.JLabel();
         txtapid = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tablaVendedores = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         txtperid = new javax.swing.JTextField();
         lbl_code1 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaAplicaciones = new javax.swing.JTable();
+        lbl_code2 = new javax.swing.JLabel();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -132,49 +131,36 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Aplicacion"
-            }
-        ));
-        jScrollPane2.setViewportView(tablaAsignacion);
-
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 300, 210));
-
-        lbl_Aaplicacion.setText("Asignacion de Aplicaciones");
-        getContentPane().add(lbl_Aaplicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, -1, -1));
-
-        jLabel2.setText("Aplicaciones ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, -1));
-
-        lbl_code.setText("Codigo de la App A insertar");
-        getContentPane().add(lbl_code, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 150, -1));
-
-        txtapid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtapidActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtapid, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 100, -1));
-
-        tablaVendedores.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tablaVendedores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Vendedor", "ID Empleado", "Correo", "Telefono", "Direccion", "Porcentaje", "Comision"
+                "Aplicacion_ID", "PerfilI_D", "NombreAPL"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(tablaVendedores);
+        jScrollPane2.setViewportView(tablaAsignacion);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 290, 210));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 330, 210));
+
+        lbl_Aaplicacion.setText("Asignacion de Aplicaciones");
+        getContentPane().add(lbl_Aaplicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, -1, -1));
+
+        jLabel2.setText("APLICACIONES:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, -1));
+
+        lbl_code.setText("Codigo Perfil A insertar");
+        getContentPane().add(lbl_code, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 150, -1));
+
+        txtapid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtapidActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtapid, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 100, -1));
 
         jButton2.setText("Agregar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -182,21 +168,15 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 140, 80, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 80, -1));
 
         jButton3.setText("Eliminar");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 180, 80, -1));
-
-        jButton4.setText("Agregar todos");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 220, 80, -1));
-
-        jButton5.setText("Eliminar todos");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 260, 80, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 80, -1));
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -204,17 +184,41 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, -1, -1));
 
         txtperid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtperidActionPerformed(evt);
             }
         });
-        getContentPane().add(txtperid, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 100, -1));
+        getContentPane().add(txtperid, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 100, -1));
 
-        lbl_code1.setText("CODIGO PERFIIL:");
-        getContentPane().add(lbl_code1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 100, -1));
+        lbl_code1.setText("PERFIILES:");
+        getContentPane().add(lbl_code1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, -1));
+
+        tablaAplicaciones.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tablaAplicaciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID ", "Aplicacion"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tablaAplicaciones);
+
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 290, 140));
+
+        lbl_code2.setText("Codigo Aplicacion A insertar");
+        getContentPane().add(lbl_code2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 170, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -225,7 +229,7 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
                                                
-           daoPerfilApps vendedorDAO = new daoPerfilApps();
+           daoPerfilAplicaciones vendedorDAO = new daoPerfilAplicaciones();
         clsPerfilAplicaciones vendedorAInsertar = new clsPerfilAplicaciones();
         vendedorAInsertar.setPerid(txtperid.getText());
          vendedorAInsertar.setAplid(txtapid.getText());
@@ -245,36 +249,41 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-            buscarVendedor();
+            buscarAsignacion();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtperidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtperidActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtperidActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        daoPerfilAplicaciones aplicacionDAO = new daoPerfilAplicaciones();
+        clsPerfilAplicaciones aplicacionAEliminar = new clsPerfilAplicaciones();
+        aplicacionAEliminar.setPerid(txtperid.getText());
+        aplicacionAEliminar.setAplid(txtapid.getText());
+        aplicacionDAO.delete(aplicacionAEliminar);
+        llenadoDeTablas();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbl_Aaplicacion;
     private javax.swing.JLabel lbl_code;
     private javax.swing.JLabel lbl_code1;
+    private javax.swing.JLabel lbl_code2;
     private javax.swing.JLabel lbusu;
+    private javax.swing.JTable tablaAplicaciones;
     private javax.swing.JTable tablaAsignacion;
-    private javax.swing.JTable tablaVendedores;
     private javax.swing.JTextField txtapid;
     private javax.swing.JTextField txtperid;
     // End of variables declaration//GEN-END:variables

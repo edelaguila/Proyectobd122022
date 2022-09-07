@@ -3,8 +3,7 @@ package seguridad.modelo;
 import java.sql.*;
 
 public class clsConexion {
-    
-   
+     
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
     }

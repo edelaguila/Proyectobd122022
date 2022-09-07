@@ -164,11 +164,11 @@ public class mdiGeneral extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        frmMantenimientoPapps ventana2 = new frmMantenimientoPapps();
+        frmMantenimientoPerfilAplicaciones ventana2 = new frmMantenimientoPerfilAplicaciones();
         jDesktopPane1.add(ventana2);
         Dimension desktopSize = jDesktopPane1.getSize();
         Dimension FrameSize = ventana2.getSize();
-        ventana2.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2); 
+        ventana2.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed

@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * and open the template in the editor. Juan Miguel Sandoval Chile.
  */
 package seguridad.vista;
 
@@ -17,15 +17,6 @@ import java.io.File;
  * @author visitante Juan Miguel Sandoval
  */
 public class frmMantenimientoPerfiles extends javax.swing.JInternalFrame {
-
-    public void llenadoDeCombos() {
-        daoPerfil perfilDAO = new daoPerfil();
-        List<clsPerfil> perfiles = perfilDAO.select();
-        cbox_estado.addItem("Seleccione una opción");
-        for (int i = 0; i < perfiles.size(); i++) {
-            cbox_estado.addItem(perfiles.get(i).getNombrePerfil());
-        }
-    }
     
      public void estados() {    
         cbox_estado.addItem("seleccione: "); 
@@ -66,7 +57,6 @@ public class frmMantenimientoPerfiles extends javax.swing.JInternalFrame {
     public frmMantenimientoPerfiles() {
         initComponents();
         llenadoDeTablas();
-        llenadoDeCombos();
         estados();
         
     }

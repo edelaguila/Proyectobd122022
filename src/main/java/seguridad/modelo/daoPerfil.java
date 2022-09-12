@@ -5,7 +5,7 @@
  */
 
 /*
-int perid; //per_idPerfil;
+int perid; //per_idPerfil; Juan Miguel Sandoval Chile.
 String pernombre;//per_NombrePerfil;
 String perestatus; //per_EstatusPerfil; 
 actualización 0209 Juan Miguel Sandoval Chile
@@ -141,7 +141,7 @@ public class daoPerfil {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setString(1, perfil.getNombrePerfil());
+            stmt.setInt(1, perfil.getId_perfil()); //getId_perfil
             rs = stmt.executeQuery();
             while (rs.next()) {
                 int iPerfil_id = rs.getInt("perid");

@@ -14,7 +14,7 @@ import java.io.File;
 
 /**
  *
- * @author visitante
+ * @author visitante Juan Miguel Sandoval
  */
 public class frmMantenimientoPerfiles extends javax.swing.JInternalFrame {
 

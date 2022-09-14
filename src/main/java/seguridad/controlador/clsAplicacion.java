@@ -9,6 +9,12 @@ package seguridad.controlador;
  *
  * @author visitante
  */
+
+/*
+    private int perid;
+    private String pernombre;
+    private String perestatus; 
+*/
 public class clsAplicacion {
     int aplid;
     String aplnombre;

@@ -3,6 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/*
+int perid; //per_idPerfil; Juan Miguel Sandoval Chile.
+String pernombre;//per_NombrePerfil;
+String perestatus; //per_EstatusPerfil; 
+actualización 0209 Juan Miguel Sandoval Chile
+*/
 package seguridad.modelo;
 
 import seguridad.controlador.clsPerfil;
@@ -17,17 +24,17 @@ import java.util.List;
 public class daoPerfil {
 
     private static final String SQL_SELECT = "SELECT perid, pernombre, perestatus FROM tbl_perfil";
-    private static final String SQL_INSERT = "INSERT INTO tbl_perfil(perid,perestatus) VALUES(?, ?)";
-    private static final String SQL_UPDATE = "UPDATE tbl_perfil SET perid=?, perestatus=? WHERE perid = ?";
+    private static final String SQL_INSERT = "INSERT INTO tbl_perfil(pernombre,perestatus) VALUES(?, ?)";
+    private static final String SQL_UPDATE = "UPDATE tbl_perfil SET pernombre=?, perestatus=? WHERE perid = ?";
     private static final String SQL_DELETE = "DELETE FROM tbl_perfil WHERE perid=?";
-    private static final String SQL_QUERY = "SELECT perid, pernombre, perestatus FROM tbl_perfil WHERE pernombre = ?";
+    private static final String SQL_QUERY  = "SELECT perid, pernombre, perestatus FROM tbl_perfil WHERE perid = ?";
 
     public List<clsPerfil> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsPerfil usuario = null;
-        List<clsPerfil> usuarios = new ArrayList<clsPerfil>();
+        clsPerfil perfil = null;
+        List<clsPerfil> perfiles = new ArrayList<clsPerfil>();
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
@@ -37,12 +44,12 @@ public class daoPerfil {
                 String sPerfil_nombre = rs.getString("pernombre");
                 String sPerfil_estado = rs.getString("perestatus");
 
-                usuario = new clsPerfil();
-                usuario.setId_perfil(iPerfil_id);
-                usuario.setnombreperfil(sPerfil_nombre);
-                usuario.setEstado(sPerfil_estado);
+                perfil = new clsPerfil();
+                perfil.setId_perfil(iPerfil_id);
+                perfil.setNombrePerfil(sPerfil_nombre);
+                perfil.setEstadoPerfil(sPerfil_estado);
 
-                usuarios.add(usuario);
+                perfiles.add(perfil);
             }
 
         } catch (SQLException ex) {
@@ -53,7 +60,7 @@ public class daoPerfil {
             clsConexion.close(conn);
         }
 
-        return usuarios;
+        return perfiles;
     }
 
     public int insert(clsPerfil perfil) {
@@ -63,8 +70,8 @@ public class daoPerfil {
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, perfil.getnombreperfil());
-            stmt.setString(2, perfil.getEstado());
+            stmt.setString(1, perfil.getNombrePerfil());
+            stmt.setString(2, perfil.getEstadoPerfil());
 
             System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
@@ -87,8 +94,8 @@ public class daoPerfil {
             conn = clsConexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, perfil.getnombreperfil());
-            stmt.setString(2, perfil.getEstado());
+            stmt.setString(1, perfil.getNombrePerfil());
+            stmt.setString(2, perfil.getEstadoPerfil());
             stmt.setInt(3, perfil.getId_perfil());
 
             rows = stmt.executeUpdate();
@@ -134,7 +141,7 @@ public class daoPerfil {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setString(1, perfil.getnombreperfil());
+            stmt.setInt(1, perfil.getId_perfil()); //getId_perfil
             rs = stmt.executeQuery();
             while (rs.next()) {
                 int iPerfil_id = rs.getInt("perid");
@@ -143,8 +150,8 @@ public class daoPerfil {
 
                 perfil = new clsPerfil();
                 perfil.setId_perfil(iPerfil_id);
-                perfil.setnombreperfil(sPerfil_nombre);
-                perfil.setEstado(sPerfil_estado);
+                perfil.setNombrePerfil(sPerfil_nombre);
+                perfil.setEstadoPerfil(sPerfil_estado);
             }
             //System.out.println("Registros buscado:" + persona);
         } catch (SQLException ex) {

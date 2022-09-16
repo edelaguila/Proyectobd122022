@@ -6,7 +6,7 @@ public class clsConexion {
 //    private static final String JDBC_URL = "jdbc:mysql://localhost/proyectob222022?'useSSL=false&serverTimezone=UTC";
     private static final String JDBC_URL = "jdbc:mysql://localhost/proyectobd122022?useSSL=false&serverTimezone=UTC";    
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASS = "admin123";
+    private static final String JDBC_PASS = "";
     
    
     public static Connection getConnection() throws SQLException {

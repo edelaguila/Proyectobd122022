@@ -11,6 +11,8 @@ import seguridad.controlador.clsUsuario;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import seguridad.controlador.clsUsuarioConectado;
 
 /**
@@ -62,12 +64,15 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioAConsultar.setUsuid(Integer.parseInt(txtbuscado.getText()));
         usuarioAConsultar = usuarioDAO.query(usuarioAConsultar);
         txtNombre.setText(usuarioAConsultar.getUsunombre());
-        txtContrasena.setText(usuarioAConsultar.getUsucontrasena());
+        txtContrasena.setText(decode(usuarioAConsultar.getUsucontrasena()));
         txtEstatus.setText(usuarioAConsultar.getUsuestatus());
         txtNombreReal.setText(usuarioAConsultar.getUsunombrereal());
         txtCorreoE.setText(usuarioAConsultar.getUsucorreoe());
         txtTelefono.setText(usuarioAConsultar.getUsutelefono());
         txtDireccion.setText(usuarioAConsultar.getUsudireccion());
+        
+    
+       
     }
 
     public frmMantenimientoUsuarios() {
@@ -286,7 +291,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txtbuscado, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)))))
-                        .addGap(0, 2, Short.MAX_VALUE))
+                        .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -302,10 +307,9 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCorreoE, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -356,7 +360,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(label11)
                                 .addGap(1, 1, 1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegistrar)
                             .addComponent(btnEliminar)
@@ -369,7 +373,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar)
                     .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -388,7 +392,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         daoUsuario usuarioDAO = new daoUsuario();
         clsUsuario usuarioAInsertar = new clsUsuario();
         usuarioAInsertar.setUsunombre(txtNombre.getText());
-        usuarioAInsertar.setUsucontrasena(txtContrasena.getText());      
+        usuarioAInsertar.setUsucontrasena(encode(txtContrasena.getText()));      
         usuarioAInsertar.setUsuestatus(txtEstatus.getText());
         usuarioAInsertar.setUsunombrereal(txtNombreReal.getText());        
         usuarioAInsertar.setUsucorreoe(txtCorreoE.getText());
@@ -399,6 +403,29 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+public String decode(String s) {
+String respuesta = "error";
+try {
+respuesta = new String(Base64.getDecoder().decode(s.getBytes("UTF8")),"UTF-8");
+} catch (UnsupportedEncodingException e) {
+e.printStackTrace();
+}
+return respuesta;
+}    
+    
+ public String encode(String s) {
+String respuesta = "error";
+try {
+respuesta = new String(Base64.getEncoder().encode(s.getBytes("UTF8")),"UTF-8");
+} catch (UnsupportedEncodingException e) {
+e.printStackTrace();
+}
+return respuesta;
+}
+    
+
+    
+    
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         buscarVendedor();

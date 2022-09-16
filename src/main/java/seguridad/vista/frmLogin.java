@@ -8,6 +8,7 @@ package seguridad.vista;
 
 
 import seguridad.controlador.clsUsuario;
+import seguridad.datos.desencriptacion;
 import java.awt.HeadlessException;
 import ventas.vista.mdiVentas;
 import javax.swing.JOptionPane;
@@ -157,8 +158,8 @@ public class frmLogin extends javax.swing.JFrame {
                 usuarioAConsultar.setUsunombre((txtUsuario.getText().trim()));
                 // Recuperación de información a través de otro objeto
                 usuarioAConsultar = usuarioDAO.queryn(usuarioAConsultar);
-
-                if (txtContraseña.getText().equals(usuarioAConsultar.getUsucontrasena()) && txtUsuario.getText().equals(usuarioAConsultar.getUsunombre())) {
+                desencriptacion c = new desencriptacion();
+                if (txtContraseña.getText().equals((usuarioAConsultar.getUsucontrasena())) && txtUsuario.getText().equals(usuarioAConsultar.getUsunombre())) {
                     JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
                     
                     //mdiGeneral menuGeneral = new mdiGeneral();

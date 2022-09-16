@@ -7,12 +7,11 @@ package seguridad.vista;
 
 import seguridad.modelo.daoUsuario;
 import seguridad.controlador.clsUsuario;
-
+import seguridad.datos.encriptacion;
+import seguridad.datos.desencriptacion;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.util.Base64;
 import seguridad.controlador.clsUsuarioConectado;
 
 /**
@@ -60,11 +59,15 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
 
     public void buscarVendedor() {
         clsUsuario usuarioAConsultar = new clsUsuario();
+        
+        desencriptacion c = new desencriptacion();
+        
+        
         daoUsuario usuarioDAO = new daoUsuario();
         usuarioAConsultar.setUsuid(Integer.parseInt(txtbuscado.getText()));
         usuarioAConsultar = usuarioDAO.query(usuarioAConsultar);
         txtNombre.setText(usuarioAConsultar.getUsunombre());
-        txtContrasena.setText(decode(usuarioAConsultar.getUsucontrasena()));
+        txtContrasena.setText(c.decode(usuarioAConsultar.getUsucontrasena()));
         txtEstatus.setText(usuarioAConsultar.getUsuestatus());
         txtNombreReal.setText(usuarioAConsultar.getUsunombrereal());
         txtCorreoE.setText(usuarioAConsultar.getUsucorreoe());
@@ -391,8 +394,9 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         daoUsuario usuarioDAO = new daoUsuario();
         clsUsuario usuarioAInsertar = new clsUsuario();
+        encriptacion c = new encriptacion();
         usuarioAInsertar.setUsunombre(txtNombre.getText());
-        usuarioAInsertar.setUsucontrasena(encode(txtContrasena.getText()));      
+        usuarioAInsertar.setUsucontrasena(c.encode(txtContrasena.getText()));      
         usuarioAInsertar.setUsuestatus(txtEstatus.getText());
         usuarioAInsertar.setUsunombrereal(txtNombreReal.getText());        
         usuarioAInsertar.setUsucorreoe(txtCorreoE.getText());
@@ -402,30 +406,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioDAO.insert(usuarioAInsertar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
-public String decode(String s) {
-String respuesta = "error";
-try {
-respuesta = new String(Base64.getDecoder().decode(s.getBytes("UTF8")),"UTF-8");
-} catch (UnsupportedEncodingException e) {
-e.printStackTrace();
-}
-return respuesta;
-}    
-    
- public String encode(String s) {
-String respuesta = "error";
-try {
-respuesta = new String(Base64.getEncoder().encode(s.getBytes("UTF8")),"UTF-8");
-} catch (UnsupportedEncodingException e) {
-e.printStackTrace();
-}
-return respuesta;
-}
-    
-
-    
-    
+  
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         buscarVendedor();
@@ -435,9 +416,11 @@ return respuesta;
 //        // TODO add your handling code here:
         daoUsuario usuarioDAO = new daoUsuario();
         clsUsuario usuarioAActualizar = new clsUsuario();
+        encriptacion c = new encriptacion();
+        
         usuarioAActualizar.setUsuid(Integer.parseInt(txtbuscado.getText()));
         usuarioAActualizar.setUsunombre(txtNombre.getText());
-        usuarioAActualizar.setUsucontrasena(txtContrasena.getText());        
+        usuarioAActualizar.setUsucontrasena(c.encode(txtContrasena.getText()));        
         usuarioAActualizar.setUsuestatus(txtEstatus.getText());
         usuarioAActualizar.setUsunombrereal(txtNombreReal.getText());
         usuarioAActualizar.setUsucorreoe(txtCorreoE.getText());

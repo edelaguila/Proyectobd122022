@@ -1,0 +1,1 @@
+insert into tbl_usuario (usuid, usunombre, usucontrasena, usuultimasesion, usuestatus, usunombrereal, usucorreoe, usutelefono, usudireccion) values ('1','admin','YWRtaW4=','2022-01-01','A','admin','admin@gmail.com','00000000','no');

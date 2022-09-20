@@ -164,7 +164,9 @@ public class frmLogin extends javax.swing.JFrame {
                     //mdiGeneral menuGeneral = new mdiGeneral();
                     //menuGeneral.setVisible(true);
                     //this.dispose();
-                    clsUsuarioConectado usuarioRegistrado = new clsUsuarioConectado();                                   usuarioRegistrado.setUsunombre(txtUsuario.getText().trim());
+                    clsUsuarioConectado usuarioRegistrado = new clsUsuarioConectado();
+                    usuarioRegistrado.setUsuid(usuarioAConsultar.getUsuid());
+                    usuarioRegistrado.setUsunombre(txtUsuario.getText().trim());
                     
                     //---Agregado para considerar todos los módulos
                     String areaSeleccionada;

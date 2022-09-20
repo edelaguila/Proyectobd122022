@@ -7,7 +7,9 @@ package seguridad.vista;
 
 
 import seguridad.modelo.daoModulos;
+import seguridad.modelo.daoBitacora;
 import seguridad.controlador.clsModulos;
+import seguridad.controlador.clsUsuarioConectado;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -297,6 +299,8 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
         aplicacionAInsertar.setNombreAplicacion(txtNombre.getText());
         aplicacionAInsertar.setestadoAplicacion(txtEstado.getText());
         aplicacionDAO.insert(aplicacionAInsertar);
+        daoBitacora bitacora = new daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), 1, "Insert");
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

@@ -7,11 +7,11 @@ package seguridad.vista;
 
 import seguridad.modelo.daoUsuario;
 import seguridad.controlador.clsUsuario;
-
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import seguridad.controlador.clsUsuarioConectado;
+import seguridad.modelo.daoBitacora;
 
 /**
  *
@@ -19,17 +19,16 @@ import seguridad.controlador.clsUsuarioConectado;
  */
 public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         int codigoAplicacion=1;
-       
-        
+      
     
     public void llenadoDeCombos() {
-       daoUsuario AplicacionDAO = new daoUsuario();
+     /*  daoUsuario AplicacionDAO = new daoUsuario();
         List<clsUsuario> aplicaciones = AplicacionDAO.select();
         cbox_aplicacion.addItem("Seleccione una opción");
         for (int i = 0; i < aplicaciones.size(); i++) {
             cbox_aplicacion.addItem(aplicaciones.get(i).getNombreAplicacion());
+        }*/
     }
-
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
@@ -70,6 +69,8 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         txtCorreoE.setText(usuarioAConsultar.getUsucorreoe());
         txtTelefono.setText(usuarioAConsultar.getUsutelefono());
         txtDireccion.setText(usuarioAConsultar.getUsudireccion());
+        daoBitacora bitacora = new  daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Select");
     }
 
     public frmMantenimientoUsuarios() {
@@ -384,7 +385,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioAEliminar.setUsuid(Integer.parseInt(txtbuscado.getText()));
         usuarioDAO.delete(usuarioAEliminar);
         daoBitacora bitacora = new  daoBitacora();
-        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Insert");
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Delete");
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -398,14 +399,17 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioAInsertar.setUsucorreoe(txtCorreoE.getText());
         usuarioAInsertar.setUsutelefono(txtTelefono.getText());
         usuarioAInsertar.setUsudireccion(txtDireccion.getText());
-        
         usuarioDAO.insert(usuarioAInsertar);
+        daoBitacora bitacora = new  daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Insert");
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         buscarVendedor();
+        daoBitacora bitacora = new  daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Select");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -421,6 +425,8 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioAActualizar.setUsutelefono(txtTelefono.getText());        
         usuarioAActualizar.setUsudireccion(txtDireccion.getText());
         usuarioDAO.update(usuarioAActualizar);
+        daoBitacora bitacora = new  daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Update");
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
 

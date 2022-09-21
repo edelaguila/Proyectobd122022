@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import prototipos.vista.mdiPrototipo;
 import seguridad.controlador.clsUsuarioConectado;
+import seguridad.modelo.daoBitacora;
 import seguridad.modelo.daoUsuario;
 
 
@@ -22,7 +23,7 @@ import seguridad.modelo.daoUsuario;
  * @author visitante
  */
 public class frmLogin extends javax.swing.JFrame {
-
+ int codigoAplicacion=8;
     /**
      * Creates new form Login
      */
@@ -217,6 +218,9 @@ public class frmLogin extends javax.swing.JFrame {
                 txtUsuario.setText("");
             }
         }
+          daoBitacora bitacora = new daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Login");
+      
 
     }//GEN-LAST:event_btnAceptarActionPerformed
 

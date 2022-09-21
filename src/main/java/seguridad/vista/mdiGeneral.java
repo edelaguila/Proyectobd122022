@@ -7,13 +7,15 @@ package seguridad.vista;
 
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import seguridad.controlador.clsUsuarioConectado;
+import seguridad.modelo.daoBitacora;
 
 /**
  *
  * @author visitante
  */
 public class mdiGeneral extends javax.swing.JFrame {
-
+ int codigoAplicacion=8;
     /**
      * Creates new form MdiGeneral
      */
@@ -212,7 +214,11 @@ public class mdiGeneral extends javax.swing.JFrame {
 
         if (respuesta_cs == 0) {
             this.dispose();
+              daoBitacora bitacora = new daoBitacora();
+            bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "logoff");
         }
+      
+        
     }//GEN-LAST:event_mCierreSesionActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed

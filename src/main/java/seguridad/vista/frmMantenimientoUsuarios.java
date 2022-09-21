@@ -18,14 +18,16 @@ import seguridad.controlador.clsUsuarioConectado;
  * @author visitante
  */
 public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
-
+        int codigoAplicacion=1;
+       
+        
+    
     public void llenadoDeCombos() {
-        /*EmpleadoDAO empleadoDAO = new EmpleadoDAO();
-        List<Empleado> empleados = empleadoDAO.select();
-        cbox_empleado.addItem("Seleccione una opción");
-        for (int i = 0; i < empleados.size(); i++) {
-            cbox_empleado.addItem(empleados.get(i).getNombreEmpleado());
-        }*/
+       daoUsuario AplicacionDAO = new daoUsuario();
+        List<clsUsuario> aplicaciones = AplicacionDAO.select();
+        cbox_aplicacion.addItem("Seleccione una opción");
+        for (int i = 0; i < aplicaciones.size(); i++) {
+            cbox_aplicacion.addItem(aplicaciones.get(i).getNombreAplicacion());
     }
 
     public void llenadoDeTablas() {
@@ -381,6 +383,8 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         clsUsuario usuarioAEliminar = new clsUsuario();
         usuarioAEliminar.setUsuid(Integer.parseInt(txtbuscado.getText()));
         usuarioDAO.delete(usuarioAEliminar);
+        daoBitacora bitacora = new  daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Insert");
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 

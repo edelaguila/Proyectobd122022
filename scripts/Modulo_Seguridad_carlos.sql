@@ -1,3 +1,4 @@
+USE `proyectobd122022` ;
 insert into tbl_aplicacion (aplid, aplnombre, aplestatus) values ('1', 'Mantenimiento de Usuarios', 'activo');
 insert into tbl_aplicacion (aplid, aplnombre, aplestatus) values ('2', 'Mantenimiento de perfil', 'activo');
 insert into tbl_aplicacion (aplid, aplnombre, aplestatus) values ('3', 'Mantenimiento de aplicacion', 'activo');

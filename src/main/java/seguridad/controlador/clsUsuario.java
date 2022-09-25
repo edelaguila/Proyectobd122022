@@ -14,6 +14,7 @@ public class clsUsuario {
     private String usucorreoe;
     private String usutelefono;
     private String usudireccion;
+    private String Tipo;
     public clsUsuario() {
     }
 
@@ -26,10 +27,11 @@ public class clsUsuario {
         this.usucontrasena = p_usucontrasena;
     }
     
-    public clsUsuario(int p_usuid, String p_usunombre, String p_usucontrasena) {
+    public clsUsuario(int p_usuid, String p_usunombre, String p_usucontrasena, String Tipo) {
         this.usuid = p_usuid;
         this.usunombre = p_usunombre;
         this.usucontrasena = p_usucontrasena;
+        this.Tipo = Tipo;
     }
     
     @Override
@@ -100,5 +102,12 @@ public class clsUsuario {
     public void setUsudireccion(String usudireccion) {
         this.usudireccion = usudireccion;
     }
+    
+    public String getTipo() {
+        return Tipo;
+    }
 
+    public void setTipo(String Tipo) {
+        this.Tipo = Tipo;
+    }
 }

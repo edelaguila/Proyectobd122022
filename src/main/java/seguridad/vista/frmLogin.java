@@ -15,6 +15,7 @@ import javax.swing.UIManager;
 import prototipos.vista.mdiPrototipo;
 import seguridad.controlador.clsUsuarioConectado;
 import seguridad.modelo.daoUsuario;
+import seguridad.modelo.daoAcceso2;
 
 
 /**
@@ -176,8 +177,7 @@ public class frmLogin extends javax.swing.JFrame {
 
                         case "Area Seguridad":
                         try {
-                            mdiGeneral menuSeguridad = new mdiGeneral();
-                            menuSeguridad.setVisible(true);
+                          daoAcceso2 acceso = new daoAcceso2 (usuarioAConsultar.getTipo());
                             this.dispose();
                         } catch (Exception e) {
                             System.out.println(e);

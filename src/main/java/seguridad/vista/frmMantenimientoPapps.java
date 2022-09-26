@@ -6,12 +6,15 @@
 package seguridad.vista;
 
 
+import java.util.ArrayList;
 import seguridad.modelo.daoPerfilApps;
 import seguridad.modelo.daoAplicacion;
+import seguridad.modelo.daoBitacora;
 import seguridad.controlador.clsPerfilAplicaciones;
 import seguridad.controlador.clsAplicacion;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import seguridad.controlador.clsPerfil;
 import seguridad.modelo.daoPerfil;
 
@@ -22,7 +25,12 @@ import seguridad.modelo.daoPerfil;
  */
 public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
     
-
+    
+  public void estados() {    
+        cbox_estado.addItem("seleccione: "); 
+      
+    } 
+    
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -39,20 +47,40 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
             
              dato[0] = Integer.toString(aplicaciones.get(i).getId_aplicacion());
             dato[1] = aplicaciones.get(i).getNombreAplicacion();
-        
+  
+            
            
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
         
     }
+    
       
+    public void llenado() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+                
+        daoPerfil perfilDAO = new daoPerfil();
+        List<clsPerfil> perfiles = perfilDAO.select();
+                      
+        String[] dato = new String[3];
+        for (int i = 0; i < perfiles.size(); i++) {
+                              
+            cbox_estado.addItem(perfiles.get(i).getNombrePerfil());
+                    
+           
+            //System.out.println("vendedor:" + vendedores);
+            modelo.addRow(dato);
+        }
+        
+    }
    
     public void buscarVendedor()
     {
         clsPerfilAplicaciones AConsultar = new clsPerfilAplicaciones();
         daoPerfilApps perDAO = new daoPerfilApps();
-        AConsultar.setPerid(txtperid.getText());
+        AConsultar.setPerid(Jnombre.getText());
         DefaultTableModel modelo = new DefaultTableModel();
             
         modelo.addColumn("PerfilID");
@@ -83,7 +111,9 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
 
     public frmMantenimientoPapps() {
         initComponents();
-        llenadoDeTablas(); 
+        llenadoDeTablas();
+        llenado();
+        
      
     }
 
@@ -98,21 +128,26 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
 
         lb2 = new javax.swing.JLabel();
         lbusu = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaAsignacion = new javax.swing.JTable();
         lbl_Aaplicacion = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        lbl_code = new javax.swing.JLabel();
-        txtapid = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tablaVendedores = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Jnombre = new javax.swing.JTextField();
+        lbl_code1 = new javax.swing.JLabel();
+        cbox_estado = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        txtperid = new javax.swing.JTextField();
-        lbl_code1 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jButton9 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaVendedores = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaAsignacion = new javax.swing.JTable();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -126,34 +161,85 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
         setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tablaAsignacion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tablaAsignacion.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        lbl_Aaplicacion.setText("Aplicaciones  Asignacion");
+        getContentPane().add(lbl_Aaplicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, -1, -1));
 
-            },
-            new String [] {
-                "Aplicacion"
-            }
-        ));
-        jScrollPane2.setViewportView(tablaAsignacion);
+        jLabel2.setText("Aplicaciones  Disponibles");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 300, 210));
-
-        lbl_Aaplicacion.setText("Asignacion de Aplicaciones");
-        getContentPane().add(lbl_Aaplicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, -1, -1));
-
-        jLabel2.setText("Aplicaciones ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, -1));
-
-        lbl_code.setText("Codigo de la App A insertar");
-        getContentPane().add(lbl_code, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 150, -1));
-
-        txtapid.addActionListener(new java.awt.event.ActionListener() {
+        Jnombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Jnombre.setEnabled(false);
+        Jnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtapidActionPerformed(evt);
+                JnombreActionPerformed(evt);
             }
         });
-        getContentPane().add(txtapid, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 100, -1));
+        getContentPane().add(Jnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 220, -1));
+
+        lbl_code1.setText("PERFIILES:");
+        getContentPane().add(lbl_code1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 100, -1));
+
+        cbox_estado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cbox_estado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_estadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbox_estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 34, 160, 20));
+
+        jButton4.setText("<");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 50, -1));
+
+        jButton5.setText(">");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 50, -1));
+
+        jButton6.setText("<<");
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 50, -1));
+
+        jButton7.setText(">>");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 50, -1));
+
+        jLabel1.setText("Asignar");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 50, -1));
+
+        jLabel3.setText("Quitar");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, 50, -1));
+
+        jLabel4.setText("Editar");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, -1, -1));
+
+        jButton8.setBackground(new java.awt.Color(51, 204, 255));
+        jButton8.setText("Grabar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 80, -1));
+
+        jRadioButton1.setText("Perfiles");
+        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, -1, -1));
+
+        jRadioButton2.setText("Aplicaciones");
+        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, -1));
+
+        jButton9.setText("Limpiar");
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 340, -1, -1));
 
         tablaVendedores.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tablaVendedores.setModel(new javax.swing.table.DefaultTableModel(
@@ -161,121 +247,128 @@ public class frmMantenimientoPapps extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID Vendedor", "ID Empleado", "Correo", "Telefono", "Direccion", "Porcentaje", "Comision"
+
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true
-            };
+        ));
+        jScrollPane4.setViewportView(tablaVendedores);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 330, 210));
+
+        tablaAsignacion.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tablaAsignacion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Aplicacion"
             }
-        });
-        jScrollPane3.setViewportView(tablaVendedores);
+        ));
+        jScrollPane2.setViewportView(tablaAsignacion);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 290, 210));
-
-        jButton2.setText("Agregar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 140, 80, -1));
-
-        jButton3.setText("Eliminar");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 180, 80, -1));
-
-        jButton4.setText("Agregar todos");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 220, 80, -1));
-
-        jButton5.setText("Eliminar todos");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 260, 80, -1));
-
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, -1));
-
-        txtperid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtperidActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtperid, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 100, -1));
-
-        lbl_code1.setText("CODIGO PERFIIL:");
-        getContentPane().add(lbl_code1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 100, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 360, 210));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtapidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtapidActionPerformed
+    private void JnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JnombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtapidActionPerformed
+    }//GEN-LAST:event_JnombreActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                                               
-           daoPerfilApps vendedorDAO = new daoPerfilApps();
-        clsPerfilAplicaciones vendedorAInsertar = new clsPerfilAplicaciones();
-        vendedorAInsertar.setPerid(txtperid.getText());
-         vendedorAInsertar.setAplid(txtapid.getText());
-        vendedorDAO.insert(vendedorAInsertar);
-        llenadoDeTablas();
-   
-        
-
-
-
-
-
-
-
-        
-
+    private void cbox_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_estadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+         Jnombre.setText(cbox_estado.getSelectedItem().toString());
+    }//GEN-LAST:event_cbox_estadoActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        TableModel modelo1= tablaVendedores.getModel();
+        int[]filas=tablaVendedores.getSelectedRows();
+       
+        Object[]row=new Object[2];
+  
+        DefaultTableModel modelo2= (DefaultTableModel)tablaAsignacion.getModel();
+        DefaultTableModel modelo3= (DefaultTableModel)tablaVendedores.getModel();
+        for(int i=0; i<filas.length; i++){
+            row[0]=modelo1.getValueAt(filas[i], 0);
+            row[1]=modelo1.getValueAt(filas[i], 1);
+        }
+            
+            modelo2.addRow(row);
+            modelo3.removeRow(tablaVendedores.getSelectedRow());
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        daoBitacora Bitacora= new daoBitacora();
+        frmDerecho venatana = new frmDerecho();
+        
+        venatana.txtusuario.setText(Jnombre.getText());
+        venatana.txtfecha.setText(Bitacora.fechaActual());
+        venatana.txtapli.setText(title);
+        venatana.show();
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        TableModel modelo1= tablaVendedores.getModel();
+        int[]filas=tablaVendedores.getSelectedRows();
+       
+        Object[]row=new Object[2];
+  
+        DefaultTableModel modelo2= (DefaultTableModel)tablaAsignacion.getModel();
+        DefaultTableModel modelo3= (DefaultTableModel)tablaVendedores.getModel();
+        for(int i=0; i<filas.length; i++){
+            row[0]=modelo1.getValueAt(filas[i], 0);
+            row[1]=modelo1.getValueAt(filas[i], 1);
+        }
+            
+            modelo2.addRow(row);
+            modelo3.removeRow(tablaVendedores.getSelectedRow());
+                                   
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        TableModel modelo1= tablaAsignacion.getModel();
+        int[]filas=tablaAsignacion.getSelectedRows();
+        Object[]row=new Object[2];
+  
+        DefaultTableModel modelo2= (DefaultTableModel)tablaVendedores.getModel();
+        DefaultTableModel modelo3= (DefaultTableModel)tablaAsignacion.getModel();
+        for(int i=0; i<filas.length; i++){
+            row[0]=modelo1.getValueAt(filas[i], 0);
+            row[1]=modelo1.getValueAt(filas[i], 1);
+        }
+         modelo2.addRow(row);
+            modelo3.removeRow(tablaAsignacion.getSelectedRow());
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-            buscarVendedor();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtperidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtperidActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtperidActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTextField Jnombre;
+    private javax.swing.JComboBox<String> cbox_estado;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbl_Aaplicacion;
-    private javax.swing.JLabel lbl_code;
     private javax.swing.JLabel lbl_code1;
     private javax.swing.JLabel lbusu;
     private javax.swing.JTable tablaAsignacion;
     private javax.swing.JTable tablaVendedores;
-    private javax.swing.JTextField txtapid;
-    private javax.swing.JTextField txtperid;
     // End of variables declaration//GEN-END:variables
 }

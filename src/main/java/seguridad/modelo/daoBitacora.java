@@ -33,7 +33,7 @@ public class daoBitacora {
 
 //se agrega metodo para bitacora
 //averiguar IP
-    public static String fechaActual() {
+    public String fechaActual() {
 
         java.util.Date fecha = new java.util.Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");

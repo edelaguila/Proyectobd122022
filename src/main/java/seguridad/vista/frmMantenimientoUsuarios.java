@@ -38,10 +38,12 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         modelo.addColumn("Correo");
         modelo.addColumn("telefono");
         modelo.addColumn("direccion");
+        modelo.addColumn("Tipo");
+        
         daoUsuario usuarioDAO = new daoUsuario();
         List<clsUsuario> usuarios = usuarioDAO.select();
         tablaVendedores.setModel(modelo);
-        String[] dato = new String[8];
+        String[] dato = new String[9];
         for (int i = 0; i < usuarios.size(); i++) {
             dato[0] = Integer.toString(usuarios.get(i).getUsuid());
             dato[1] = usuarios.get(i).getUsunombre();
@@ -51,6 +53,8 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
             dato[5] = usuarios.get(i).getUsucorreoe();
             dato[6] = usuarios.get(i).getUsutelefono();
             dato[7] = usuarios.get(i).getUsudireccion();
+            dato[8] = usuarios.get(i).getTipo();
+            
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
@@ -68,6 +72,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         txtCorreoE.setText(usuarioAConsultar.getUsucorreoe());
         txtTelefono.setText(usuarioAConsultar.getUsutelefono());
         txtDireccion.setText(usuarioAConsultar.getUsudireccion());
+        txtTipo.setText(usuarioAConsultar.getTipo());
     }
 
     public frmMantenimientoUsuarios() {
@@ -114,6 +119,8 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         label10 = new javax.swing.JLabel();
         label11 = new javax.swing.JLabel();
         lblUsuarioRegistrado = new javax.swing.JLabel();
+        label12 = new javax.swing.JLabel();
+        txtTipo = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -246,6 +253,13 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         label11.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label11.setText("Direccion");
 
+        label12.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label12.setText("Tipo");
+
+        txtTipo.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtTipo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtTipo.setOpaque(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,7 +300,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txtbuscado, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)))))
-                        .addGap(0, 2, Short.MAX_VALUE))
+                        .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -294,18 +308,20 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                             .addComponent(label10)
                             .addComponent(label9)
                             .addComponent(label8)
-                            .addComponent(label7))
+                            .addComponent(label7)
+                            .addComponent(label12))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombreReal, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCorreoE, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                            .addComponent(txtEstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -356,7 +372,11 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(label11)
                                 .addGap(1, 1, 1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label12)
+                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegistrar)
                             .addComponent(btnEliminar)
@@ -394,6 +414,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioAInsertar.setUsucorreoe(txtCorreoE.getText());
         usuarioAInsertar.setUsutelefono(txtTelefono.getText());
         usuarioAInsertar.setUsudireccion(txtDireccion.getText());
+        usuarioAInsertar.setTipo(txtTipo.getText());
         
         usuarioDAO.insert(usuarioAInsertar);
         llenadoDeTablas();
@@ -416,6 +437,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioAActualizar.setUsucorreoe(txtCorreoE.getText());
         usuarioAActualizar.setUsutelefono(txtTelefono.getText());        
         usuarioAActualizar.setUsudireccion(txtDireccion.getText());
+        usuarioAActualizar.setTipo(txtTipo.getText());
         usuarioDAO.update(usuarioAActualizar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -428,6 +450,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         txtCorreoE.setText("");
         txtTelefono.setText("");
         txtDireccion.setText("");
+        txtTipo.setText("");
         txtbuscado.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
@@ -469,6 +492,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label10;
     private javax.swing.JLabel label11;
+    private javax.swing.JLabel label12;
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label5;
     private javax.swing.JLabel label7;
@@ -486,6 +510,7 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombreReal;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTipo;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
 }

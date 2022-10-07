@@ -14,27 +14,20 @@ public class clsUsuario {
     private String usucorreoe;
     private String usutelefono;
     private String usudireccion;
+    private String Tipo;
     public clsUsuario() {
     }
-
-    public clsUsuario(int p_usuid) {
-        this.usuid = p_usuid;
-    }
-
-    public clsUsuario(String p_usunombre, String p_usucontrasena) {
-        this.usunombre = p_usunombre;
-        this.usucontrasena = p_usucontrasena;
-    }
     
-    public clsUsuario(int p_usuid, String p_usunombre, String p_usucontrasena) {
+    public clsUsuario(int p_usuid, String p_usunombre, String p_usucontrasena, String p_usuestatus, String p_usunombrereal, String p_usucorreoe, String p_usutelefono, String p_usudireccion, String p_Tipo) {
         this.usuid = p_usuid;
         this.usunombre = p_usunombre;
         this.usucontrasena = p_usucontrasena;
-    }
-    
-    @Override
-    public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        this.usutelefono = p_usutelefono;
+        this.usunombrereal = p_usunombrereal;
+        this.usuestatus = p_usuestatus;
+        this.usudireccion = p_usudireccion;
+        this.usucorreoe = p_usucorreoe;
+        this.Tipo = p_Tipo;
     }
 
     public int getUsuid() {
@@ -101,4 +94,19 @@ public class clsUsuario {
         this.usudireccion = usudireccion;
     }
 
+    public String getTipo() {
+        return Tipo;
+    }
+
+    public void setTipo(String Tipo) {
+        this.Tipo = Tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "clsUsuario{" + "usuid=" + usuid + ", usunombre=" + usunombre + ", usucontrasena=" + usucontrasena + ", usuestatus=" + usuestatus + ", usunombrereal=" + usunombrereal + ", usucorreoe=" + usucorreoe + ", usutelefono=" + usutelefono + ", usudireccion=" + usudireccion + ", Tipo=" + Tipo + '}';
+    }
+    
+    
+    
 }

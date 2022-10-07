@@ -13,6 +13,7 @@ import ventas.vista.mdiVentas;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import prototipos.vista.mdiPrototipo;
+import seguridad.controlador.clsSeguridad;
 import seguridad.controlador.clsUsuarioConectado;
 import seguridad.modelo.daoUsuario;
 
@@ -157,8 +158,8 @@ public class frmLogin extends javax.swing.JFrame {
                 usuarioAConsultar.setUsunombre((txtUsuario.getText().trim()));
                 // Recuperación de información a través de otro objeto
                 usuarioAConsultar = usuarioDAO.queryn(usuarioAConsultar);
-
-                if (txtContraseña.getText().equals(usuarioAConsultar.getUsucontrasena()) && txtUsuario.getText().equals(usuarioAConsultar.getUsunombre())) {
+                clsSeguridad c = new clsSeguridad();
+                if (c.encode(txtContraseña.getText()).equals(usuarioAConsultar.getUsucontrasena()) && txtUsuario.getText().equals(usuarioAConsultar.getUsunombre())) {
                     JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
                     
                     //mdiGeneral menuGeneral = new mdiGeneral();
@@ -250,6 +251,10 @@ public class frmLogin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

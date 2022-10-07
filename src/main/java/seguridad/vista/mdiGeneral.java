@@ -7,13 +7,15 @@ package seguridad.vista;
 
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import seguridad.controlador.clsUsuarioConectado;
+import seguridad.modelo.daoBitacora;
 
 /**
  *
  * @author visitante
  */
 public class mdiGeneral extends javax.swing.JFrame {
-
+ int codigoAplicacion=8;
     /**
      * Creates new form MdiGeneral
      */
@@ -49,6 +51,7 @@ public class mdiGeneral extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jM_MantenimientopApps = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
 
@@ -131,6 +134,14 @@ public class mdiGeneral extends javax.swing.JFrame {
         });
         jM_MantenimientopApps.add(jMenuItem4);
 
+        jMenuItem8.setText("Mantenimiento Perfil Usuario");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jM_MantenimientopApps.add(jMenuItem8);
+
         jMenuBar1.add(jM_MantenimientopApps);
 
         jMenu6.setText("Reportes");
@@ -149,7 +160,7 @@ public class mdiGeneral extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -203,8 +214,22 @@ public class mdiGeneral extends javax.swing.JFrame {
 
         if (respuesta_cs == 0) {
             this.dispose();
+              daoBitacora bitacora = new daoBitacora();
+            bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "logoff");
         }
+      
+        
     }//GEN-LAST:event_mCierreSesionActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+       frmMantenimientoPerfilUsuario ventana6 = new frmMantenimientoPerfilUsuario();
+        jDesktopPane1.add(ventana6);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana6.getSize();
+        ventana6.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);              
+                                             
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,6 +290,7 @@ public class mdiGeneral extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     public javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem mCierreSesion;
     // End of variables declaration//GEN-END:variables
 }

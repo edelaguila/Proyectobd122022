@@ -25,7 +25,7 @@ public class mdiPrototipo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         this.setExtendedState(mdiPrototipo.MAXIMIZED_BOTH);
-        mensajeTitulo = "Modulo Prototipo" + " " + clsUsuarioConectado.getUsunombre();
+        mensajeTitulo = "Modulo Prototipo" + " " + clsUsuarioConectado.getUsuid() + clsUsuarioConectado.getUsunombre();
         this.setTitle(mensajeTitulo);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

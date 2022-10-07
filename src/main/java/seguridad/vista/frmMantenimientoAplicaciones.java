@@ -8,6 +8,8 @@ package seguridad.vista;
 
 import seguridad.modelo.daoAplicacion;
 import seguridad.controlador.clsAplicacion;
+import seguridad.modelo.daoBitacora;
+import seguridad.controlador.clsUsuarioConectado;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -18,6 +20,8 @@ import java.io.File;
  */
 public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
 
+    int codigoAplicacion = 3;
+    
     public void llenadoDeCombos() {
         daoAplicacion AplicacionDAO = new daoAplicacion();
         List<clsAplicacion> aplicaciones = AplicacionDAO.select();
@@ -297,6 +301,8 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         clsAplicacion aplicacionAEliminar = new clsAplicacion();
         aplicacionAEliminar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
         aplicacionDAO.delete(aplicacionAEliminar);
+         daoBitacora bitacora = new daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "delete");
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -306,12 +312,19 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         aplicacionAInsertar.setNombreAplicacion(txtNombre.getText());
         aplicacionAInsertar.setestadoAplicacion(cbox_estado.getSelectedItem().toString());
         aplicacionDAO.insert(aplicacionAInsertar);
+        
+        daoBitacora bitacora = new daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Insert");
+        
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         buscaraplicacion();
+        
+         daoBitacora bitacora = new daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Select");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -322,6 +335,8 @@ public class frmMantenimientoAplicaciones extends javax.swing.JInternalFrame {
         aplicacionAActualizar.setNombreAplicacion(txtNombre.getText());
         aplicacionAActualizar.setestadoAplicacion(cbox_estado.getSelectedItem().toString());
         aplicacionDAO.update(aplicacionAActualizar);
+         daoBitacora bitacora = new daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "update");
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
 

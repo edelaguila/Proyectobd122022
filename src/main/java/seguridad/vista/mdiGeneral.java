@@ -7,13 +7,15 @@ package seguridad.vista;
 
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import seguridad.controlador.clsUsuarioConectado;
+import seguridad.modelo.daoBitacora;
 
 /**
  *
  * @author visitante
  */
 public class mdiGeneral extends javax.swing.JFrame {
-
+ int codigoAplicacion=8;
     /**
      * Creates new form MdiGeneral
      */
@@ -212,7 +214,11 @@ public class mdiGeneral extends javax.swing.JFrame {
 
         if (respuesta_cs == 0) {
             this.dispose();
+              daoBitacora bitacora = new daoBitacora();
+            bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "logoff");
         }
+      
+        
     }//GEN-LAST:event_mCierreSesionActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -269,20 +275,20 @@ public class mdiGeneral extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jM_MantenimientopApps;
+    public javax.swing.JMenu jM_MantenimientopApps;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu6;
+    public javax.swing.JMenu jMenu4;
+    public javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    public javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    public javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem mCierreSesion;

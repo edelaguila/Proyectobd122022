@@ -3,11 +3,11 @@ package seguridad.modelo;
 import java.sql.*;
 
 public class clsConexion {
+
 //    private static final String JDBC_URL = "jdbc:mysql://localhost/proyectob222022?'useSSL=false&serverTimezone=UTC";
     private static final String JDBC_URL = "jdbc:mysql://localhost/proyectobd122022?useSSL=false&serverTimezone=UTC";    
-    private static final String JDBC_USER = "remoto1";
-    private static final String JDBC_PASS = "1234";
-    
+    private static final String JDBC_USER = "remoto";
+    private static final String JDBC_PASS = "remoto";
    
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);

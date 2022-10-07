@@ -8,7 +8,6 @@ package seguridad.modelo;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import seguridad.controlador.clsBitacora;
-import seguridad.controlador.clsUsuarioConectado;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +27,7 @@ public class daoBitacora {
 
     private static final String SQL_SELECT = "SELECT bitid, bitfecha, bitaccion, usuid, aplid, bitip, bitnombrepc FROM tbl_bitacora";
     private static final String SQL_INSERT = "INSERT INTO tbl_bitacora(bitfecha, bitaccion, usuid, aplid, bitip, bitnombrepc) VALUES(?, ?, ?, ?, ?, ?)";
-    private static final String SQL_QUERY = "SELECT id_bitacora, fecha, accion, id_usuario, id_aplicacion, ip, nombrepc FROM tbl_bitacora WHERE id_bitacora = ?";    
+    private static final String SQL_QUERY = "SELECT bitid, bitfecha, bitaccion, usuid, aplid, bitip, bitnombrepc FROM tbl_bitacora WHERE bitfecha BETWEEN ? AND ?";    
 
 
 //se agrega metodo para bitacora
@@ -108,7 +107,7 @@ public class daoBitacora {
         String nombrepcAsignada;
         ipAsignada = " ";
         nombrepcAsignada = " ";
-        System.out.println("Parametros Bitacora: " + m_usuid + " " + m_aplicacion + " " + m_accion);
+        //System.out.println("Parametros Bitacora: " + m_usuid + " " + m_aplicacion + " " + m_accion);
        
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -123,14 +122,12 @@ public class daoBitacora {
             nombrepcAsignada= obtenerNombrePc();            
             stmt = conn.prepareStatement(SQL_INSERT);
                        
-            stmt.setString(1, fechaActual() + horaActual());
+            stmt.setString(1, fechaActual() + " " +horaActual());
             stmt.setString(2, m_accion);
             stmt.setInt(3, m_usuid);
             stmt.setInt(4, m_aplicacion);
             stmt.setString(5, ipAsignada);
             stmt.setString(6, nombrepcAsignada);
-
-
             System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
@@ -143,19 +140,21 @@ public class daoBitacora {
 
         return rows;
     }
- public clsBitacora query(clsBitacora bitacora) {    
+ // Modificacion acceso a Bitacora  
+    public List<clsBitacora> query( String primeraFecha, String segundaFecha )
+    {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        clsBitacora bitacora = null;
         List<clsBitacora> bitacoras = new ArrayList<clsBitacora>();
-        int rows = 0;
-
         try {
             conn = clsConexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, bitacora.fGetId_bitacora());
+            stmt.setString(1, primeraFecha);            
+            stmt.setString(2, segundaFecha);
             rs = stmt.executeQuery();
+            System.out.println("query : " + stmt);
             while (rs.next()) {
                 int id_bitacora = rs.getInt("bitid");
                 String fecha = rs.getString("bitfecha");
@@ -174,11 +173,9 @@ public class daoBitacora {
                 bitacora.fSetId_Usuario(id_usuario);
                 bitacora.fSetId_Aplicacion(id_aplicacion);
                 
-               
-                
-                //vendedores.add(vendedor); // Si se utiliza un ArrayList
+                bitacoras.add(bitacora);
             }
-            //System.out.println("Registros buscado:" + vendedor);
+
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -187,7 +184,6 @@ public class daoBitacora {
             clsConexion.close(conn);
         }
 
-        //return vendedores;  // Si se utiliza un ArrayList
-        return bitacora;
-    }       
+        return bitacoras;
+    } 
 }

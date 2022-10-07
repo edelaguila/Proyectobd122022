@@ -9,6 +9,7 @@ package seguridad.vista;
 import seguridad.modelo.daoModulos;
 import seguridad.modelo.daoBitacora;
 import seguridad.controlador.clsModulos;
+import seguridad.controlador.clsBitacora;
 import seguridad.controlador.clsUsuarioConectado;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +20,7 @@ import java.io.File;
  * @author visitante
  */
 public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
-
+    int codigoAplicacion=4;
     public void llenadoDeCombos() {
         daoModulos AplicacionDAO = new daoModulos();
         List<clsModulos> aplicaciones = AplicacionDAO.select();
@@ -45,6 +46,31 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
+        
+        DefaultTableModel modeloBit = new DefaultTableModel();
+        modeloBit.addColumn("ID");
+        modeloBit.addColumn("Fecha");
+        modeloBit.addColumn("Accion");
+        modeloBit.addColumn("Usuario");        
+        modeloBit.addColumn("Aplicacion");
+        modeloBit.addColumn("Ip");
+        modeloBit.addColumn("PC");
+        daoBitacora bitacoraDAO = new daoBitacora();
+        //List<clsBitacora> bitacora = bitacoraDAO.select();
+        List<clsBitacora> bitacora = bitacoraDAO.select();
+        tablaBitacora.setModel(modeloBit);
+        String[] datoBit = new String[7];
+        for (int j = 0; j < bitacora.size(); j++) {
+            datoBit[0] = Integer.toString(bitacora.get(j).fGetId_bitacora());
+            datoBit[1] = bitacora.get(j).fGetfecha_Bitacora();
+            datoBit[2] = bitacora.get(j).fGetaccion_Bitacora();
+            datoBit[3] = Integer.toString(bitacora.get(j).fGetId_Usuario());
+            datoBit[4] = Integer.toString(bitacora.get(j).fGetId_Aplicacion());
+            datoBit[5] = bitacora.get(j).fGetip_Bitacora();
+            datoBit[6] = bitacora.get(j).fGetnombrepc_Bitacora();
+            //System.out.println("vendedor:" + vendedores);
+            modeloBit.addRow(datoBit);
+        }
     }
 
     public void buscaraplicacion() {
@@ -57,6 +83,7 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
     }
 
     public frmMantenimientoModulos() {
+
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
@@ -90,6 +117,11 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
         label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaBitacora = new javax.swing.JTable();
+        FechaInicial = new javax.swing.JTextField();
+        FechaFinal = new javax.swing.JTextField();
+        cmdBuscar = new javax.swing.JButton();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -192,6 +224,26 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
             }
         });
 
+        tablaBitacora.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tablaBitacora);
+
+        cmdBuscar.setText("Buscar");
+        cmdBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -224,23 +276,34 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
                             .addComponent(txtNombre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(label1)
-                        .addGap(294, 294, 294))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(135, 135, 135)
-                .addComponent(label4)
-                .addGap(46, 46, 46)
-                .addComponent(cbox_aplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                        .addGap(294, 294, 294))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(135, 135, 135)
+                        .addComponent(label4)
+                        .addGap(502, 502, 502)
+                        .addComponent(cbox_aplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(FechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmdBuscar)
+                        .addGap(105, 105, 105))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,38 +311,41 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
                 .addComponent(label1)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label3))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label5)))
-                            .addComponent(lb))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnRegistrar)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnModificar))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label3))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscar)
-                            .addComponent(btnLimpiar))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label5)))
+                    .addComponent(lb))
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdBuscar))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnModificar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnLimpiar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label4)
                     .addComponent(cbox_aplicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
-
-        getAccessibleContext().setAccessibleName("Mantenimiento Modulos");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -290,6 +356,8 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
         clsModulos aplicacionAEliminar = new clsModulos();
         aplicacionAEliminar.setId_aplicacion(Integer.parseInt(txtbuscado.getText()));
         aplicacionDAO.delete(aplicacionAEliminar);
+        daoBitacora bitacora = new daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Delete");        
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -300,7 +368,8 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
         aplicacionAInsertar.setestadoAplicacion(txtEstado.getText());
         aplicacionDAO.insert(aplicacionAInsertar);
         daoBitacora bitacora = new daoBitacora();
-        bitacora.insert(clsUsuarioConectado.getUsuid(), 1, "Insert");
+        //ABC bitacora
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Insert");
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -317,6 +386,8 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
         aplicacionAActualizar.setNombreAplicacion(txtNombre.getText());
         aplicacionAActualizar.setestadoAplicacion(txtEstado.getText());
         aplicacionDAO.update(aplicacionAActualizar);
+        daoBitacora bitacora = new daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Update");        
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -354,16 +425,48 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void cmdBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBuscarActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modeloBit = new DefaultTableModel();
+        modeloBit.addColumn("ID");
+        modeloBit.addColumn("Fecha");
+        modeloBit.addColumn("Accion");
+        modeloBit.addColumn("Usuario");        
+        modeloBit.addColumn("Aplicacion");
+        modeloBit.addColumn("Ip");
+        modeloBit.addColumn("PC");
+        daoBitacora bitacoraDAO = new daoBitacora();
+        //List<clsBitacora> bitacora = bitacoraDAO.select();
+        List<clsBitacora> bitacora = bitacoraDAO.query(FechaInicial.getText(), FechaFinal.getText());
+        tablaBitacora.setModel(modeloBit);
+        String[] datoBit = new String[7];
+        for (int j = 0; j < bitacora.size(); j++) {
+            datoBit[0] = Integer.toString(bitacora.get(j).fGetId_bitacora());
+            datoBit[1] = bitacora.get(j).fGetfecha_Bitacora();
+            datoBit[2] = bitacora.get(j).fGetaccion_Bitacora();
+            datoBit[3] = Integer.toString(bitacora.get(j).fGetId_Usuario());
+            datoBit[4] = Integer.toString(bitacora.get(j).fGetId_Aplicacion());
+            datoBit[5] = bitacora.get(j).fGetip_Bitacora();
+            datoBit[6] = bitacora.get(j).fGetnombrepc_Bitacora();
+            //System.out.println("vendedor:" + vendedores);
+            modeloBit.addRow(datoBit);
+        }
+    }//GEN-LAST:event_cmdBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField FechaFinal;
+    private javax.swing.JTextField FechaInicial;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cbox_aplicacion;
+    private javax.swing.JButton cmdBuscar;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
@@ -372,6 +475,7 @@ public class frmMantenimientoModulos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
     private javax.swing.JTable tablaAplicaciones;
+    private javax.swing.JTable tablaBitacora;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtbuscado;

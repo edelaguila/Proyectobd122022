@@ -17,7 +17,7 @@ import java.util.List;
 public class daoUsuario {
 
     private static final String SQL_SELECT = "SELECT usuid, usunombre, usucontrasena, usuestatus, usunombrereal, usucorreoe, usutelefono, usudireccion, Tipo FROM tbl_usuario";
-    private static final String SQL_INSERT = "INSERT INTO tbl_usuario(usunombre, usucontrasena, usuestatus, usunombrereal, usucorreoe, usutelefono, usudireccion, Tipo) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO tbl_usuario(usunombre, usucontrasena, usuestatus, usunombrereal, usucorreoe, usutelefono, usudireccion, Tipo) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE tbl_usuario SET usunombre=?, usucontrasena=?, usuestatus=?, usunombrereal=?, usucorreoe=?, usutelefono=?, usudireccion=?, Tipo=? WHERE usuid = ?";
     private static final String SQL_DELETE = "DELETE FROM tbl_usuario WHERE usuid=?";
     private static final String SQL_QUERY = "SELECT usuid, usunombre, usucontrasena, usuestatus, usunombrereal, usucorreoe, usutelefono, usudireccion, Tipo FROM tbl_usuario WHERE usuid=?";

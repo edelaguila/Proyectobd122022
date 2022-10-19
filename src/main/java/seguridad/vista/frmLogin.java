@@ -13,6 +13,9 @@ import ventas.vista.mdiVentas;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import prototipos.vista.mdiPrototipo;
+import logistica.vista.mdiLogistica;
+import compras.vista.mdiCompras;
+import ventas.vista.mdiVentas;
 import seguridad.controlador.clsSeguridad;
 import seguridad.controlador.clsUsuarioConectado;
 import seguridad.modelo.daoAcceso;
@@ -194,15 +197,33 @@ public class frmLogin extends javax.swing.JFrame {
                             System.out.println(e);
                         }
                         break;     
-                        case "Area Ventas":
+                        case "Area Logistica":
                         try {
-                            mdiVentas menuPrototipo = new mdiVentas();
-                            menuPrototipo.setVisible(true);
+                            mdiLogistica menuLogistica = new mdiLogistica();
+                            menuLogistica.setVisible(true);
+                            this.dispose();
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                        break;                                            
+                        case "Area Compras":
+                        try {
+                            mdiCompras menuCompras = new mdiCompras();
+                            menuCompras.setVisible(true);
                             this.dispose();
                         } catch (Exception e) {
                             System.out.println(e);
                         }
                         break;                    
+                        case "Area Ventas":
+                        try {
+                            mdiVentas menuVentas = new mdiVentas();
+                            menuVentas.setVisible(true);
+                            this.dispose();
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                        break;                                            
                         default:
                             break;
                     }

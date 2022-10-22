@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS tbl_usuario (
 	usucorreoe VARCHAR(60),
 	usutelefono VARCHAR(25),
 	usudireccion VARCHAR(80),
+    Tipo VARCHAR(15),
 	PRIMARY KEY (usuid) )
 ENGINE = InnoDB CHARACTER SET = latin1;
 CREATE TABLE IF NOT EXISTS tbl_perfil (

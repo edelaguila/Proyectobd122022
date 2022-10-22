@@ -7,7 +7,7 @@ package seguridad.vista;
 
 import seguridad.modelo.daoUsuario;
 import seguridad.controlador.clsUsuario;
-
+import seguridad.controlador.clsSeguridad;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -404,8 +404,9 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         daoUsuario usuarioDAO = new daoUsuario();
         clsUsuario usuarioAInsertar = new clsUsuario();
+        clsSeguridad c = new clsSeguridad();
         usuarioAInsertar.setUsunombre(txtNombre.getText());
-        usuarioAInsertar.setUsucontrasena(txtContrasena.getText());      
+        usuarioAInsertar.setUsucontrasena(c.encode(txtContrasena.getText()));      
         usuarioAInsertar.setUsuestatus(txtEstatus.getText());
         usuarioAInsertar.setUsunombrereal(txtNombreReal.getText());        
         usuarioAInsertar.setUsucorreoe(txtCorreoE.getText());
@@ -426,9 +427,10 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
 //        // TODO add your handling code here:
         daoUsuario usuarioDAO = new daoUsuario();
         clsUsuario usuarioAActualizar = new clsUsuario();
+        clsSeguridad c = new clsSeguridad();
         usuarioAActualizar.setUsuid(Integer.parseInt(txtbuscado.getText()));
         usuarioAActualizar.setUsunombre(txtNombre.getText());
-        usuarioAActualizar.setUsucontrasena(txtContrasena.getText());        
+        usuarioAActualizar.setUsucontrasena(c.encode(txtContrasena.getText()));        
         usuarioAActualizar.setUsuestatus(txtEstatus.getText());
         usuarioAActualizar.setUsunombrereal(txtNombreReal.getText());
         usuarioAActualizar.setUsucorreoe(txtCorreoE.getText());

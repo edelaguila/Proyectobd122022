@@ -12,12 +12,15 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import seguridad.controlador.clsUsuarioConectado;
+import seguridad.modelo.daoBitacora;
+
 
 /**
  *
  * @author visitante
  */
 public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
+int codigoAplicacion=1;
 
     public void llenadoDeCombos() {
         /*EmpleadoDAO empleadoDAO = new EmpleadoDAO();
@@ -71,6 +74,8 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         txtTelefono.setText(usuarioAConsultar.getUsutelefono());
         txtDireccion.setText(usuarioAConsultar.getUsudireccion());
         txtTipo.setText(usuarioAConsultar.getTipo());
+        daoBitacora bitacora = new  daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Select");
     }
 
     public frmMantenimientoUsuarios() {
@@ -398,6 +403,8 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         clsUsuario usuarioAEliminar = new clsUsuario();
         usuarioAEliminar.setUsuid(Integer.parseInt(txtbuscado.getText()));
         usuarioDAO.delete(usuarioAEliminar);
+        daoBitacora bitacora = new  daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Delete");
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -413,8 +420,9 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioAInsertar.setUsutelefono(txtTelefono.getText());
         usuarioAInsertar.setUsudireccion(txtDireccion.getText());
         usuarioAInsertar.setTipo(txtTipo.getText());
-        
         usuarioDAO.insert(usuarioAInsertar);
+        daoBitacora bitacora = new  daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Insert");
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -438,6 +446,8 @@ public class frmMantenimientoUsuarios extends javax.swing.JInternalFrame {
         usuarioAActualizar.setUsudireccion(txtDireccion.getText());
         usuarioAActualizar.setTipo(txtTipo.getText());
         usuarioDAO.update(usuarioAActualizar);
+        daoBitacora bitacora = new  daoBitacora();
+        bitacora.insert(clsUsuarioConectado.getUsuid(), codigoAplicacion, "Update");
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
 

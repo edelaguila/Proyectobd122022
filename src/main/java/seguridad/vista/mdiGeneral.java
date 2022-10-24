@@ -53,8 +53,9 @@ public class mdiGeneral extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -146,19 +147,22 @@ public class mdiGeneral extends javax.swing.JFrame {
         jMenuBar1.add(jM_MantenimientopApps);
 
         jMenu6.setText("Reportes");
-
-        jMenuItem9.setText("Bitacora");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem9);
-
         jMenuBar1.add(jMenu6);
 
         jMenu8.setText("Ayudas");
         jMenuBar1.add(jMenu8);
+
+        jMenu3.setText("Herramientas");
+
+        jMenuItem10.setText("Cambio contraseña");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem10);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -250,6 +254,15 @@ public class mdiGeneral extends javax.swing.JFrame {
         ventana6.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        frmCambioContrasena ventana7 = new frmCambioContrasena();
+        jDesktopPane1.add(ventana7);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana7.getSize();
+        ventana7.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -297,12 +310,14 @@ public class mdiGeneral extends javax.swing.JFrame {
     public javax.swing.JMenu jM_MantenimientopApps;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     public javax.swing.JMenu jMenu4;
     public javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     public javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -310,7 +325,6 @@ public class mdiGeneral extends javax.swing.JFrame {
     public javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem mCierreSesion;
     // End of variables declaration//GEN-END:variables
 }

@@ -122,7 +122,7 @@ public class daoBitacora {
             nombrepcAsignada= obtenerNombrePc();            
             stmt = conn.prepareStatement(SQL_INSERT);
                        
-            stmt.setString(1, fechaActual() + " " +horaActual());
+            stmt.setString(1, fechaActual());
             stmt.setString(2, m_accion);
             stmt.setInt(3, m_usuid);
             stmt.setInt(4, m_aplicacion);

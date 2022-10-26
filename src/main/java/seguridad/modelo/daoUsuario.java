@@ -214,7 +214,7 @@ public clsUsuario queryn(clsUsuario usuario) {
                 String correoe = rs.getString("usucorreoe");
                 String telefono = rs.getString("usutelefono");
                 String direccion = rs.getString("usudireccion");
-                String tipo = rs.getString("tipo");
+                String tipo = rs.getString("usutipo");
                 
                 usuario = new clsUsuario();
                 usuario.setUsuid(id);

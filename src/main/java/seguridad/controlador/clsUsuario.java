@@ -14,29 +14,25 @@ public class clsUsuario {
     private String usucorreoe;
     private String usutelefono;
     private String usudireccion;
-    private String Tipo;
+    private String usutipo;
+
+    public clsUsuario(int usuid, String usunombre, String usucontrasena, String usuestatus, String usunombrereal, String usucorreoe, String usutelefono, String usudireccion, String usutipo) {
+        this.usuid = usuid;
+        this.usunombre = usunombre;
+        this.usucontrasena = usucontrasena;
+        this.usuestatus = usuestatus;
+        this.usunombrereal = usunombrereal;
+        this.usucorreoe = usucorreoe;
+        this.usutelefono = usutelefono;
+        this.usudireccion = usudireccion;
+        this.usutipo = usutipo;
+    }
+
     public clsUsuario() {
-    }
-
-    public clsUsuario(int p_usuid) {
-        this.usuid = p_usuid;
-    }
-
-    public clsUsuario(String p_usunombre, String p_usucontrasena) {
-        this.usunombre = p_usunombre;
-        this.usucontrasena = p_usucontrasena;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    public clsUsuario(int p_usuid, String p_usunombre, String p_usucontrasena) {
-        this.usuid = p_usuid;
-        this.usunombre = p_usunombre;
-        this.usucontrasena = p_usucontrasena;
-    }
     
-    @Override
-    public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public int getUsuid() {
         return usuid;
@@ -102,15 +98,19 @@ public class clsUsuario {
         this.usudireccion = usudireccion;
     }
 
-    public String getTipo() {
-        return Tipo;
+    public String getUsutipo() {
+        return usutipo;
     }
 
-    public void setTipo(String Tipo) {
-        this.Tipo = Tipo;
+    public void setUsutipo(String usutipo) {
+        this.usutipo = usutipo;
     }
 
+    @Override
+    public String toString() {
+        return "clsUsuario{" + "usuid=" + usuid + ", usunombre=" + usunombre + ", usucontrasena=" + usucontrasena + ", usuestatus=" + usuestatus + ", usunombrereal=" + usunombrereal + ", usucorreoe=" + usucorreoe + ", usutelefono=" + usutelefono + ", usudireccion=" + usudireccion + ", usutipo=" + usutipo + '}';
+    }
+   
     
-    
-    
+
 }

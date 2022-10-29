@@ -6,11 +6,7 @@ public class clsConexion {
 
 
 //    private static final String JDBC_URL = "jdbc:mysql://localhost/proyectob222022?'useSSL=false&serverTimezone=UTC";
-<<<<<<< HEAD
-    private static final String JDBC_URL = "jdbc:mysql://192.168.1.201/proyectobd122022?useSSL=false&serverTimezone=UTC";    
-=======
     private static final String JDBC_URL = "jdbc:mysql://localhost/proyectobd122022?useSSL=false&serverTimezone=UTC";    
->>>>>>> 642894f4b21815f04b292adc78c5c655e612485e
 
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASS = "picodediamante777";

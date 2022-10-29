@@ -24,13 +24,9 @@ public class frmMantenimientoVendedor extends javax.swing.JInternalFrame {
         daoVendedores AplicacionDAO = new daoVendedores();
         List<clsVendedores> aplicaciones = AplicacionDAO.select();
         cbox_estado.addItem("Seleccione una opción");
-        for (int i = 0; i < aplicaciones.size(); i++) {
-            cbox_estado.addItem(aplicaciones.get(i).Getvedestatus());
-        }
     }
     
         public void estados() {    
-        cbox_estado.addItem("seleccione: "); 
         cbox_estado.addItem("1");
         cbox_estado.addItem("0");
     }    
@@ -76,6 +72,7 @@ public class frmMantenimientoVendedor extends javax.swing.JInternalFrame {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
+        estados();
     }
 
     /**

@@ -26,15 +26,13 @@ public class frmMantenimientoCliente extends javax.swing.JInternalFrame {
         daoCliente ClienteDAO = new daoCliente();
         List<clsCliente> cliente = ClienteDAO.select();
         cbox_estado.addItem("Seleccione una opción");
-        for (int i = 0; i < cliente.size(); i++) {
-            cbox_estado.addItem(cliente.get(i).getCliestatus());
-        }
+        
     }
      
-     public void estados() {    
-        cbox_estado.addItem("seleccione: "); 
+      public void estados() {    
         cbox_estado.addItem("1");
         cbox_estado.addItem("0");
+
     } 
  
     public void llenadoDeTablas() {
@@ -79,6 +77,7 @@ public class frmMantenimientoCliente extends javax.swing.JInternalFrame {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
+        estados();
     }
 
     /**
@@ -112,8 +111,8 @@ public class frmMantenimientoCliente extends javax.swing.JInternalFrame {
         label9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVendedores = new javax.swing.JTable();
-        cbox_estado = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        cbox_estado = new javax.swing.JComboBox<>();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -250,17 +249,17 @@ public class frmMantenimientoCliente extends javax.swing.JInternalFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(368, 20, 587, 303));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 3, 12)); // NOI18N
+        jLabel1.setText("1 = Habilitado y 0 = Inhabilitado");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
         cbox_estado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cbox_estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbox_estadoActionPerformed(evt);
             }
         });
-        getContentPane().add(cbox_estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 183, 250, 20));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 3, 12)); // NOI18N
-        jLabel1.setText("1 = Habilitado y 0 = Inhabilitado");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        getContentPane().add(cbox_estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 250, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -3,60 +3,51 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ventas.modelo;
+package logistica.modelo;
 
-import ventas.controlador.clsVendedores;
+
+import logistica.controlador.clsBodega;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import seguridad.modelo.clsConexion;
 
 /**
  *
  * @author visitante
  */
-public class daoVendedores {
+public class daoBodega {
 
-    private static final String SQL_SELECT = "SELECT vedcodigo, vednombre, veddireccion, vedtelefono, vednit, vedestatus FROM tbl_vendedores";
-    private static final String SQL_INSERT = "INSERT INTO tbl_vendedores(vednombre, veddireccion, vedtelefono, vednit, vedestatus) VALUES(?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE tbl_vendedores SET vednombre=?, veddireccion=?, vedtelefono=?, vednit=?, vedestatus=? WHERE vedcodigo = ?";
-    private static final String SQL_DELETE = "DELETE FROM tbl_vendedores WHERE vedcodigo=?";
-    private static final String SQL_QUERY = "SELECT vedcodigo, vednombre, veddireccion, vedtelefono, vednit, vedestatus FROM tbl_vendedores WHERE vedcodigo = ?";
+    private static final String SQL_SELECT = "SELECT bodcodigo, bodnombre, bodestatus FROM tbl_bodegas";
+    private static final String SQL_INSERT = "INSERT INTO tbl_bodegas(bodnombre, bodestatus) VALUES(?, ?)";
+    private static final String SQL_UPDATE = "UPDATE tbl_bodegas SET bodnombre=?, bodestatus=? WHERE bodcodigo = ?";
+    private static final String SQL_DELETE = "DELETE FROM tbl_bodegas WHERE bodcodigo=?";
+    private static final String SQL_QUERY = "SELECT bodcodigo, bodnombre, bodestatus FROM tbl_bodegas WHERE bodcodigo = ?";
 
-
-    public List<clsVendedores> select() {
+    public List<clsBodega> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsVendedores vendedor = null;
-        List<clsVendedores> vendedores = new ArrayList<clsVendedores>();
+        clsBodega bodega = null;
+        List<clsBodega> bodegas = new ArrayList<clsBodega>();
 
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int vedcodigo = rs.getInt("vedcodigo");
-                String vednombre = rs.getString("vednombre");
-                String veddireccion = rs.getString("veddireccion");
-                String vedtelefono = rs.getString("vedtelefono");
-                String vednit = rs.getString("vednit");
-                String vedestatus = rs.getString("vedestatus");
-
-
-                vendedor = new clsVendedores();
-                vendedor.Setvedcodigo(vedcodigo);
-                vendedor.Setvednombre(vednombre);
-                vendedor.Setveddireccion(veddireccion);
-                vendedor.Setvedtelefono(vedtelefono);
-                vendedor.Setvednit(vednit);
-                vendedor.Setvedestatus(vedestatus);
-
+                int codigo = rs.getInt("bodcodigo");
+                String nombre = rs.getString("bodnombre");
+                String estado = rs.getString("bodestatus");
                 
-                vendedores.add(vendedor);
+                bodega = new clsBodega();
+                bodega.setcodigob(codigo);
+                bodega.setNombreb(nombre);
+                bodega.setestadob(estado);
+                
+                bodegas.add(bodega);
             }
 
         } catch (SQLException ex) {
@@ -67,22 +58,18 @@ public class daoVendedores {
             clsConexion.close(conn);
         }
 
-        return vendedores;
+        return bodegas;
     }
 
-    public int insert(clsVendedores vendedor) {
+    public int insert(clsBodega bodega) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, vendedor.Getvednombre());
-            stmt.setString(2, vendedor.Getveddireccion());
-            stmt.setString(3, vendedor.Getvedtelefono());
-            stmt.setString(4, vendedor.Getvednit());
-            stmt.setString(5, vendedor.Getvedestatus());
-
+            stmt.setString(1, bodega.getNombreb());
+            stmt.setString(2, bodega.getestadob());
 
 
             System.out.println("ejecutando query:" + SQL_INSERT);
@@ -98,7 +85,7 @@ public class daoVendedores {
         return rows;
     }
 
-    public int update(clsVendedores vendedor) {
+    public int update(clsBodega bodega) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -107,12 +94,9 @@ public class daoVendedores {
             conn = clsConexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, vendedor.Getvednombre());
-            stmt.setString(2, vendedor.Getveddireccion());
-            stmt.setString(3, vendedor.Getvedtelefono());
-            stmt.setString(4, vendedor.Getvednit());
-            stmt.setString(5, vendedor.Getvedestatus());
-            stmt.setInt(6, vendedor.Getvedcodigo());
+            stmt.setString(1, bodega.getNombreb());
+            stmt.setString(2, bodega.getestadob());
+            stmt.setInt(3, bodega.getcodigob());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -127,7 +111,7 @@ public class daoVendedores {
         return rows;
     }
 
-    public int delete(clsVendedores vendedor) {
+    public int delete(clsBodega bodega) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -136,7 +120,7 @@ public class daoVendedores {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, vendedor.Getvedcodigo());
+            stmt.setInt(1, bodega.getcodigob());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
@@ -150,34 +134,28 @@ public class daoVendedores {
     }
 
 //    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public clsVendedores query(clsVendedores vendedor) {    
+    public clsBodega query(clsBodega bodega) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<clsVendedores> vendedores = new ArrayList<clsVendedores>();
+        List<clsBodega> bodegas = new ArrayList<clsBodega>();
         int rows = 0;
 
         try {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, vendedor.Getvedcodigo());
+            stmt.setInt(1, bodega.getcodigob());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int vedcodigo = rs.getInt("vedcodigo");
-                String vednombre = rs.getString("vednombre");
-                String veddireccion = rs.getString("veddireccion");
-                String vedtelefono = rs.getString("vedtelefono");
-                String vednit = rs.getString("vednit");
-                String vedestatus = rs.getString("vedestatus");
+                int codigo = rs.getInt("bodcodigo");
+                String nombre = rs.getString("bodnombre");
+                String estado = rs.getString("bodestatus");
                 
-                vendedor = new clsVendedores();
-                vendedor.Setvedcodigo(vedcodigo);
-                vendedor.Setvednombre(vednombre);
-                vendedor.Setveddireccion(veddireccion);
-                vendedor.Setvedtelefono(vedtelefono);
-                vendedor.Setvednit(vednit);
-                vendedor.Setvedestatus(vedestatus);
+                bodega = new clsBodega();
+                bodega.setcodigob(codigo);
+                bodega.setNombreb(nombre);
+                bodega.setestadob(estado);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
             }
@@ -191,7 +169,7 @@ public class daoVendedores {
         }
 
         //return vendedores;  // Si se utiliza un ArrayList
-        return vendedor;
+        return bodega;
     }
-   
+        
 }

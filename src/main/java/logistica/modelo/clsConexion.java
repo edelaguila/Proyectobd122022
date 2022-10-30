@@ -1,13 +1,13 @@
-package seguridad.modelo;
+package logistica.modelo;
 
+import seguridad.modelo.*;
 import java.sql.*;
 
 public class clsConexion {
 
 
-
-
-    private static final String JDBC_URL = "jdbc:mysql://localhost/proyectobd122022?useSSL=false&serverTimezone=UTC";    
+ private static final String JDBC_URL = "jdbc:mysql://192.168.1.201/proyectobd122022?useSSL=false&serverTimezone=UTC";    
+ //private static final String JDBC_URL = "jdbc:mysql://localhost/proyectobd122022?useSSL=false&serverTimezone=UTC";    
 
 
     private static final String JDBC_USER = "remoto";

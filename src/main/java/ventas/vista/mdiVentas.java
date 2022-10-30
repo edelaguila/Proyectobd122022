@@ -76,7 +76,7 @@ public class mdiVentas extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem3);
 
-        jMenuItem4.setText("Mantenimiento Tipo Documento");
+        jMenuItem4.setText("Mantenimiento Clientes");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -119,7 +119,7 @@ public class mdiVentas extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        frmMantenimientoTipo_de_documentos ventana = new frmMantenimientoTipo_de_documentos();
+        frmMantenimientoCliente ventana = new frmMantenimientoCliente();
         jDesktopPane1.add(ventana);
         Dimension desktopSize = jDesktopPane1.getSize();
         Dimension FrameSize = ventana.getSize();

@@ -21,6 +21,7 @@ public class daoProductos {
 
     private static final String SQL_SELECT = "SELECT prodcodigo, prodnombre, prodexistencia, prodestatus,tbl_productos.marcodigo, tbl_lineas.lincodigo,tbl_marcas.marnombre, tbl_lineas.linnombre FROM tbl_productos INNER JOIN tbl_marcas  ON tbl_productos.marcodigo = tbl_marcas.marcodigo INNER JOIN tbl_lineas  ON tbl_productos.lincodigo = tbl_lineas.lincodigo;";
     private static final String SQL_INSERT = "INSERT INTO tbl_productos(prodcodigo, prodnombre, prodexistencia, prodestatus, marcodigo, lincodigo) VALUES(?, ?, ?, ?, ?, ? )";
+    
      private static final String SQL_UPDATE = "UPDATE tbl_productos SET prodnombre=?, prodexistencia=?, prodestatus=?, marcodigo=?, lincodigo=? WHERE prodcodigo = ?";
     private static final String SQL_DELETE = "DELETE FROM tbl_productos WHERE prodcodigo=?";
     private static final String SQL_QUERY  = "SELECT prodcodigo, prodnombre, prodexistencia, prodestatus,tbl_productos.marcodigo, tbl_lineas.lincodigo,tbl_marcas.marnombre, tbl_lineas.linnombre FROM tbl_productos INNER JOIN tbl_marcas  ON tbl_productos.marcodigo = tbl_marcas.marcodigo INNER JOIN tbl_lineas  ON tbl_productos.lincodigo = tbl_lineas.lincodigo WHERE prodcodigo = ?";
@@ -79,12 +80,12 @@ public class daoProductos {
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-           // stmt.setInt(1,  perfil.getProdcodigo());
-            stmt.setString(1, perfil.getProdnombre());
-            stmt.setFloat(2, perfil.getProdexistencia());
-             stmt.setString(3, perfil.getProdestatus());
-             stmt.setInt(4,  perfil.getMarcodigo());
-             stmt.setInt(5,  perfil.getLincodigo());
+            stmt.setInt(1,  perfil.getProdcodigo());
+            stmt.setString(2, perfil.getProdnombre());
+            stmt.setFloat(3, perfil.getProdexistencia());
+             stmt.setString(4, perfil.getProdestatus());
+             stmt.setInt(5,  perfil.getMarcodigo());
+             stmt.setInt(6,  perfil.getLincodigo());
         
          
 

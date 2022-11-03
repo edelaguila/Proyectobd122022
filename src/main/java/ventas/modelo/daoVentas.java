@@ -23,8 +23,8 @@ public class daoVentas {
     private static final String SQL_SELECT = "SELECT veedocumento, clicodigo, veefecha, veetotal, veeestatus FROM tbl_ventas_encabezado";
     private static final String SQL_SELECT2 = "SELECT veedocumento, vedorden, prodcodigo, vedcantidad, vedprecio, bodcodigo FROM tbl_ventas_detalle";
     
-    private static final String SQL_INSERT = "INSERT INTO tbl_ventas_encabezado(clicodigo, veefecha, veetotal, veeestatus) VALUES(?, ?, ?, ?)";
-    private static final String SQL_INSERT2 = "INSERT INTO tbl_ventas_detalle(vedorden, prodcodigo, vedcantidad, vedprecio, bodcodigo) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO tbl_ventas_encabezado(veedocumento, clicodigo, veefecha, veetotal, veeestatus) VALUES(?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT2 = "INSERT INTO tbl_ventas_detalle(veedocumento, vedorden, prodcodigo, vedcantidad, vedprecio, bodcodigo) VALUES( ?, ?, ?, ?, ?, ?)";
     
     private static final String SQL_UPDATE = "UPDATE tbl_ventas_encabezado SET clicodigo=?, veefecha=?, veetotal=?, veeestatus=?  WHERE veedocumento = ?";
     private static final String SQL_UPDATE2 = "UPDATE tbl_ventas_detalle SET vedorden=?, prodcodigo=?, vedcantidad=?, vedprecio=?, bodcodigo=? WHERE veedocumento = ?";
@@ -218,9 +218,9 @@ public class daoVentas {
             stmt.setInt(1, vanta.Getvedorden());
             stmt.setInt(2, vanta.Getprodcodigo());
             stmt.setInt(3, vanta.Getvedcantidad());
-            stmt.setInt(5, vanta.Getvedprecio());
-            stmt.setInt(6, vanta.Getbodcodigo());
-            stmt.setString(7, vanta.Getveedocumento());
+            stmt.setInt(4, vanta.Getvedprecio());
+            stmt.setInt(5, vanta.Getbodcodigo());
+            stmt.setString(6, vanta.Getveedocumento());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);

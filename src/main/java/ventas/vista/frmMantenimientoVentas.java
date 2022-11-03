@@ -15,6 +15,10 @@ import ventas.controlador.clsVendedores;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
+import logistica.controlador.clsBodega;
+import logistica.controlador.clsProductos;
+import logistica.modelo.daoBodega;
+import logistica.modelo.daoProductos;
 
 
 
@@ -33,6 +37,37 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
             cbox_clicodigo.addItem(String.valueOf(ventas.get(i).getClicodigo()));
         }
     }
+    
+        public void ComboEstatus() {
+        daoVentas VentasDAO = new daoVentas();
+        List<clsVentas> ventas = VentasDAO.select();
+        cbox_veeestatus.addItem("Seleccione un Estado");
+    }
+    
+        public void estados() {    
+        cbox_veeestatus.addItem("1");
+        cbox_veeestatus.addItem("0");
+    }
+        
+        public void ComboProducto() {
+        daoProductos VentasDAO = new daoProductos();
+        List<clsProductos> ventas = VentasDAO.select();
+        cbox_prodcodigo.addItem("Seleccione un Producto");
+        //cbox_clicodigo.removeAllItems();
+        for (int i = 0; i < ventas.size(); i++) {
+            cbox_prodcodigo.addItem(String.valueOf(ventas.get(i).getProdcodigo()));
+        }
+    }
+        
+        public void ComboBodega() {
+        daoBodega VentasDAO = new daoBodega();
+        List<clsBodega> ventas = VentasDAO.select();
+        cbox_bodcodigo.addItem("Seleccione una Bodega");
+        //cbox_clicodigo.removeAllItems();
+        for (int i = 0; i < ventas.size(); i++) {
+            cbox_bodcodigo.addItem(String.valueOf(ventas.get(i).getcodigob()));
+        }
+    }    
     
 
     
@@ -99,6 +134,10 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
         initComponents();
         llenadoDeTablas();
         ComboCliente();
+        ComboEstatus();
+        estados();
+        ComboProducto();
+        ComboBodega();
 
     }
 
@@ -457,7 +496,7 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+
         daoVendedores vendedorDAO = new daoVendedores();
         daoVendedores vendedorDAO2 = new daoVendedores();
         clsVendedores vendedorAEliminar = new clsVendedores();
@@ -465,18 +504,30 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
         vendedorAEliminar.Setvedcodigo(Integer.parseInt(txtbuscado.getText()));
         vendedorDAO.delete(vendedorAEliminar);
         vendedorDAO2.delete(vendedorAEliminar2);
-        llenadoDeTablas();        
+        llenadoDeTablas();     
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        daoVendedores vendedorDAO = new daoVendedores();
-        daoVendedores vendedorDAO2 = new daoVendedores();
-        clsVendedores vendedorAInsertar = new clsVendedores();
-        clsVendedores vendedorAInsertar2 = new clsVendedores();
-        vendedorAInsertar.Setveddireccion(txtFecha.getText());
-        vendedorAInsertar.Setvedtelefono(txtTotalVentas.getText());
-        vendedorDAO.insert(vendedorAInsertar);
-        vendedorDAO2.insert(vendedorAInsertar2);
+        daoVentas vendedorDAO = new daoVentas();
+        daoVentas vendedorDAO2 = new daoVentas();
+        clsVentas ventasAInsertar = new clsVentas();
+        clsVentas ventasAInsertar2 = new clsVentas();
+        //******************ENCABEZADO**********************
+        ventasAInsertar.Setvedcodigo(txtIDDocumento.getText());
+        ventasAInsertar.Setclicodigo(Integer.parseInt(cbox_clicodigo.getSelectedItem().toString()));
+        ventasAInsertar.Setveefecha(txtFecha.getText());
+        ventasAInsertar.Setveetotal(Integer.parseInt(txtTotalVentas.getText()));
+        ventasAInsertar.Setveeestatus(cbox_veeestatus.getSelectedItem().toString());
+        //******************DETALLE**************************
+        ventasAInsertar2.Setvedcodigo(txtIDDocumento.getText());
+        ventasAInsertar2.Setvedorden(Integer.parseInt(txtOrdenID.getText()));
+        ventasAInsertar2.Setprodcodigo(Integer.parseInt(cbox_prodcodigo.getSelectedItem().toString()));
+        ventasAInsertar2.Setvedcantidad(Integer.parseInt(txtCantidad.getText()));
+        ventasAInsertar2.Setvedprecio(Integer.parseInt(txtPrecio.getText()));
+        ventasAInsertar2.Setbodcodigo(Integer.parseInt(cbox_bodcodigo.getSelectedItem().toString()));
+        
+        vendedorDAO.insert(ventasAInsertar);
+        vendedorDAO2.insert2(ventasAInsertar2);
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -492,10 +543,8 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
         vendedorAActualizar.Setvedcodigo(Integer.parseInt(txtbuscado.getText()));
         vendedorAActualizar.Setveddireccion(txtFecha.getText());
         vendedorAActualizar.Setvedtelefono(txtTotalVentas.getText());
-        //vendedorAActualizar.Setvednit(txtCorreo.getText());
-        //vendedorAActualizar.Setvedestatus(txtEstado.getText());
         vendedorDAO.update(vendedorAActualizar);
-        llenadoDeTablas();        
+        llenadoDeTablas();     
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

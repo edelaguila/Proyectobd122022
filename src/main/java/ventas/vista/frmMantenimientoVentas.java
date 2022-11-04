@@ -32,7 +32,7 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
         daoCliente VentasDAO = new daoCliente();
         List<clsCliente> ventas = VentasDAO.select();
         cbox_clicodigo.addItem("Seleccione un cliente");
-        //cbox_clicodigo.removeAllItems();
+        cbox_clicodigo.removeAllItems();
         for (int i = 0; i < ventas.size(); i++) {
             cbox_clicodigo.addItem(String.valueOf(ventas.get(i).getClicodigo()));
         }
@@ -76,9 +76,10 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
         modelo.addColumn("ID Documento");//ENCABEZADO
         modelo.addColumn("ID cliente");
         modelo.addColumn("Fecha");
-       modelo.addColumn("Total Venta");
+        modelo.addColumn("Total Venta");
         modelo.addColumn("Estatus");
         modelo.addColumn("Orden");//DETALLE
+        modelo.addColumn("ID Producto");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Precio");
         modelo.addColumn("ID Bodega");
@@ -108,25 +109,24 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
     public void buscarVendedor() {
         clsVentas ventasAConsultar = new clsVentas();
         daoVentas vendedorDAO = new daoVentas();
-        
         clsVentas ventasAConsultar2 = new clsVentas();
         daoVentas vendedorDAO2 = new daoVentas();
-        
-        //vendedorAConsultar.Setvedcodigo(Integer.parseInt(txtbuscado.getText()));
+        ventasAConsultar.Setvedcodigo(txtbuscado.getText());
         ventasAConsultar = vendedorDAO.query(ventasAConsultar);
+        ventasAConsultar2.Setvedcodigo(txtbuscado.getText());
         ventasAConsultar2 = vendedorDAO2.query2(ventasAConsultar2);
         //***************************ENCABEZADO*********************************
-        txtbuscado.setText(ventasAConsultar.Getveedocumento());
         txtIDDocumento.setText(ventasAConsultar.Getveedocumento());
         cbox_clicodigo.setSelectedItem(ventasAConsultar.Getclicodigo());
         txtFecha.setText(ventasAConsultar.Getveefecha());
-        ventasAConsultar.Setveetotal(Integer.parseInt(txtTotalVentas.getText()));
+        txtTotalVentas.setText(Integer.toString(ventasAConsultar.Getveetotal()));
         cbox_veeestatus.setSelectedItem(ventasAConsultar.Getveeestatus());
         //***************************DETALLE***********************************
-        ventasAConsultar2.Setvedorden(Integer.parseInt(txtOrdenID.getText()));
+        txtIDDocumento.setText(ventasAConsultar2.Getveedocumento());
+        txtOrdenID.setText(Integer.toString(ventasAConsultar2.Getvedorden()));
         cbox_prodcodigo.setSelectedItem(ventasAConsultar2.Getprodcodigo());
-        ventasAConsultar2.Setvedcantidad(Integer.parseInt(txtCantidad.getText()));
-        ventasAConsultar2.Setvedprecio(Integer.parseInt(txtPrecio.getText()));
+        txtCantidad.setText(Integer.toString(ventasAConsultar2.Getvedcantidad()));
+        txtPrecio.setText(Integer.toString(ventasAConsultar2.Getvedprecio()));
         cbox_bodcodigo.setSelectedItem(ventasAConsultar2.Getbodcodigo());
     }
 

@@ -65,7 +65,7 @@ public class frmMantenimientoVendedor extends javax.swing.JInternalFrame {
         txtDireccion.setText(vendedorAConsultar.Getveddireccion());
         txtTelefono.setText(vendedorAConsultar.Getvedtelefono());
         txtCorreo.setText(vendedorAConsultar.Getvednit());
-         cbox_estado.setSelectedItem(vendedorAConsultar.Getvedestatus());
+        cbox_estado.setSelectedItem(vendedorAConsultar.Getvedestatus());
     }
 
     public frmMantenimientoVendedor() {

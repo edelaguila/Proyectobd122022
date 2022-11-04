@@ -26,8 +26,10 @@ public class daoVentas {
     private static final String SQL_INSERT = "INSERT INTO tbl_ventas_encabezado(veedocumento, clicodigo, veefecha, veetotal, veeestatus) VALUES(?, ?, ?, ?, ?)";
     private static final String SQL_INSERT2 = "INSERT INTO tbl_ventas_detalle(veedocumento, vedorden, prodcodigo, vedcantidad, vedprecio, bodcodigo) VALUES( ?, ?, ?, ?, ?, ?)";
     
-    private static final String SQL_UPDATE = "UPDATE tbl_ventas_encabezado SET clicodigo=?, veefecha=?, veetotal=?, veeestatus=?  WHERE veedocumento = ?";
-    private static final String SQL_UPDATE2 = "UPDATE tbl_ventas_detalle SET vedorden=?, prodcodigo=?, vedcantidad=?, vedprecio=?, bodcodigo=? WHERE veedocumento = ?";
+    //private static final String SQL_UPDATE = "UPDATE tbl_ventas_encabezado SET clicodigo=?, veefecha=?, veetotal=?, veeestatus=?  WHERE veedocumento = ?";
+    private static final String SQL_UPDATE = "UPDATE proyectobd122022.tbl_ventas_encabezado SET clicodigo = ?, veefecha = ?, veetotal = ?, veeestatus = ? WHERE (veedocumento = ?)";
+    //private static final String SQL_UPDATE2 = "UPDATE tbl_ventas_detalle SET vedorden=?, prodcodigo=?, vedcantidad=?, vedprecio=?, bodcodigo=? WHERE veedocumento = ?";
+    private static final String SQL_UPDATE2 = "UPDATE proyectobd122022.tbl_ventas_detalle SET vedorden = ?, prodcodigo = ?, vedcantidad = ?, vedprecio = ?, bodcodigo = ? WHERE (veedocumento = ?)";
 
     private static final String SQL_DELETE = "DELETE FROM proyectobd122022.tbl_ventas_encabezado WHERE (veedocumento = ?)";
     private static final String SQL_DELETE2 = "DELETE FROM proyectobd122022.tbl_ventas_detalle WHERE (veedocumento = ?)";

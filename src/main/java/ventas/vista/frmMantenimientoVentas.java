@@ -129,6 +129,8 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
         txtCantidad.setText(Integer.toString(ventasAConsultar2.Getvedcantidad()));
         txtPrecio.setText(Integer.toString(ventasAConsultar2.Getvedprecio()));
         cbox_bodcodigo.setSelectedItem(Integer.toString(ventasAConsultar2.Getbodcodigo()));
+        txtIDDocumento.setEnabled(false);
+        
     }
 
     public frmMantenimientoVentas() {
@@ -389,7 +391,9 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
         clsVentas vendedorAEliminar = new clsVentas();
         vendedorAEliminar.Setvedcodigo(txtbuscado.getText());
         vendedorDAO.delete(vendedorAEliminar);        
-        llenadoDeTablas();     
+        llenadoDeTablas();
+        //FUNCION PARA HABILITAR TEXTO DE ID DOCUMENTO
+        txtIDDocumento.setEnabled(true);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -413,6 +417,8 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
         
         vendedorDAO.insert(ventasAInsertar);
         vendedorDAO2.insert2(ventasAInsertar2);
+        //FUNCION PARA HABILITAR TEXTO DE ID DOCUMENTO
+        txtIDDocumento.setEnabled(true);
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -423,26 +429,27 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        daoVentas vendedorDAO = new daoVentas();
         daoVentas vendedorDAO2 = new daoVentas();
-        clsVentas vendedorAActualizar = new clsVentas();
         clsVentas vendedorAActualizar2 = new clsVentas();
-        //******************ENCABEZADO**********************
-        vendedorAActualizar.Setvedcodigo(txtIDDocumento.getText());
-        vendedorAActualizar.Setclicodigo(Integer.parseInt(cbox_clicodigo.getSelectedItem().toString()));
-        vendedorAActualizar.Setveefecha(txtFecha.getText());
-        vendedorAActualizar.Setveetotal(Integer.parseInt(txtTotalVentas.getText()));
-        vendedorAActualizar.Setveeestatus(cbox_veeestatus.getSelectedItem().toString());
-                //******************DETALLE**************************
-        vendedorAActualizar2.Setvedcodigo(txtIDDocumento.getText());
+        daoVentas vendedorDAO = new daoVentas();
+        clsVentas vendedorAActualizar = new clsVentas();
+        //******************DETALLE**************************
+        vendedorAActualizar2.Setvedcodigo(txtbuscado.getText());
         vendedorAActualizar2.Setvedorden(Integer.parseInt(txtOrdenID.getText()));
         vendedorAActualizar2.Setprodcodigo(Integer.parseInt(cbox_prodcodigo.getSelectedItem().toString()));
         vendedorAActualizar2.Setvedcantidad(Integer.parseInt(txtCantidad.getText()));
         vendedorAActualizar2.Setvedprecio(Integer.parseInt(txtPrecio.getText()));
         vendedorAActualizar2.Setbodcodigo(Integer.parseInt(cbox_bodcodigo.getSelectedItem().toString()));
-        
-        vendedorDAO.update(vendedorAActualizar);
         vendedorDAO2.update2(vendedorAActualizar2);
+        //******************ENCABEZADO**********************
+        vendedorAActualizar.Setvedcodigo(txtbuscado.getText());
+        vendedorAActualizar.Setclicodigo(Integer.parseInt(cbox_clicodigo.getSelectedItem().toString()));
+        vendedorAActualizar.Setveefecha(txtFecha.getText());
+        vendedorAActualizar.Setveetotal(Integer.parseInt(txtTotalVentas.getText()));
+        vendedorAActualizar.Setveeestatus(cbox_veeestatus.getSelectedItem().toString());    
+        vendedorDAO.update(vendedorAActualizar);
+        //FUNCION PARA HABILITAR TEXTO DE ID DOCUMENTO
+        txtIDDocumento.setEnabled(true);
         llenadoDeTablas();     
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -461,6 +468,8 @@ public class frmMantenimientoVentas extends javax.swing.JInternalFrame {
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
+        //FUNCION PARA HABILITAR TEXTO DE ID DOCUMENTO
+        txtIDDocumento.setEnabled(true);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed

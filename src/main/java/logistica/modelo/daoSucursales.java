@@ -5,8 +5,8 @@
  */
 package logistica.modelo;
 
-import seguridad.modelo.clsConexion;
-import logistica.controlador.clsConcepto;
+import seguridad.modelo.*;
+import logistica.controlador.clsSucursales;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,36 +18,36 @@ import java.util.List;
  *
  * @author visitante
  */
-public class daoConcepto {
+public class daoSucursales {
 
-    private static final String SQL_SELECT = "SELECT conid, connombre, conestatus FROM tbl_conceptos";
-    private static final String SQL_INSERT = "INSERT INTO tbl_conceptos(connombre, conestatus) VALUES(?, ?)";
-    private static final String SQL_UPDATE = "UPDATE tbl_conceptos SET connombre=?, conestatus=? WHERE conid = ?";
-    private static final String SQL_DELETE = "DELETE FROM tbl_conceptos WHERE conid=?";
-    private static final String SQL_QUERY = "SELECT conid, connombre, conestatus FROM tbl_conceptos WHERE conid = ?";
+    private static final String SQL_SELECT = "SELECT succodigo, sucnombre, sucestatus FROM tbl_sucursales";
+    private static final String SQL_INSERT = "INSERT INTO tbl_sucursales(sucnombre, sucestatus) VALUES(?, ?)";
+    private static final String SQL_UPDATE = "UPDATE tbl_sucursales SET sucnombre=?, sucestatus=? WHERE succodigo = ?";
+    private static final String SQL_DELETE = "DELETE FROM tbl_sucursales WHERE succodigo=?";
+    private static final String SQL_QUERY = "SELECT succodigo, sucnombre, sucestatus FROM tbl_sucursales WHERE succodigo = ?";
 
-    public List<clsConcepto> select() {
+    public List<clsSucursales> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsConcepto concepto = null;
-        List<clsConcepto> conceptos = new ArrayList<clsConcepto>();
+        clsSucursales aplicacion = null;
+        List<clsSucursales> aplicaciones = new ArrayList<clsSucursales>();
 
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int codigo = rs.getInt("conid");
-                String nombre = rs.getString("connombre");
-                String estado = rs.getString("conestatus");
+                int id_aplicacion = rs.getInt("succodigo");
+                String nombre = rs.getString("sucnombre");
+                String estado = rs.getString("sucestatus");
                 
-                concepto = new clsConcepto();
-                concepto.setcodigoc(codigo);
-                concepto.setNombrec(nombre);
-                concepto.setestadoc(estado);
+                aplicacion = new clsSucursales();
+                aplicacion.setId_Sucursal(id_aplicacion);
+                aplicacion.setNombreSucursal(nombre);
+                aplicacion.setestadoSucursal(estado);
                 
-                conceptos.add(concepto);
+                aplicaciones.add(aplicacion);
             }
 
         } catch (SQLException ex) {
@@ -58,18 +58,18 @@ public class daoConcepto {
             clsConexion.close(conn);
         }
 
-        return conceptos;
+        return aplicaciones;
     }
 
-    public int insert(clsConcepto concepto) {
+    public int insert(clsSucursales aplicacion) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, concepto.getNombrec());
-            stmt.setString(2, concepto.getestadoc());
+            stmt.setString(1, aplicacion.getNombreSucursal());
+            stmt.setString(2, aplicacion.getestadoSucursal());
 
 
             System.out.println("ejecutando query:" + SQL_INSERT);
@@ -85,7 +85,7 @@ public class daoConcepto {
         return rows;
     }
 
-    public int update(clsConcepto concepto) {
+    public int update(clsSucursales aplicacion) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -94,9 +94,9 @@ public class daoConcepto {
             conn = clsConexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, concepto.getNombrec());
-            stmt.setString(2, concepto.getestadoc());
-            stmt.setInt(3, concepto.getcodigoc());
+            stmt.setString(1, aplicacion.getNombreSucursal());
+            stmt.setString(2, aplicacion.getestadoSucursal());
+            stmt.setInt(3, aplicacion.getId_Sucursal());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -111,7 +111,7 @@ public class daoConcepto {
         return rows;
     }
 
-    public int delete(clsConcepto concepto) {
+    public int delete(clsSucursales aplicacion) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -120,7 +120,7 @@ public class daoConcepto {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, concepto.getcodigoc());
+            stmt.setInt(1, aplicacion.getId_Sucursal());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
@@ -134,28 +134,28 @@ public class daoConcepto {
     }
 
 //    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public clsConcepto query(clsConcepto concepto) {    
+    public clsSucursales query(clsSucursales aplicacion) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<clsConcepto> conceptos = new ArrayList<clsConcepto>();
+        List<clsSucursales> aplicaciones = new ArrayList<clsSucursales>();
         int rows = 0;
 
         try {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, concepto.getcodigoc());
+            stmt.setInt(1, aplicacion.getId_Sucursal());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int codigo = rs.getInt("conid");
-                String nombre = rs.getString("connombre");
-                String estado = rs.getString("conestatus");
+                int id_aplicacion = rs.getInt("succodigo");
+                String nombre = rs.getString("sucnombre");
+                String estado = rs.getString("sucestatus");
                 
-                concepto = new clsConcepto();
-                concepto.setcodigoc(codigo);
-                concepto.setNombrec(nombre);
-                concepto.setestadoc(estado);
+                aplicacion = new clsSucursales();
+                aplicacion.setId_Sucursal(id_aplicacion);
+                aplicacion.setNombreSucursal(nombre);
+                aplicacion.setestadoSucursal(estado);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
             }
@@ -169,7 +169,7 @@ public class daoConcepto {
         }
 
         //return vendedores;  // Si se utiliza un ArrayList
-        return concepto;
+        return aplicacion;
     }
         
 }

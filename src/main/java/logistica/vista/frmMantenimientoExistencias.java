@@ -8,8 +8,11 @@ package logistica.vista;
 import seguridad.vista.*;
 import logistica.modelo.daoExistencias;
 import logistica.controlador.clsExistencias;
-
+import logistica.modelo.daoProductos;
+import logistica.controlador.clsProductos;
 import java.util.List;
+import logistica.modelo.daoBodega;
+import logistica.controlador.clsBodega;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 
@@ -19,7 +22,26 @@ import java.io.File;
  */
 public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
 
-
+ public void llenadoDeCombosProducto() {
+        daoProductos pDAO = new daoProductos();
+        List<clsProductos> ps = pDAO.select();
+        cbox_productos.addItem("Seleccione una opción");
+        for (int i = 0; i < ps.size(); i++) {
+           
+            cbox_productos.addItem (Integer.toString(ps.get(i).getProdcodigo()));
+        }
+    }
+ 
+ 
+ public void llenadoDeCombosBodega() {
+        daoBodega pDAO = new daoBodega();
+        List<clsBodega> ps = pDAO.select();
+        cbox_bodegas.addItem("Seleccione una opción");
+        for (int i = 0; i < ps.size(); i++) {
+           
+            cbox_bodegas.addItem (Integer.toString(ps.get(i).getcodigob()));
+        }
+    }
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -54,8 +76,9 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         vendedorAConsultar.setBodcodigo(Integer.parseInt(txtbuscado.getText()));
         vendedorAConsultar = perfilDAO.query(vendedorAConsultar);
         
-        txtBodega.setText(Integer.toString( vendedorAConsultar.getBodcodigo())); 
-        txtProducto.setText(Integer.toString( vendedorAConsultar.getProdcodigo()));  
+        
+        cbox_bodegas.setSelectedItem(Integer.toString( vendedorAConsultar.getBodcodigo())); 
+        cbox_productos.setSelectedItem(Integer.toString( vendedorAConsultar.getProdcodigo())); 
         txtSaldo.setText(Float.toString( vendedorAConsultar.getExisaldo()));  
       
     }
@@ -63,8 +86,8 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
     public frmMantenimientoExistencias() {
         initComponents();
         llenadoDeTablas();
-       
-        
+       llenadoDeCombosProducto();
+        llenadoDeCombosBodega();
     }
 
     /**
@@ -85,15 +108,15 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         btnModificar = new javax.swing.JButton();
         label3 = new javax.swing.JLabel();
         txtbuscado = new javax.swing.JTextField();
-        txtBodega = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVendedores = new javax.swing.JTable();
         lb = new javax.swing.JLabel();
-        txtProducto = new javax.swing.JTextField();
         label6 = new javax.swing.JLabel();
         txtSaldo = new javax.swing.JTextField();
         label7 = new javax.swing.JLabel();
+        cbox_productos = new javax.swing.JComboBox<>();
+        cbox_bodegas = new javax.swing.JComboBox<>();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -139,15 +162,6 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         label3.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label3.setText("Id bodega");
 
-        txtBodega.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtBodega.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtBodega.setOpaque(false);
-        txtBodega.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBodegaActionPerformed(evt);
-            }
-        });
-
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,15 +183,6 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         lb.setForeground(new java.awt.Color(204, 204, 204));
         lb.setText(".");
 
-        txtProducto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtProducto.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtProducto.setOpaque(false);
-        txtProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductoActionPerformed(evt);
-            }
-        });
-
         label6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label6.setText("Id Producto");
 
@@ -192,6 +197,20 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
 
         label7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label7.setText("Saldo existencia");
+
+        cbox_productos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cbox_productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_productosActionPerformed(evt);
+            }
+        });
+
+        cbox_bodegas.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cbox_bodegas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_bodegasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -224,11 +243,10 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbox_bodegas, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbox_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -250,14 +268,14 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lb)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtBodega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(label3))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label3)
+                                    .addComponent(cbox_bodegas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(label6)
-                                    .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
+                                    .addComponent(cbox_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label7)
                             .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -271,7 +289,7 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
                             .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar)
                             .addComponent(btnLimpiar))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -289,8 +307,9 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         daoExistencias perfilDAO = new daoExistencias();
         clsExistencias vendedorAInsertar = new clsExistencias();     
-       vendedorAInsertar.setBodcodigo(Integer.parseInt(txtBodega.getText()));
-        vendedorAInsertar.setProdcodigo(Integer.parseInt(txtProducto.getText()));
+   
+       vendedorAInsertar.setBodcodigo(Integer.parseInt(cbox_bodegas.getSelectedItem().toString()));
+        vendedorAInsertar.setProdcodigo(Integer.parseInt(cbox_productos.getSelectedItem().toString()));
          vendedorAInsertar.setExisaldo(Float.parseFloat(txtSaldo.getText()));
        
           perfilDAO.insert(vendedorAInsertar);
@@ -307,8 +326,9 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
 //        // TODO add your handling code here:
        daoExistencias vendedorDAO = new daoExistencias();
         clsExistencias vendedorAActualizar = new clsExistencias();
-        vendedorAActualizar.setBodcodigo(Integer.parseInt(txtBodega.getText()));
-        vendedorAActualizar.setProdcodigo(Integer.parseInt(txtProducto.getText()));
+      
+        vendedorAActualizar.setBodcodigo(Integer.parseInt(cbox_bodegas.getSelectedItem().toString()));
+        vendedorAActualizar.setProdcodigo(Integer.parseInt(cbox_productos.getSelectedItem().toString()));
          vendedorAActualizar.setExisaldo(Float.parseFloat(txtSaldo.getText()));
     
         vendedorDAO.update(vendedorAActualizar);
@@ -317,8 +337,10 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
        
-        txtBodega.setText("");
+        cbox_bodegas.setSelectedIndex(0);
+        cbox_productos.setSelectedIndex(0);
         txtbuscado.setText("");
+        txtSaldo.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
@@ -326,17 +348,18 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void txtBodegaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBodegaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBodegaActionPerformed
-
-    private void txtProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductoActionPerformed
-
     private void txtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSaldoActionPerformed
+
+    private void cbox_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_productosActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbox_productosActionPerformed
+
+    private void cbox_bodegasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_bodegasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbox_bodegasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -345,6 +368,8 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> cbox_bodegas;
+    private javax.swing.JComboBox<String> cbox_productos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
@@ -354,8 +379,6 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
     private javax.swing.JTable tablaVendedores;
-    private javax.swing.JTextField txtBodega;
-    private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtSaldo;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables

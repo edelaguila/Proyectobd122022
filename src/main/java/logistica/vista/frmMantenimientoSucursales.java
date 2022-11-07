@@ -6,13 +6,10 @@
 package logistica.vista;
 
 import seguridad.vista.*;
-import logistica.modelo.daoExistencias;
-import logistica.controlador.clsExistencias;
-import logistica.modelo.daoProductos;
-import logistica.controlador.clsProductos;
+import logistica.modelo.daoSucursales;
+import logistica.controlador.clsSucursales;
+
 import java.util.List;
-import logistica.modelo.daoBodega;
-import logistica.controlador.clsBodega;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
 
@@ -20,50 +17,29 @@ import java.io.File;
  *
  * @author visitante Juan Miguel Sandoval
  */
-public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
-
- public void llenadoDeCombosProducto() {
-        daoProductos pDAO = new daoProductos();
-        List<clsProductos> ps = pDAO.select();
-        cbox_productos.addItem("Seleccione una opción");
-        for (int i = 0; i < ps.size(); i++) {
-           
-            cbox_productos.addItem (Integer.toString(ps.get(i).getProdcodigo()));
-        }
-    }
- 
- 
- public void llenadoDeCombosBodega() {
-        daoBodega pDAO = new daoBodega();
-        List<clsBodega> ps = pDAO.select();
-        cbox_bodegas.addItem("Seleccione una opción");
-        for (int i = 0; i < ps.size(); i++) {
-           
-            cbox_bodegas.addItem (Integer.toString(ps.get(i).getcodigob()));
-        }
-    }
+public class frmMantenimientoSucursales extends javax.swing.JInternalFrame {
+    
+     public void estados() {    
+        cbox_estado.addItem("seleccione: "); 
+        cbox_estado.addItem("A");
+        cbox_estado.addItem("I");
+        
+    } 
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("Id bodega");
-        modelo.addColumn("Id producto");
-         modelo.addColumn("Saldo existencia");
-         modelo.addColumn("Nombre Bodega");
-         modelo.addColumn("Nombre Producto");
+        modelo.addColumn("Id");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Estado");
         
-        
-        daoExistencias perfilDAO = new daoExistencias();
-        List<clsExistencias> perfiles = perfilDAO.select();
+        daoSucursales perfilDAO = new daoSucursales();
+        List<clsSucursales> perfiles = perfilDAO.select();
         tablaVendedores.setModel(modelo);
-        String[] dato = new String[5];
+        String[] dato = new String[3];
         for (int i = 0; i < perfiles.size(); i++) {
-            dato[0] = Integer.toString(perfiles.get(i).getBodcodigo());
-              dato[1] = Integer.toString(perfiles.get(i).getProdcodigo());
-                dato[2] = Float.toString(perfiles.get(i).getExisaldo());
-                 dato[3] = perfiles.get(i).getBodnombre();
-                 dato[4] = perfiles.get(i).getProdnombre();
-                
-        
+            dato[0] = Integer.toString(perfiles.get(i).getId_Sucursal());
+            dato[1] = perfiles.get(i).getNombreSucursal();
+            dato[2] = perfiles.get(i).getestadoSucursal();
             
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
@@ -71,23 +47,19 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
     }
 
     public void buscarVendedor() {
-        clsExistencias vendedorAConsultar = new clsExistencias();
-        daoExistencias perfilDAO = new daoExistencias();
-        vendedorAConsultar.setBodcodigo(Integer.parseInt(txtbuscado.getText()));
+        clsSucursales vendedorAConsultar = new clsSucursales();
+        daoSucursales perfilDAO = new daoSucursales();
+        vendedorAConsultar.setId_Sucursal(Integer.parseInt(txtbuscado.getText()));
         vendedorAConsultar = perfilDAO.query(vendedorAConsultar);
-        
-        
-        cbox_bodegas.setSelectedItem(Integer.toString( vendedorAConsultar.getBodcodigo())); 
-        cbox_productos.setSelectedItem(Integer.toString( vendedorAConsultar.getProdcodigo())); 
-        txtSaldo.setText(Float.toString( vendedorAConsultar.getExisaldo()));  
-      
+        txtNombre.setText(vendedorAConsultar.getNombreSucursal()); 
+        cbox_estado.setSelectedItem(vendedorAConsultar.getestadoSucursal());
     }
 
-    public frmMantenimientoExistencias() {
+    public frmMantenimientoSucursales() {
         initComponents();
         llenadoDeTablas();
-       llenadoDeCombosProducto();
-        llenadoDeCombosBodega();
+        estados();
+        
     }
 
     /**
@@ -108,15 +80,13 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         btnModificar = new javax.swing.JButton();
         label3 = new javax.swing.JLabel();
         txtbuscado = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVendedores = new javax.swing.JTable();
+        label5 = new javax.swing.JLabel();
         lb = new javax.swing.JLabel();
-        label6 = new javax.swing.JLabel();
-        txtSaldo = new javax.swing.JTextField();
-        label7 = new javax.swing.JLabel();
-        cbox_productos = new javax.swing.JComboBox<>();
-        cbox_bodegas = new javax.swing.JComboBox<>();
+        cbox_estado = new javax.swing.JComboBox<>();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -124,8 +94,7 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setResizable(true);
-        setTitle("Mantenimiento Existencias");
+        setTitle("Mantenimiento Conductor");
         setVisible(true);
 
         btnEliminar.setText("Eliminar");
@@ -150,7 +119,7 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         });
 
         label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label1.setText("Existencias");
+        label1.setText("Conductores");
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +129,16 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         });
 
         label3.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label3.setText("Id bodega");
+        label3.setText("Nombre conductor");
+
+        txtNombre.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtNombre.setOpaque(false);
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -180,35 +158,16 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tablaVendedores);
 
+        label5.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label5.setText("Estado conductor");
+
         lb.setForeground(new java.awt.Color(204, 204, 204));
         lb.setText(".");
 
-        label6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label6.setText("Id Producto");
-
-        txtSaldo.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtSaldo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
-        txtSaldo.setOpaque(false);
-        txtSaldo.addActionListener(new java.awt.event.ActionListener() {
+        cbox_estado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cbox_estado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSaldoActionPerformed(evt);
-            }
-        });
-
-        label7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label7.setText("Saldo existencia");
-
-        cbox_productos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        cbox_productos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_productosActionPerformed(evt);
-            }
-        });
-
-        cbox_bodegas.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        cbox_bodegas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_bodegasActionPerformed(evt);
+                cbox_estadoActionPerformed(evt);
             }
         });
 
@@ -237,20 +196,17 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label3)
-                            .addComponent(label6)
-                            .addComponent(label7))
+                            .addComponent(label5))
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbox_bodegas, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cbox_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombre)
+                            .addComponent(cbox_estado, 0, 263, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -266,19 +222,16 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label3)
-                                    .addComponent(cbox_bodegas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label6)
-                                    .addComponent(cbox_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label7)
-                            .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label5)
+                                    .addComponent(cbox_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lb))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegistrar)
@@ -289,7 +242,7 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
                             .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar)
                             .addComponent(btnLimpiar))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -297,22 +250,19 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        daoExistencias perfilDAO = new daoExistencias();
-        clsExistencias vendedorAEliminar = new clsExistencias();
-        vendedorAEliminar.setBodcodigo(Integer.parseInt(txtbuscado.getText()));
+        daoSucursales perfilDAO = new daoSucursales();
+        clsSucursales vendedorAEliminar = new clsSucursales();
+        vendedorAEliminar.setId_Sucursal(Integer.parseInt(txtbuscado.getText()));
         perfilDAO.delete(vendedorAEliminar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        daoExistencias perfilDAO = new daoExistencias();
-        clsExistencias vendedorAInsertar = new clsExistencias();     
-   
-       vendedorAInsertar.setBodcodigo(Integer.parseInt(cbox_bodegas.getSelectedItem().toString()));
-        vendedorAInsertar.setProdcodigo(Integer.parseInt(cbox_productos.getSelectedItem().toString()));
-         vendedorAInsertar.setExisaldo(Float.parseFloat(txtSaldo.getText()));
-       
-          perfilDAO.insert(vendedorAInsertar);
+        daoSucursales perfilDAO = new daoSucursales();
+        clsSucursales vendedorAInsertar = new clsSucursales();     
+        vendedorAInsertar.setNombreSucursal(txtNombre.getText());
+        vendedorAInsertar.setestadoSucursal(cbox_estado.getSelectedItem().toString());
+        perfilDAO.insert(vendedorAInsertar);
         
         llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -324,23 +274,19 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
-       daoExistencias vendedorDAO = new daoExistencias();
-        clsExistencias vendedorAActualizar = new clsExistencias();
-      
-        vendedorAActualizar.setBodcodigo(Integer.parseInt(cbox_bodegas.getSelectedItem().toString()));
-        vendedorAActualizar.setProdcodigo(Integer.parseInt(cbox_productos.getSelectedItem().toString()));
-         vendedorAActualizar.setExisaldo(Float.parseFloat(txtSaldo.getText()));
-    
+       daoSucursales vendedorDAO = new daoSucursales();
+        clsSucursales vendedorAActualizar = new clsSucursales();
+        vendedorAActualizar.setId_Sucursal(Integer.parseInt(txtbuscado.getText()));
+        vendedorAActualizar.setNombreSucursal(txtNombre.getText());
+        vendedorAActualizar.setestadoSucursal(cbox_estado.getSelectedItem().toString());
         vendedorDAO.update(vendedorAActualizar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-       
-        cbox_bodegas.setSelectedIndex(0);
-        cbox_productos.setSelectedIndex(0);
+        cbox_estado.setSelectedIndex(0);
+        txtNombre.setText("");
         txtbuscado.setText("");
-        txtSaldo.setText("");
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
@@ -348,18 +294,13 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void txtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSaldoActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void cbox_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_productosActionPerformed
-
+    private void cbox_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_estadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbox_productosActionPerformed
-
-    private void cbox_bodegasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_bodegasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbox_bodegasActionPerformed
+    }//GEN-LAST:event_cbox_estadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -368,18 +309,16 @@ public class frmMantenimientoExistencias extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JComboBox<String> cbox_bodegas;
-    private javax.swing.JComboBox<String> cbox_productos;
+    private javax.swing.JComboBox<String> cbox_estado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
-    private javax.swing.JLabel label6;
-    private javax.swing.JLabel label7;
+    private javax.swing.JLabel label5;
     private javax.swing.JLabel lb;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lbusu;
     private javax.swing.JTable tablaVendedores;
-    private javax.swing.JTextField txtSaldo;
+    private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtbuscado;
     // End of variables declaration//GEN-END:variables
 }

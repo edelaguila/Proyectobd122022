@@ -12,51 +12,42 @@ package ventas.controlador;
  * @author visitante
  */
 public class clsCotizacion {
-    //declaracion de variable para Vendedores 
-    String veedocumento;
+    String cve_documento;
     int clicodigo;
-    String veefecha;
-    int veetotal;
-    String veeestatus;
-    int vedorden;
+    String cve_fecha;
+    
     int prodcodigo;
-    int vedcantidad;
-    int vedprecio;
-    int bodcodigo;
+    int cvd_cantidad_producto;
+    int cvd_total_producto;
+
 
 
     public clsCotizacion() {
     }
 
     public clsCotizacion(String veedocumento) {
-    this.veedocumento = veedocumento;
+    this.cve_documento = cve_documento;
     }
 
-     public clsCotizacion(String veedocumento, int clicodigo, String veefecha, int veetotal, String veeestatus, String vedestatus,int vedorden, 
-             int prodcodigo, int vedcantidad, int vedprecio, int bodcodigo) {
+     public clsCotizacion(String cve_documento, int clicodigo, String cve_fecha, int prodcodigo,int cvd_cantidad_producto, int cvd_total_producto) {
          
-        this.veedocumento = veedocumento;
+        this.cve_documento = cve_documento;
         this.clicodigo = clicodigo;
-        this.veefecha = veefecha;
-        this.veetotal = veetotal;
-        this.veeestatus = veeestatus;
-        this.vedorden = vedorden;
+        this.cve_fecha = cve_fecha;
         this.prodcodigo = prodcodigo;
-        this.vedcantidad = vedcantidad;
-        this.vedprecio = vedprecio;
-        this.bodcodigo = bodcodigo;
-
-
+        this.cvd_cantidad_producto = cvd_cantidad_producto;
+        this.cvd_total_producto = cvd_total_producto;
+        this.prodcodigo = prodcodigo;
     }
 
 
 
-public String Getveedocumento() {
-        return veedocumento;
+public String Getcve_documento() {
+        return cve_documento;
     }
 
-    public void Setvedcodigo(String veedocumento) {
-        this.veedocumento = veedocumento;
+    public void Setcve_documento(String cve_documento) {
+        this.cve_documento = cve_documento;
     }
 
 
@@ -68,38 +59,14 @@ public String Getveedocumento() {
         this.clicodigo = clicodigo;
     }
 
-    public String Getveefecha() {
-        return veefecha;
+    public String Getcve_fecha() {
+        return cve_fecha;
     }
 
-    public void Setveefecha(String veefecha) {
-        this.veefecha = veefecha;
+    public void Setcve_fecha(String cve_fecha) {
+        this.cve_fecha = cve_fecha;
     }
 
-    public int Getveetotal() {
-        return veetotal;
-    }
-
-    public void Setveetotal(int veetotal) {
-        this.veetotal = veetotal;
-    }
-    
-    public String Getveeestatus() {
-        return veeestatus;
-    }
-
-    public void Setveeestatus(String veeestatus) {
-        this.veeestatus = veeestatus;
-    }
-    
-    public int Getvedorden() {
-        return vedorden;
-    }
-
-    public void Setvedorden(int vedorden) {
-        this.vedorden = vedorden;
-    }
-    
     public int Getprodcodigo() {
         return prodcodigo;
     }
@@ -108,40 +75,27 @@ public String Getveedocumento() {
         this.prodcodigo = prodcodigo;
     }
     
-        public int Getvedcantidad() {
-        return vedcantidad;
+    public int Getcvd_cantidad_producto() {
+        return cvd_cantidad_producto;
     }
 
-    public void Setvedcantidad(int vedcantidad) {
-        this.vedcantidad = vedcantidad;
-    }
-    
-    
-    public int Getvedprecio() {
-        return vedprecio;
-    }
-
-    public void Setvedprecio(int vedprecio) {
-        this.vedprecio = vedprecio;
+    public void Setcvd_cantidad_producto(int cvd_cantidad_producto) {
+        this.cvd_cantidad_producto = cvd_cantidad_producto;
     }
     
-    public int Getbodcodigo() {
-        return bodcodigo;
+    public int Getcvd_total_producto() {
+        return cvd_total_producto;
     }
 
-    public void Setbodcodigo(int bodcodigo) {
-        this.bodcodigo = bodcodigo;
+    public void Setcvd_total_producto(int cvd_total_producto) {
+        this.cvd_total_producto = cvd_total_producto;
     }
-    
-
-
- 
-
+   
 
 
     @Override
     public String toString() {
-         return "tbl_vendedores{" + "veedocumento =" + veedocumento + ", clicodigo=" + clicodigo + ", veefecha=" + veefecha + ", veetotal=" + veetotal +", veeestatus=" + veeestatus +", vedorden=" + vedorden +", prodcodigo=" + prodcodigo +", vedcantidad=" + vedcantidad +", vedprecio=" + vedprecio +", bodcodigo=" + bodcodigo + '}';
+         return "tbl_vendedores{" + "cve_documento =" + cve_documento + ", clicodigo=" + clicodigo + ", cve_fecha=" + cve_fecha + ", prodcodigo=" + prodcodigo +", cvd_cantidad_producto=" +'}';
     }
     
 }

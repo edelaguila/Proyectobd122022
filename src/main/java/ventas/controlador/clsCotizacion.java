@@ -15,10 +15,13 @@ public class clsCotizacion {
     String cve_documento;
     int clicodigo;
     String cve_fecha;
+    int cve_total;
+    String cve_estatus;
     
+    int cvd_orden;
     int prodcodigo;
     int cvd_cantidad_producto;
-    int cvd_total_producto;
+    int cvd_costo_producto;
 
 
 
@@ -29,15 +32,17 @@ public class clsCotizacion {
     this.cve_documento = cve_documento;
     }
 
-     public clsCotizacion(String cve_documento, int clicodigo, String cve_fecha, int prodcodigo,int cvd_cantidad_producto, int cvd_total_producto) {
+     public clsCotizacion(String cve_documento, int clicodigo, String cve_fecha,int cve_total, String cve_estatus, int cvd_orden, int prodcodigo,int cvd_cantidad_producto, int cvd_costo_producto) {
          
         this.cve_documento = cve_documento;
         this.clicodigo = clicodigo;
         this.cve_fecha = cve_fecha;
+        this.cve_total = cve_total;
+        this.cve_estatus = cve_estatus;
+        this.cvd_orden = cvd_orden;
         this.prodcodigo = prodcodigo;
         this.cvd_cantidad_producto = cvd_cantidad_producto;
-        this.cvd_total_producto = cvd_total_producto;
-        this.prodcodigo = prodcodigo;
+        this.cvd_costo_producto = cvd_costo_producto;
     }
 
 
@@ -66,7 +71,31 @@ public String Getcve_documento() {
     public void Setcve_fecha(String cve_fecha) {
         this.cve_fecha = cve_fecha;
     }
+    
+        public int Getcve_total() {
+        return cve_total;
+    }
 
+    public void Setcve_total(int cve_total) {
+        this.cve_total = cve_total;
+    }
+    
+        public String Getcve_estatus() {
+        return cve_estatus;
+    }
+
+    public void Setcve_estatus(String cve_estatus) {
+        this.cve_estatus = cve_estatus;
+    }
+
+    public int Getcvd_orden() {
+        return cvd_orden;
+    }
+
+    public void Setcvd_orden(int cvd_orden) {
+        this.cvd_orden = cvd_orden;
+    }
+    
     public int Getprodcodigo() {
         return prodcodigo;
     }
@@ -83,19 +112,19 @@ public String Getcve_documento() {
         this.cvd_cantidad_producto = cvd_cantidad_producto;
     }
     
-    public int Getcvd_total_producto() {
-        return cvd_total_producto;
+    public int Getcvd_costo_producto() {
+        return cvd_costo_producto;
     }
 
-    public void Setcvd_total_producto(int cvd_total_producto) {
-        this.cvd_total_producto = cvd_total_producto;
+    public void Setcvd_costo_producto(int cvd_costo_producto) {
+        this.cvd_costo_producto = cvd_costo_producto;
     }
    
 
 
     @Override
     public String toString() {
-         return "tbl_vendedores{" + "cve_documento =" + cve_documento + ", clicodigo=" + clicodigo + ", cve_fecha=" + cve_fecha + ", prodcodigo=" + prodcodigo +", cvd_cantidad_producto=" +'}';
+         return "tbl_vendedores{" + "cve_documento =" + cve_documento + ", clicodigo=" + clicodigo + ", cve_fecha=" + cve_fecha + ", prodcodigo=" + prodcodigo +'}';
     }
     
 }

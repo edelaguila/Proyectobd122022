@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import seguridad.modelo.clsConexion;
+import ventas.controlador.clsCotizacion;
 
 /**
  *
@@ -20,49 +21,49 @@ import seguridad.modelo.clsConexion;
  */
 public class daoCotizacion {
 
-    private static final String SQL_SELECT = "SELECT veedocumento, clicodigo, veefecha, veetotal, veeestatus FROM tbl_ventas_encabezado";
-    private static final String SQL_SELECT2 = "SELECT veedocumento, vedorden, prodcodigo, vedcantidad, vedprecio, bodcodigo FROM tbl_ventas_detalle";
+    private static final String SQL_SELECT = "SELECT cve_documento, clicodigo, cve_fecha, cve_total, cve_estatus FROM cotizacion_ventas_encabezado";
+    private static final String SQL_SELECT2 = "SELECT cve_documento, cvd_orden, prodcodigo, cvd_cantidad_producto, cvd_costo_producto FROM cotizacion_ventas_detalle";
     
-    private static final String SQL_INSERT = "INSERT INTO tbl_ventas_encabezado(veedocumento, clicodigo, veefecha, veetotal, veeestatus) VALUES(?, ?, ?, ?, ?)";
-    private static final String SQL_INSERT2 = "INSERT INTO tbl_ventas_detalle(veedocumento, vedorden, prodcodigo, vedcantidad, vedprecio, bodcodigo) VALUES( ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO cotizacion_ventas_encabezado(cve_documento, clicodigo, cve_fecha, cve_total, cve_estatus) VALUES(?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT2 = "INSERT INTO cotizacion_ventas_detalle(cve_documento, cvd_orden, prodcodigo, cvd_cantidad_producto, cvd_costo_producto) VALUES(?, ?, ?, ?, ?)";
     
-    //private static final String SQL_UPDATE = "UPDATE tbl_ventas_encabezado SET clicodigo=?, veefecha=?, veetotal=?, veeestatus=?  WHERE veedocumento = ?";
-    private static final String SQL_UPDATE = "UPDATE proyectobd122022.tbl_ventas_encabezado SET clicodigo = ?, veefecha = ?, veetotal = ?, veeestatus = ? WHERE (veedocumento = ?)";
-    //private static final String SQL_UPDATE2 = "UPDATE tbl_ventas_detalle SET vedorden=?, prodcodigo=?, vedcantidad=?, vedprecio=?, bodcodigo=? WHERE veedocumento = ?";
-    private static final String SQL_UPDATE2 = "UPDATE proyectobd122022.tbl_ventas_detalle SET vedorden = ?, prodcodigo = ?, vedcantidad = ?, vedprecio = ?, bodcodigo = ? WHERE (veedocumento = ?)";
+    //private static final String SQL_UPDATE = "UPDATE cotizacion_ventas_encabezado SET clicodigo=?, cve_fecha=?, veetotal=?, veeestatus=?  WHERE cve_documento = ?";
+    private static final String SQL_UPDATE = "UPDATE proyectobd122022.cotizacion_ventas_encabezado SET clicodigo = ?, cve_fecha = ?, cve_total = ?, cve_estatus = ? WHERE (cve_documento = ?)";
+    //private static final String SQL_UPDATE2 = "UPDATE cotizacion_ventas_detalle SET prodcodigo=?, prodcodigo=?, vedcantidad=?, vedprecio=?, bodcodigo=? WHERE cve_documento = ?";
+    private static final String SQL_UPDATE2 = "UPDATE proyectobd122022.cotizacion_ventas_detalle SET cvd_orden = ?, prodcodigo = ?, cvd_cantidad_producto = ?, cvd_costo_producto WHERE (cve_documento = ?)";
 
-    private static final String SQL_DELETE = "DELETE FROM proyectobd122022.tbl_ventas_encabezado WHERE (veedocumento = ?)";
-    private static final String SQL_DELETE2 = "DELETE FROM proyectobd122022.tbl_ventas_detalle WHERE (veedocumento = ?)";
+    private static final String SQL_DELETE = "DELETE FROM proyectobd122022.cotizacion_ventas_encabezado WHERE (cve_documento = ?)";
+    private static final String SQL_DELETE2 = "DELETE FROM proyectobd122022.cotizacion_ventas_detalle WHERE (cve_documento = ?)";
 
-    private static final String SQL_QUERY = "SELECT veedocumento, clicodigo, veefecha, veetotal, veeestatus FROM tbl_ventas_encabezado WHERE veedocumento = ?";
-    private static final String SQL_QUERY2 = "SELECT veedocumento, vedorden, prodcodigo, vedcantidad, vedprecio, bodcodigo FROM tbl_ventas_detalle WHERE veedocumento = ?";
+    private static final String SQL_QUERY = "SELECT cve_documento, clicodigo, cve_fecha, cve_total, cve_estatus WHERE cve_documento = ?";
+    private static final String SQL_QUERY2 = "SELECT cve_documento, cvd_orden, prodcodigo, cvd_cantidad_producto, cvd_costo_producto WHERE cve_documento = ?";
 
 
-    public List<clsVentas> select() {
+    public List<clsCotizacion> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         clsVentas venta = null;
-        List<clsVentas> ventas = new ArrayList<clsVentas>();
+        List<clsCotizacion> ventas = new ArrayList<clsVentas>();
 
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String veedocumento = rs.getString("veedocumento");
+                String cve_documento = rs.getString("cve_documento");
                 int clicodigo = rs.getInt("clicodigo");
-                String veefecha = rs.getString("veefecha");
-                int veetotal = rs.getInt("veetotal");
-                String veeestatus = rs.getString("veeestatus");
+                String cve_fecha = rs.getString("cve_fecha");
+                int cve_total = rs.getInt("cve_total");
+                String cve_estatus = rs.getString("cve_estatus");
 
 
                 venta = new clsVentas();
-                venta.Setvedcodigo(veedocumento);
+                venta.Setvedcodigo(cve_documento);
                 venta.Setclicodigo(clicodigo);
-                venta.Setveefecha(veefecha);
-                venta.Setveetotal(veetotal);
-                venta.Setveeestatus(veeestatus);
+                venta.set(cve_fecha);
+                venta.Setveetotal(cve_total);
+                venta.Setveeestatus(cve_estatus);
 
                 
                 ventas.add(venta);
@@ -91,7 +92,7 @@ public class daoCotizacion {
             stmt = conn.prepareStatement(SQL_SELECT2);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String veedocumento = rs.getString("veedocumento");
+                String cve_documento = rs.getString("cve_documento");
                 int vedorden = rs.getInt("vedorden");
                 int prodcodigo = rs.getInt("prodcodigo");
                 int vedcantidad = rs.getInt("vedcantidad");
@@ -101,7 +102,7 @@ public class daoCotizacion {
 
 
                 venta = new clsVentas();
-                venta.Setvedcodigo(veedocumento);
+                venta.Setvedcodigo(cve_documento);
                 venta.Setvedorden(vedorden);
                 venta.Setprodcodigo(prodcodigo);
                 venta.Setvedcantidad(vedcantidad);
@@ -130,9 +131,9 @@ public class daoCotizacion {
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, vanta.Getveedocumento());
+            stmt.setString(1, vanta.Getcve_documento());
             stmt.setInt(2, vanta.Getclicodigo());
-            stmt.setString(3, vanta.Getveefecha());
+            stmt.setString(3, vanta.Getcve_fecha());
             stmt.setFloat(4, vanta.Getveetotal());
             stmt.setString(5, vanta.Getveeestatus());
 
@@ -158,7 +159,7 @@ public class daoCotizacion {
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT2);
-            stmt.setString(1, vanta.Getveedocumento());
+            stmt.setString(1, vanta.Getcve_documento());
             stmt.setInt(2, vanta.Getvedorden());
             stmt.setInt(3, vanta.Getprodcodigo());
             stmt.setInt(4, vanta.Getvedcantidad());
@@ -190,10 +191,10 @@ public class daoCotizacion {
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setInt(1, vanta.Getclicodigo());
-            stmt.setString(2, vanta.Getveefecha());
+            stmt.setString(2, vanta.Getcve_fecha());
             stmt.setInt(3, vanta.Getveetotal());
             stmt.setString(4, vanta.Getveeestatus());
-            stmt.setString(5, vanta.Getveedocumento());
+            stmt.setString(5, vanta.Getcve_documento());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -222,7 +223,7 @@ public class daoCotizacion {
             stmt.setInt(3, vanta.Getvedcantidad());
             stmt.setInt(4, vanta.Getvedprecio());
             stmt.setInt(5, vanta.Getbodcodigo());
-            stmt.setString(6, vanta.Getveedocumento());
+            stmt.setString(6, vanta.Getcve_documento());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -246,7 +247,7 @@ public class daoCotizacion {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setString(1, vanta.Getveedocumento());
+            stmt.setString(1, vanta.Getcve_documento());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
@@ -268,7 +269,7 @@ public class daoCotizacion {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE2);
             stmt = conn.prepareStatement(SQL_DELETE2);
-            stmt.setString(1, vanta.Getveedocumento());
+            stmt.setString(1, vanta.Getcve_documento());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
@@ -293,19 +294,19 @@ public class daoCotizacion {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setString(1, vanta.Getveedocumento());
+            stmt.setString(1, vanta.Getcve_documento());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String veedocumento = rs.getString("veedocumento");
+                String cve_documento = rs.getString("cve_documento");
                 int clicodigo = rs.getInt("clicodigo");
-                String veefecha = rs.getString("veefecha");
+                String cve_fecha = rs.getString("cve_fecha");
                 int veetotal = rs.getInt("veetotal");
                 String veeestatus = rs.getString("veeestatus");
                 
                 vanta = new clsVentas();
-                vanta.Setvedcodigo(veedocumento);
+                vanta.Setcve_documento(veedocumento);
                 vanta.Setclicodigo(clicodigo);
-                vanta.Setveefecha(veefecha);
+                vanta.Setcve_fecha(cve_fecha);
                 vanta.Setveetotal(veetotal);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
@@ -334,10 +335,10 @@ public class daoCotizacion {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY2);
             stmt = conn.prepareStatement(SQL_QUERY2);
-            stmt.setString(1, vanta.Getveedocumento());
+            stmt.setString(1, vanta.Getcve_documento());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String veedocumento = rs.getString("veedocumento");
+                String cve_documento = rs.getString("cve_documento");
                 int vedorden = rs.getInt("vedorden");
                 int prodcodigo = rs.getInt("prodcodigo");
                 int vedcantidad = rs.getInt("vedcantidad");
@@ -345,7 +346,7 @@ public class daoCotizacion {
                 int bodcodigo = rs.getInt("bodcodigo");
                 
                 vanta = new clsVentas();
-                vanta.Setvedcodigo(veedocumento);
+                vanta.Setcve_documento(cve_documento);
                 vanta.Setvedorden(vedorden);
                 vanta.Setprodcodigo(prodcodigo);
                 vanta.Setvedcantidad(vedcantidad);

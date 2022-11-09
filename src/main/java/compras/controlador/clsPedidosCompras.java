@@ -14,21 +14,27 @@ public class clsPedidosCompras {
     String pce_documento;
     int procodigo;
     String pce_fecha;
+    int pce_total;
+    String pce_estatus;
     
+    int pcd_orden;
     int prodcodigo;
-    int pce_cantidad_producto;
-    int pce_total_producto;
+    int pcd_cantidad_producto;
+    int pcd_costo_producto;
 
     public clsPedidosCompras() {
     }
 
-    public clsPedidosCompras(String pce_documento, int procodigo, String pce_fecha, int prodcodigo, int pce_cantidad_producto, int pce_total_producto) {
+    public clsPedidosCompras(String pce_documento, int procodigo, String pce_fecha, int pce_total, String pce_estatus, int pcd_orden, int prodcodigo, int pcd_cantidad_producto, int pcd_costo_producto) {
         this.pce_documento = pce_documento;
         this.procodigo = procodigo;
         this.pce_fecha = pce_fecha;
+        this.pce_total = pce_total;
+        this.pce_estatus = pce_estatus;
+        this.pcd_orden = pcd_orden;
         this.prodcodigo = prodcodigo;
-        this.pce_cantidad_producto = pce_cantidad_producto;
-        this.pce_total_producto = pce_total_producto;
+        this.pcd_cantidad_producto = pcd_cantidad_producto;
+        this.pcd_costo_producto = pcd_costo_producto;
     }
 
     public String getPce_documento() {
@@ -55,6 +61,30 @@ public class clsPedidosCompras {
         this.pce_fecha = pce_fecha;
     }
 
+    public int getPce_total() {
+        return pce_total;
+    }
+
+    public void setPce_total(int pce_total) {
+        this.pce_total = pce_total;
+    }
+
+    public String getPce_estatus() {
+        return pce_estatus;
+    }
+
+    public void setPce_estatus(String pce_estatus) {
+        this.pce_estatus = pce_estatus;
+    }
+
+    public int getPcd_orden() {
+        return pcd_orden;
+    }
+
+    public void setPcd_orden(int pcd_orden) {
+        this.pcd_orden = pcd_orden;
+    }
+
     public int getProdcodigo() {
         return prodcodigo;
     }
@@ -63,25 +93,25 @@ public class clsPedidosCompras {
         this.prodcodigo = prodcodigo;
     }
 
-    public int getPce_cantidad_producto() {
-        return pce_cantidad_producto;
+    public int getPcd_cantidad_producto() {
+        return pcd_cantidad_producto;
     }
 
-    public void setPce_cantidad_producto(int pce_cantidad_producto) {
-        this.pce_cantidad_producto = pce_cantidad_producto;
+    public void setPcd_cantidad_producto(int pcd_cantidad_producto) {
+        this.pcd_cantidad_producto = pcd_cantidad_producto;
     }
 
-    public int getPce_total_producto() {
-        return pce_total_producto;
+    public int getPcd_costo_producto() {
+        return pcd_costo_producto;
     }
 
-    public void setPce_total_producto(int pce_total_producto) {
-        this.pce_total_producto = pce_total_producto;
+    public void setPcd_costo_producto(int pcd_costo_producto) {
+        this.pcd_costo_producto = pcd_costo_producto;
     }
 
     @Override
     public String toString() {
-        return "clsPedidosCompras{" + "pce_documento=" + pce_documento + ", procodigo=" + procodigo + ", pce_fecha=" + pce_fecha + ", prodcodigo=" + prodcodigo + ", pce_cantidad_producto=" + pce_cantidad_producto + ", pce_total_producto=" + pce_total_producto + '}';
+        return "clsPedidosCompras{" + "pce_documento=" + pce_documento + ", procodigo=" + procodigo + ", pce_fecha=" + pce_fecha + ", pce_total=" + pce_total + ", pce_estatus=" + pce_estatus + ", pcd_orden=" + pcd_orden + ", prodcodigo=" + prodcodigo + ", pcd_cantidad_producto=" + pcd_cantidad_producto + ", pcd_costo_producto=" + pcd_costo_producto + '}';
     }
     
     }

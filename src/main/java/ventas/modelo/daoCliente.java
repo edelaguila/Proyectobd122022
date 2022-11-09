@@ -5,7 +5,7 @@
  */
 package ventas.modelo;
 
-import ventas.controlador.clsVendedores;
+import ventas.controlador.clsCliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,45 +18,43 @@ import seguridad.modelo.clsConexion;
  *
  * @author visitante
  */
-public class daoVendedores {
+public class daoCliente {
 
-    private static final String SQL_SELECT = "SELECT vedcodigo, vednombre, veddireccion, vedtelefono, vednit, vedestatus FROM tbl_vendedores";
-    private static final String SQL_INSERT = "INSERT INTO tbl_vendedores(vednombre, veddireccion, vedtelefono, vednit, vedestatus) VALUES(?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE tbl_vendedores SET vednombre=?, veddireccion=?, vedtelefono=?, vednit=?, vedestatus=? WHERE vedcodigo = ?";
-    private static final String SQL_DELETE = "DELETE FROM tbl_vendedores WHERE vedcodigo=?";
-    private static final String SQL_QUERY = "SELECT vedcodigo, vednombre, veddireccion, vedtelefono, vednit, vedestatus FROM tbl_vendedores WHERE vedcodigo = ?";
+    private static final String SQL_SELECT = "SELECT clicodigo, clinombre, clidireccion, clinit, clitelefono, cliestatus FROM tbl_clientes";
+    private static final String SQL_INSERT = "INSERT INTO tbl_clientes(clinombre, clidireccion, clinit, clitelefono, cliestatus) VALUES(?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE tbl_clientes SET clinombre=?, clidireccion=?, clinit=?, clitelefono=?, cliestatus=? WHERE clicodigo = ?";
+    private static final String SQL_DELETE = "DELETE FROM tbl_clientes WHERE clicodigo=?";
+    private static final String SQL_QUERY = "SELECT clicodigo, clinombre, clidireccion, clinit, clitelefono, cliestatus FROM tbl_clientes WHERE clicodigo = ?";
 
 
-    public List<clsVendedores> select() {
+    public List<clsCliente> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsVendedores vendedor = null;
-        List<clsVendedores> vendedores = new ArrayList<clsVendedores>();
+        clsCliente cliente = null;
+        List<clsCliente> clientes = new ArrayList<clsCliente>();
 
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int vedcodigo = rs.getInt("vedcodigo");
-                String vednombre = rs.getString("vednombre");
-                String veddireccion = rs.getString("veddireccion");
-                String vedtelefono = rs.getString("vedtelefono");
-                String vednit = rs.getString("vednit");
-                String vedestatus = rs.getString("vedestatus");
+                int codigo = rs.getInt("clicodigo");
+                String nombre = rs.getString("clinombre");
+                String direccion = rs.getString("clidireccion");
+                String nit = rs.getString("clinit");
+                String telefono = rs.getString("clitelefono");
+                String estatus = rs.getString("cliestatus");
 
-
-                vendedor = new clsVendedores();
-                vendedor.Setvedcodigo(vedcodigo);
-                vendedor.Setvednombre(vednombre);
-                vendedor.Setveddireccion(veddireccion);
-                vendedor.Setvedtelefono(vedtelefono);
-                vendedor.Setvednit(vednit);
-                vendedor.Setvedestatus(vedestatus);
-
+                cliente = new clsCliente();
+                cliente.setClicodigo(codigo);
+                cliente.setClinombre(nombre);
+                cliente.setClidireccion(direccion);
+                cliente.setClinit(nit);
+                cliente.setClitelefono(telefono);
+                cliente.setCliestatus(estatus);
                 
-                vendedores.add(vendedor);
+                clientes.add(cliente);
             }
 
         } catch (SQLException ex) {
@@ -67,23 +65,21 @@ public class daoVendedores {
             clsConexion.close(conn);
         }
 
-        return vendedores;
+        return clientes;
     }
 
-    public int insert(clsVendedores vendedor) {
+    public int insert(clsCliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, vendedor.Getvednombre());
-            stmt.setString(2, vendedor.Getveddireccion());
-            stmt.setString(3, vendedor.Getvedtelefono());
-            stmt.setString(4, vendedor.Getvednit());
-            stmt.setString(5, vendedor.Getvedestatus());
-
-
+            stmt.setString(1, cliente.getClinombre());
+            stmt.setString(2, cliente.getClidireccion());
+            stmt.setString(3, cliente.getClinit());
+            stmt.setString(4, cliente.getClitelefono());
+            stmt.setString(5, cliente.getCliestatus());      
 
             System.out.println("ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
@@ -98,7 +94,7 @@ public class daoVendedores {
         return rows;
     }
 
-    public int update(clsVendedores vendedor) {
+    public int update(clsCliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -107,12 +103,12 @@ public class daoVendedores {
             conn = clsConexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, vendedor.Getvednombre());
-            stmt.setString(2, vendedor.Getveddireccion());
-            stmt.setString(3, vendedor.Getvedtelefono());
-            stmt.setString(4, vendedor.Getvednit());
-            stmt.setString(5, vendedor.Getvedestatus());
-            stmt.setInt(6, vendedor.Getvedcodigo());
+            stmt.setString(1, cliente.getClinombre());
+            stmt.setString(2, cliente.getClidireccion());
+            stmt.setString(3, cliente.getClinit());
+            stmt.setString(4, cliente.getClitelefono());
+            stmt.setString(5, cliente.getCliestatus());
+            stmt.setInt(6, cliente.getClicodigo());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -127,7 +123,7 @@ public class daoVendedores {
         return rows;
     }
 
-    public int delete(clsVendedores vendedor) {
+    public int delete(clsCliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -136,7 +132,7 @@ public class daoVendedores {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, vendedor.Getvedcodigo());
+            stmt.setInt(1, cliente.getClicodigo());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } catch (SQLException ex) {
@@ -150,34 +146,34 @@ public class daoVendedores {
     }
 
 //    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public clsVendedores query(clsVendedores vendedor) {    
+    public clsCliente query(clsCliente cliente) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<clsVendedores> vendedores = new ArrayList<clsVendedores>();
+        List<clsCliente> clientes = new ArrayList<clsCliente>();
         int rows = 0;
 
         try {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, vendedor.Getvedcodigo());
+            stmt.setInt(1, cliente.getClicodigo());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int vedcodigo = rs.getInt("vedcodigo");
-                String vednombre = rs.getString("vednombre");
-                String veddireccion = rs.getString("veddireccion");
-                String vedtelefono = rs.getString("vedtelefono");
-                String vednit = rs.getString("vednit");
-                String vedestatus = rs.getString("vedestatus");
+                int codigo = rs.getInt("clicodigo");
+                String nombre = rs.getString("clinombre");
+                String direccion = rs.getString("clidireccion");
+                String nit = rs.getString("clinit");
+                String telefono = rs.getString("clitelefono");
+                String estatus = rs.getString("cliestatus");
                 
-                vendedor = new clsVendedores();
-                vendedor.Setvedcodigo(vedcodigo);
-                vendedor.Setvednombre(vednombre);
-                vendedor.Setveddireccion(veddireccion);
-                vendedor.Setvedtelefono(vedtelefono);
-                vendedor.Setvednit(vednit);
-                vendedor.Setvedestatus(vedestatus);
+                cliente = new clsCliente();
+                cliente.setClicodigo(codigo);
+                cliente.setClinombre(nombre);
+                cliente.setClidireccion(direccion);
+                cliente.setClinit(nit);
+                cliente.setClitelefono(telefono);
+                cliente.setCliestatus(estatus);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
             }
@@ -191,7 +187,7 @@ public class daoVendedores {
         }
 
         //return vendedores;  // Si se utiliza un ArrayList
-        return vendedor;
+        return cliente;
     }
    
 }

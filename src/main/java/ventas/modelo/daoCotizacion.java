@@ -34,8 +34,8 @@ public class daoCotizacion {
     private static final String SQL_DELETE = "DELETE FROM proyectobd122022.cotizacion_ventas_encabezado WHERE (cve_documento = ?)";
     private static final String SQL_DELETE2 = "DELETE FROM proyectobd122022.cotizacion_ventas_detalle WHERE (cve_documento = ?)";
 
-    private static final String SQL_QUERY = "SELECT cve_documento, clicodigo, cve_fecha, cve_total, cve_estatus WHERE cve_documento = ?";
-    private static final String SQL_QUERY2 = "SELECT cve_documento, cvd_orden, prodcodigo, cvd_cantidad_producto, cvd_costo_producto WHERE cve_documento = ?";
+    private static final String SQL_QUERY = "SELECT cve_documento, clicodigo, cve_fecha, cve_total, cve_estatus FROM cotizacion_ventas_encabezado WHERE cve_documento = ?";
+    private static final String SQL_QUERY2 = "SELECT cve_documento, cvd_orden, prodcodigo, cvd_cantidad_producto, cvd_costo_producto FROM cotizacion_ventas_detalle WHERE cve_documento = ?";
 
 
     public List<clsCotizacion> select() {

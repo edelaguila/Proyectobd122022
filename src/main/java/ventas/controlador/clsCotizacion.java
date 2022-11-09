@@ -28,7 +28,7 @@ public class clsCotizacion {
     public clsCotizacion() {
     }
 
-    public clsCotizacion(String veedocumento) {
+    public clsCotizacion(String cve_documento) {
     this.cve_documento = cve_documento;
     }
 
@@ -120,11 +120,5 @@ public String Getcve_documento() {
         this.cvd_costo_producto = cvd_costo_producto;
     }
    
-
-
-    @Override
-    public String toString() {
-         return "tbl_vendedores{" + "cve_documento =" + cve_documento + ", clicodigo=" + clicodigo + ", cve_fecha=" + cve_fecha + ", prodcodigo=" + prodcodigo +'}';
-    }
     
 }

@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 public class daoBitacora {
 
     private static final String SQL_SELECT = "SELECT bitid, bitfecha, bitaccion, usuid, aplid, bitip, bitnombrepc FROM tbl_bitacora";
+//private static final String SQL_SELECT = "SELECT bitid, bitfecha, bitaccion, usuid, aplid, bitip, bitnombrepc, calcularDescuento(1000, 10) FROM tbl_bitacora";    
     private static final String SQL_INSERT = "INSERT INTO tbl_bitacora(bitfecha, bitaccion, usuid, aplid, bitip, bitnombrepc) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String SQL_QUERY = "SELECT bitid, bitfecha, bitaccion, usuid, aplid, bitip, bitnombrepc FROM tbl_bitacora WHERE bitfecha BETWEEN ? AND ?";    
 

@@ -5,7 +5,6 @@
  */
 package ventas.modelo;
 
-import ventas.controlador.clsVentas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,8 +42,8 @@ public class daoCotizacion {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsVentas venta = null;
-        List<clsCotizacion> ventas = new ArrayList<clsVentas>();
+        clsCotizacion venta = null;
+        List<clsCotizacion> ventas = new ArrayList<clsCotizacion>();
 
         try {
             conn = clsConexion.getConnection();
@@ -58,12 +57,12 @@ public class daoCotizacion {
                 String cve_estatus = rs.getString("cve_estatus");
 
 
-                venta = new clsVentas();
-                venta.Setvedcodigo(cve_documento);
+                venta = new clsCotizacion();
+                venta.Setcve_documento(cve_documento);
                 venta.Setclicodigo(clicodigo);
-                venta.set(cve_fecha);
-                venta.Setveetotal(cve_total);
-                venta.Setveeestatus(cve_estatus);
+                venta.Setcve_fecha(cve_fecha);
+                venta.Setcve_total(cve_total);
+                venta.Setcve_estatus(cve_estatus);
 
                 
                 ventas.add(venta);
@@ -80,12 +79,12 @@ public class daoCotizacion {
         return ventas;
     }
     
-        public List<clsVentas> select2() {
+        public List<clsCotizacion> select2() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsVentas venta = null;
-        List<clsVentas> ventas = new ArrayList<clsVentas>();
+        clsCotizacion venta = null;
+        List<clsCotizacion> ventas = new ArrayList<clsCotizacion>();
 
         try {
             conn = clsConexion.getConnection();
@@ -93,21 +92,19 @@ public class daoCotizacion {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 String cve_documento = rs.getString("cve_documento");
-                int vedorden = rs.getInt("vedorden");
+                int cvd_orden = rs.getInt("cvd_orden");
                 int prodcodigo = rs.getInt("prodcodigo");
-                int vedcantidad = rs.getInt("vedcantidad");
-                int vedprecio = rs.getInt("vedprecio");
-                int bodcodigo = rs.getInt("bodcodigo");
+                int cvd_cantidad_producto = rs.getInt("cvd_cantidad_producto");
+                int cvd_costo_producto = rs.getInt("cvd_costo_producto");
 
 
 
-                venta = new clsVentas();
-                venta.Setvedcodigo(cve_documento);
-                venta.Setvedorden(vedorden);
+                venta = new clsCotizacion();
+                venta.Setcve_documento(cve_documento);
+                venta.Setcvd_orden(cvd_orden);
                 venta.Setprodcodigo(prodcodigo);
-                venta.Setvedcantidad(vedcantidad);
-                venta.Setvedprecio(vedprecio);
-                venta.Setbodcodigo(bodcodigo);
+                venta.Setcvd_cantidad_producto(cvd_cantidad_producto);
+                venta.Setcvd_costo_producto(cvd_costo_producto);
 
                 
                 ventas.add(venta);
@@ -124,7 +121,7 @@ public class daoCotizacion {
         return ventas;
     }
 
-    public int insert(clsVentas vanta) {
+    public int insert(clsCotizacion vanta) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -134,8 +131,8 @@ public class daoCotizacion {
             stmt.setString(1, vanta.Getcve_documento());
             stmt.setInt(2, vanta.Getclicodigo());
             stmt.setString(3, vanta.Getcve_fecha());
-            stmt.setFloat(4, vanta.Getveetotal());
-            stmt.setString(5, vanta.Getveeestatus());
+            stmt.setFloat(4, vanta.Getcve_total());
+            stmt.setString(5, vanta.Getcve_estatus());
 
 
 
@@ -152,7 +149,7 @@ public class daoCotizacion {
         return rows;
     }
     
-        public int insert2(clsVentas vanta) {
+        public int insert2(clsCotizacion vanta) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -160,11 +157,10 @@ public class daoCotizacion {
             conn = clsConexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT2);
             stmt.setString(1, vanta.Getcve_documento());
-            stmt.setInt(2, vanta.Getvedorden());
+            stmt.setInt(2, vanta.Getcvd_orden());
             stmt.setInt(3, vanta.Getprodcodigo());
-            stmt.setInt(4, vanta.Getvedcantidad());
-            stmt.setInt(5, vanta.Getvedprecio());
-            stmt.setInt(6, vanta.Getbodcodigo());
+            stmt.setInt(4, vanta.Getcvd_cantidad_producto());
+            stmt.setInt(5, vanta.Getcvd_costo_producto());
 
 
 
@@ -181,7 +177,7 @@ public class daoCotizacion {
         return rows;
     }
 
-    public int update(clsVentas vanta) {
+    public int update(clsCotizacion vanta) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -192,8 +188,8 @@ public class daoCotizacion {
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setInt(1, vanta.Getclicodigo());
             stmt.setString(2, vanta.Getcve_fecha());
-            stmt.setInt(3, vanta.Getveetotal());
-            stmt.setString(4, vanta.Getveeestatus());
+            stmt.setInt(3, vanta.Getcve_total());
+            stmt.setString(4, vanta.Getcve_estatus());
             stmt.setString(5, vanta.Getcve_documento());
 
             rows = stmt.executeUpdate();
@@ -209,7 +205,7 @@ public class daoCotizacion {
         return rows;
     }
     
-        public int update2(clsVentas vanta) {
+        public int update2(clsCotizacion vanta) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -218,12 +214,11 @@ public class daoCotizacion {
             conn = clsConexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE2);
             stmt = conn.prepareStatement(SQL_UPDATE2);
-            stmt.setInt(1, vanta.Getvedorden());
+            stmt.setInt(1, vanta.Getcvd_orden());
             stmt.setInt(2, vanta.Getprodcodigo());
-            stmt.setInt(3, vanta.Getvedcantidad());
-            stmt.setInt(4, vanta.Getvedprecio());
-            stmt.setInt(5, vanta.Getbodcodigo());
-            stmt.setString(6, vanta.Getcve_documento());
+            stmt.setInt(3, vanta.Getcvd_cantidad_producto());
+            stmt.setInt(4, vanta.Getcvd_costo_producto());
+            stmt.setString(5, vanta.Getcve_documento());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -238,7 +233,7 @@ public class daoCotizacion {
         return rows;
     }
 
-    public int delete(clsVentas vanta) {
+    public int delete(clsCotizacion vanta) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -260,7 +255,7 @@ public class daoCotizacion {
         return rows;
     }
     
-        public int delete2(clsVentas vanta) {
+        public int delete2(clsCotizacion vanta) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -282,12 +277,11 @@ public class daoCotizacion {
         return rows;
     }
 
-//    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public clsVentas query(clsVentas vanta) {    
+    public clsCotizacion query(clsCotizacion vanta) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<clsVentas> vendedores = new ArrayList<clsVentas>();
+        List<clsCotizacion> vendedores = new ArrayList<clsCotizacion>();
         int rows = 0;
 
         try {
@@ -300,14 +294,15 @@ public class daoCotizacion {
                 String cve_documento = rs.getString("cve_documento");
                 int clicodigo = rs.getInt("clicodigo");
                 String cve_fecha = rs.getString("cve_fecha");
-                int veetotal = rs.getInt("veetotal");
-                String veeestatus = rs.getString("veeestatus");
+                int cve_total = rs.getInt("cve_total");
+                String cve_estatus = rs.getString("cve_estatus");
                 
-                vanta = new clsVentas();
-                vanta.Setcve_documento(veedocumento);
+                vanta = new clsCotizacion();
+                vanta.Setcve_documento(cve_documento);
                 vanta.Setclicodigo(clicodigo);
                 vanta.Setcve_fecha(cve_fecha);
-                vanta.Setveetotal(veetotal);
+                vanta.Setcve_total(cve_total);
+                vanta.Setcve_estatus(cve_estatus);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
             }
@@ -324,11 +319,11 @@ public class daoCotizacion {
         return vanta;
     }
     
-        public clsVentas query2(clsVentas vanta) {    
+        public clsCotizacion query2(clsCotizacion vanta) {    
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<clsVentas> vendedores = new ArrayList<clsVentas>();
+        List<clsCotizacion> vendedores = new ArrayList<clsCotizacion>();
         int rows = 0;
 
         try {
@@ -339,19 +334,17 @@ public class daoCotizacion {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 String cve_documento = rs.getString("cve_documento");
-                int vedorden = rs.getInt("vedorden");
+                int cvd_orden = rs.getInt("cvd_orden");
                 int prodcodigo = rs.getInt("prodcodigo");
-                int vedcantidad = rs.getInt("vedcantidad");
-                int vedprecio = rs.getInt("vedprecio");
-                int bodcodigo = rs.getInt("bodcodigo");
+                int cvd_cantidad_producto = rs.getInt("cvd_cantidad_producto");
+                int cvd_costo_producto = rs.getInt("cvd_costo_producto");
                 
-                vanta = new clsVentas();
+                vanta = new clsCotizacion();
                 vanta.Setcve_documento(cve_documento);
-                vanta.Setvedorden(vedorden);
+                vanta.Setcvd_orden(cvd_orden);
                 vanta.Setprodcodigo(prodcodigo);
-                vanta.Setvedcantidad(vedcantidad);
-                vanta.Setvedprecio(vedprecio);
-                vanta.Setbodcodigo(bodcodigo);
+                vanta.Setcvd_cantidad_producto(cvd_cantidad_producto);
+                vanta.Setcvd_costo_producto(cvd_costo_producto);
                 
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
             }

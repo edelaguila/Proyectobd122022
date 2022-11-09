@@ -34,7 +34,7 @@ public class daoDeudasCompras {
     private static final String SQL_DELETE = "DELETE FROM proyectobd122022.deudas_compras_encabezado WHERE (dce_documento = ?)";
     private static final String SQL_DELETE2 = "DELETE FROM proyectobd122022.deudas_compras_detalle WHERE (dce_documento = ?)";
 
-    private static final String SQL_QUERY = "SELECT dce_documento, procodigo, coedocumento, dce_estatus FROM tbl_ventas_encabezado WHERE dce_documento = ?";
+    private static final String SQL_QUERY = "SELECT dce_documento, procodigo, coedocumento, dce_estatus FROM deudas_compras_encabezado WHERE dce_documento = ?";
     private static final String SQL_QUERY2 = "SELECT dce_documento, prodcodigo, total_compras, dce_saldo_documento, deudacompra FROM deudas_compras_detalle WHERE dce_documento = ?";
 
 

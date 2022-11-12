@@ -8,7 +8,8 @@ package logistica.vista;
 import seguridad.vista.*;
 import logistica.modelo.daoMovimientos;
 import logistica.controlador.clsMovimientos;
-
+import logistica.modelo.daoProductos;
+import logistica.controlador.clsProductos;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -58,10 +59,9 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
 
     public void buscarVendedor() {
         clsMovimientos vendedorAConsultar = new clsMovimientos();
-        clsMovimientos vendedorAConsultar2 = new clsMovimientos();
         daoMovimientos perfilDAO = new daoMovimientos();
-        daoMovimientos perfilDAO2 = new daoMovimientos();
-        vendedorAConsultar.setProdcodigo(Integer.parseInt(txtbuscado.getText()));
+
+        vendedorAConsultar.setMovid(Integer.parseInt(txtbuscado.getText()));
         vendedorAConsultar = perfilDAO.query(vendedorAConsultar);
         
         
@@ -95,10 +95,10 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
         lb2 = new javax.swing.JLabel();
         lbusu = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JButton();
-        btnRegistrar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        label1 = new javax.swing.JLabel();
+        btnRegistrar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        label1 = new javax.swing.JLabel();
         txtbuscado = new javax.swing.JTextField();
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -122,6 +122,11 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
         txtCliente = new javax.swing.JTextField();
         label14 = new javax.swing.JLabel();
         txtProveedor = new javax.swing.JTextField();
+        verificar = new javax.swing.JButton();
+        label15 = new javax.swing.JLabel();
+        efecto = new javax.swing.JTextField();
+        asignar = new javax.swing.JButton();
+        updateTable = new javax.swing.JButton();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
         lb2.setText(".");
@@ -132,6 +137,7 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Mantenimiento Productos");
         setVisible(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -139,13 +145,7 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-
-        btnRegistrar.setText("Registrar");
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 95, -1));
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -153,9 +153,15 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 460, 95, -1));
 
-        label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label1.setText("Productos");
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 420, 95, -1));
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -163,6 +169,12 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 btnModificarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 95, -1));
+
+        label1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label1.setText("Productos");
+        getContentPane().add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, -1, -1));
+        getContentPane().add(txtbuscado, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 460, 102, -1));
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +182,7 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 btnLimpiarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 95, -1));
 
         tablaVendedores.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tablaVendedores.setModel(new javax.swing.table.DefaultTableModel(
@@ -182,8 +195,11 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tablaVendedores);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 565, 330));
+
         lb.setForeground(new java.awt.Color(204, 204, 204));
         lb.setText(".");
+        getContentPane().add(lb, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 20, 13, -1));
 
         txtFecha.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtFecha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -193,9 +209,11 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 txtFechaActionPerformed(evt);
             }
         });
+        getContentPane().add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 263, -1));
 
         label6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label6.setText("Fecha movimiento");
+        getContentPane().add(label6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         txEstado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txEstado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -205,9 +223,11 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 txEstadoActionPerformed(evt);
             }
         });
+        getContentPane().add(txEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 263, -1));
 
         label7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label7.setText("Estado movimiento");
+        getContentPane().add(label7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
         txtProducto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtProducto.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -217,9 +237,11 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 txtProductoActionPerformed(evt);
             }
         });
+        getContentPane().add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 263, -1));
 
         label8.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label8.setText("Codigo producto");
+        getContentPane().add(label8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         txtCantidad.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtCantidad.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -229,12 +251,15 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 txtCantidadActionPerformed(evt);
             }
         });
+        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 263, -1));
 
         label9.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label9.setText("Cantidad");
+        getContentPane().add(label9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         label10.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label10.setText("Codigo linea");
+        getContentPane().add(label10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
         txtLinea.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtLinea.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -244,6 +269,7 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 txtLineaActionPerformed(evt);
             }
         });
+        getContentPane().add(txtLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 263, -1));
 
         txtMarca.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtMarca.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -253,9 +279,11 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 txtMarcaActionPerformed(evt);
             }
         });
+        getContentPane().add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 263, -1));
 
         label11.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label11.setText("Codigo marca");
+        getContentPane().add(label11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         txtConcepto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtConcepto.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -265,12 +293,15 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 txtConceptoActionPerformed(evt);
             }
         });
+        getContentPane().add(txtConcepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 263, -1));
 
         label12.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label12.setText("Codigo concepto");
+        label12.setText("efecto");
+        getContentPane().add(label12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
         label13.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label13.setText("Codigo cliente");
+        getContentPane().add(label13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, 20));
 
         txtCliente.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -280,9 +311,11 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 txtClienteActionPerformed(evt);
             }
         });
+        getContentPane().add(txtCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 263, 20));
 
         label14.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label14.setText("Codigo proveedor");
+        getContentPane().add(label14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, 20));
 
         txtProveedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -292,146 +325,45 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
                 txtProveedorActionPerformed(evt);
             }
         });
+        getContentPane().add(txtProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 263, 20));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label6)
-                                    .addComponent(label7)
-                                    .addComponent(label8)
-                                    .addComponent(label9))
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lb, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(label11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(label10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(23, 23, 23))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(label14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(12, 12, 12))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(label13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
-                        .addComponent(label1)
-                        .addGap(294, 294, 294))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(label1)
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label6)
-                                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label7)
-                            .addComponent(txEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label8)
-                            .addComponent(txtProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label9)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label10))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label11))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label12))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label13))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnRegistrar)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnModificar))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtbuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscar)
-                            .addComponent(btnLimpiar)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(82, Short.MAX_VALUE))
-        );
+        verificar.setText("Verficar");
+        verificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verificarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 420, 90, -1));
+
+        label15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        label15.setText("Codigo concepto");
+        getContentPane().add(label15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+
+        efecto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        efecto.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        efecto.setOpaque(false);
+        efecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                efectoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(efecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 263, -1));
+
+        asignar.setText("Asignar");
+        asignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                asignarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(asignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 450, 90, -1));
+
+        updateTable.setText("actualizar tabla");
+        updateTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateTableActionPerformed(evt);
+            }
+        });
+        getContentPane().add(updateTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 110, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -440,12 +372,11 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         daoMovimientos perfilDAO = new daoMovimientos();
         clsMovimientos vendedorAEliminar = new clsMovimientos();
-        daoMovimientos perfilDAO2 = new daoMovimientos();
-        clsMovimientos vendedorAEliminar2 = new clsMovimientos();
-        vendedorAEliminar.setProdcodigo(Integer.parseInt(txtbuscado.getText()));
-        vendedorAEliminar2.setProdcodigo(Integer.parseInt(txtbuscado.getText()));
+   
+        vendedorAEliminar.setMovid(Integer.parseInt(txtbuscado.getText()));
+  
         perfilDAO.delete(vendedorAEliminar);
-         perfilDAO.delete2(vendedorAEliminar2);
+        perfilDAO.delete2(vendedorAEliminar);
         llenadoDeTablas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -463,40 +394,67 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
        vendedorAInsertar2.setConid(Integer.parseInt(txtConcepto.getText()));
        vendedorAInsertar2.setClicodigo(Integer.parseInt(txtCliente.getText()));
        vendedorAInsertar2.setProcodigo(Integer.parseInt(txtProveedor.getText()));
-         
-         perfilDAO.insert(vendedorAInsertar);
           perfilDAO2.insert2(vendedorAInsertar2);
+         perfilDAO.insert(vendedorAInsertar);
+         
          llenadoDeTablas();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         buscarVendedor();
+        
+      
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
- daoMovimientos perfilDAO = new daoMovimientos();
-        clsMovimientos vendedorAActualizar = new clsMovimientos();     
         daoMovimientos perfilDAO2 = new daoMovimientos();
-        clsMovimientos vendedorAActualizar2 = new clsMovimientos();   
+        clsMovimientos vendedorAActualizar2 = new clsMovimientos(); 
+        
+        daoMovimientos perfilDAO = new daoMovimientos();
+        clsMovimientos vendedorAActualizar = new clsMovimientos();
+       
+        //******************ENCABEZADO**********************
+       vendedorAActualizar.setMovid(Integer.parseInt(txtbuscado.getText()));
        vendedorAActualizar.setMovfecha(txtFecha.getText());
        vendedorAActualizar.setMovestado((txEstado.getText()));
-       vendedorAActualizar2.setProdcodigo(Integer.parseInt(txtProducto.getText()));
-       vendedorAActualizar2.setMovcantidad((txtCantidad.getText()));
-       vendedorAActualizar2.setLincodigo(Integer.parseInt(txtLinea.getText()));
-       vendedorAActualizar2.setMarcodigo(Integer.parseInt(txtMarca.getText()));
-       vendedorAActualizar2.setConid(Integer.parseInt(txtConcepto.getText()));
-       vendedorAActualizar2.setClicodigo(Integer.parseInt(txtCliente.getText()));
-       vendedorAActualizar2.setProcodigo(Integer.parseInt(txtProveedor.getText()));      
-        perfilDAO.update(vendedorAActualizar);
-          perfilDAO2.update2(vendedorAActualizar2);
-          llenadoDeTablas();
+       perfilDAO.update(vendedorAActualizar);
+
+        //******************DETALLE**************************
+       vendedorAActualizar.setMovid(Integer.parseInt(txtbuscado.getText()));
+       vendedorAActualizar.setProdcodigo(Integer.parseInt(txtProducto.getText()));
+       vendedorAActualizar.setMovcantidad(Integer.parseInt(txtCantidad.getText()));
+       vendedorAActualizar.setLincodigo(Integer.parseInt(txtLinea.getText()));
+       vendedorAActualizar.setMarcodigo(Integer.parseInt(txtMarca.getText()));
+       vendedorAActualizar.setConid(Integer.parseInt(txtConcepto.getText()));
+       vendedorAActualizar.setClicodigo(Integer.parseInt(txtCliente.getText()));
+       vendedorAActualizar.setProcodigo(Integer.parseInt(txtProveedor.getText()));
+       perfilDAO.update2(vendedorAActualizar);
+      
+      
+
+        
+        llenadoDeTablas();         
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
           
         txtbuscado.setText("");
+        txtFecha.setText("");
+         txEstado.setText("");
+        txtProducto.setText("");
+        txtCantidad.setText("");
+        txtLinea.setText("");
+        txtMarca.setText("");
+        txtConcepto.setText("");
+        txtCliente.setText("");
+        txtProveedor.setText("");
+        efecto.setText("");
+       
+        valor=0;
+       
         btnRegistrar.setEnabled(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
@@ -539,14 +497,86 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
     private void txtProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProveedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProveedorActionPerformed
+String name;
+float valor;
+String estado;
+int marca;
+int linea;
+int codigo;
+    private void verificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificarActionPerformed
+        // TODO add your handling code here:
+        
+          clsProductos vendedorAConsultar = new clsProductos();
+        daoProductos perfilDAO = new daoProductos();
+        vendedorAConsultar.setProdcodigo(Integer.parseInt(txtProducto.getText()));
+        vendedorAConsultar = perfilDAO.query(vendedorAConsultar);
+        
+        codigo = vendedorAConsultar.getProdcodigo();
+        name = vendedorAConsultar.getProdnombre();  
+        valor = vendedorAConsultar.getProdexistencia();  
+        estado = vendedorAConsultar.getProdestatus();  
+        marca = vendedorAConsultar.getMarcodigo(); 
+        linea =vendedorAConsultar.getLincodigo();  
+            
+
+       
+         
+         
+         
+        
+    }//GEN-LAST:event_verificarActionPerformed
+
+    private void efectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_efectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_efectoActionPerformed
+
+    private void asignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignarActionPerformed
+        // TODO add your handling code here:
+  float cantidad = Float.parseFloat(txtCantidad.getText());      
+         daoProductos vendedorDAO = new daoProductos();
+        clsProductos vendedorAActualizar = new clsProductos();
+
+       
+        
+        
+        if (efecto.getText().equals("+")){
+         vendedorAActualizar.setProdcodigo(codigo);
+             vendedorAActualizar.setProdnombre(name);        
+            vendedorAActualizar.setProdestatus(estado);        
+             vendedorAActualizar.setMarcodigo(marca);
+           vendedorAActualizar.setLincodigo(linea);
+        vendedorAActualizar.setProdexistencia(valor+cantidad);
+                vendedorDAO.update(vendedorAActualizar);
+        }else if (efecto.getText().equals("-")){
+         vendedorAActualizar.setProdcodigo(codigo);
+             vendedorAActualizar.setProdnombre(name);        
+            vendedorAActualizar.setProdestatus(estado);        
+             vendedorAActualizar.setMarcodigo(marca);
+           vendedorAActualizar.setLincodigo(linea);
+        vendedorAActualizar.setProdexistencia(valor-cantidad);
+                vendedorDAO.update(vendedorAActualizar);
+        
+        }
+        
+   
+        
+         
+    }//GEN-LAST:event_asignarActionPerformed
+
+    private void updateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTableActionPerformed
+        // TODO add your handling code here:
+        llenadoDeTablas();
+    }//GEN-LAST:event_updateTableActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton asignar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JTextField efecto;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label10;
@@ -554,6 +584,7 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel label12;
     private javax.swing.JLabel label13;
     private javax.swing.JLabel label14;
+    private javax.swing.JLabel label15;
     private javax.swing.JLabel label6;
     private javax.swing.JLabel label7;
     private javax.swing.JLabel label8;
@@ -572,5 +603,7 @@ public class frmMantenimientoMovimientos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtProveedor;
     private javax.swing.JTextField txtbuscado;
+    private javax.swing.JButton updateTable;
+    private javax.swing.JButton verificar;
     // End of variables declaration//GEN-END:variables
 }

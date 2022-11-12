@@ -23,12 +23,11 @@ public class daoMovimientos {
     private static final String SQL_SELECT = "SELECT tbl_movimientoen.movestado, tbl_movimientoen.movid, tbl_movimientoen.movfecha, tbl_productos.prodnombre, tbl_productos.prodexistencia,  tbl_lineas.linnombre, tbl_marcas.marnombre, tbl_conceptos.connombre, tbl_clientes.clinombre, tbl_proveedores.pronombre, tbl_movimientode.movcantidad FROM tbl_movimientode INNER JOIN tbl_movimientoen ON tbl_movimientode.movid = tbl_movimientoen.movid INNER JOIN tbl_productos  ON tbl_productos.prodcodigo = tbl_movimientode.prodcodigo  INNER JOIN tbl_lineas ON tbl_movimientode.lincodigo = tbl_lineas.lincodigo INNER JOIN tbl_marcas  ON tbl_marcas.marcodigo = tbl_movimientode.marcodigo INNER JOIN tbl_conceptos  ON tbl_conceptos.conid = tbl_movimientode.conid INNER JOIN tbl_clientes  ON tbl_clientes.clicodigo = tbl_movimientode.clicodigo INNER JOIN tbl_proveedores  ON tbl_proveedores.procodigo = tbl_movimientode.procodigo";
     private static final String SQL_INSERT = "INSERT INTO tbl_movimientoen(movid, movfecha, movestado) VALUES(?, ?, ?)";
     private static final String SQL_INSERT2 = "INSERT INTO tbl_movimientode(movid, prodcodigo, conid, clicodigo, procodigo, lincodigo, marcodigo, movcantidad) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE tbl_movimientoen SET movid=?, movfecha=?, movestado=?";
-    private static final String SQL_UPDATE2 = "UPDATE tbl_movimientoen SET movid=?, prodcodigo=?, conid=?, clicodigo=?, procodigo=?, lincodigo=?, marcodigo=?, movcantidad=?";
-    private static final String SQL_DELETE = "DELETE FROM tbl_movimientoen en WHERE movid=?";
-    private static final String SQL_DELETE2 = "DELETE FROM tbl_movimientode en WHERE movid=?";
-    private static final String SQL_QUERY  = "SELECT tbl_movimientoen.movid, tbl_movimientoen.movfecha, tbl_movimientoen.movestado, tbl_productos.prodnombre, tbl_productos.prodexistencia, tbl_movimientode.movcantidad, tbl_lineas.linnombre, tbl_marcas.marnombre, tbl_conceptos.connombre, tbl_clientes.clinombre, tbl_proveedores.pronombre FROM tbl_movimientode INNER JOIN tbl_movimientoen ON tbl_movimientode.movid = tbl_movimientoen.movid INNER JOIN tbl_productos  ON tbl_productos.prodcodigo = tbl_movimientode.prodcodigo  INNER JOIN tbl_lineas ON tbl_movimientode.lincodigo = tbl_lineas.lincodigo INNER JOIN tbl_marcas  ON tbl_marcas.marcodigo = tbl_movimientode.marcodigo INNER JOIN tbl_conceptos  ON tbl_conceptos.conid = tbl_movimientode.conid INNER JOIN tbl_clientes  ON tbl_clientes.clicodigo = tbl_movimientode.clicodigo INNER JOIN tbl_proveedores  ON tbl_proveedores.procodigo = tbl_movimientode.procodigo";
-
+    private static final String SQL_UPDATE2 = "UPDATE tbl_movimientode SET prodcodigo=?, conid=?, clicodigo=?, procodigo=?, lincodigo=?, marcodigo=?, movcantidad=? WHERE movid =?";
+    private static final String SQL_UPDATE = "UPDATE tbl_movimientoen SET  movfecha=?, movestado=? WHERE movid =?";   
+    private static final String SQL_DELETE = "DELETE FROM tbl_movimientode WHERE movid=?";
+    private static final String SQL_DELETE2 = "DELETE FROM tbl_movimientoen WHERE movid=?";
+    private static final String SQL_QUERY  = "SELECT tbl_movimientoen.movid, tbl_movimientoen.movfecha, tbl_movimientoen.movestado,  prodcodigo, prodexistencia, lincodigo, marcodigo, conid, clicodigo, procodigo, tbl_movimientode.movcantidad FROM tbl_movimientode, tbl_movimientoen WHERE tbl_movimientoen.movid=?;";
     public List<clsMovimientos> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -149,9 +148,11 @@ public class daoMovimientos {
             conn = clsConexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setInt(1,  perfil.getMovid());
-            stmt.setString(2, perfil.getMovfecha());
-            stmt.setString(3, perfil.getMovestado());
+              
+            
+            stmt.setString(1, perfil.getMovfecha());
+            stmt.setString(2, perfil.getMovestado());
+            stmt.setInt(3,  perfil.getMovid());
             
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -175,14 +176,17 @@ public class daoMovimientos {
             System.out.println("ejecutando query: " + SQL_UPDATE2);
             stmt = conn.prepareStatement(SQL_UPDATE2);
         
-            stmt.setInt(1,  perfil.getMovid());
-            stmt.setInt(2, perfil.getProdcodigo());
-            stmt.setInt(3, perfil.getConid());
-            stmt.setInt(4, perfil.getClicodigo());
-            stmt.setInt(5, perfil.getProcodigo());
-            stmt.setInt(6, perfil.getLincodigo());
-            stmt.setInt(7, perfil.getMarcodigo());
-            stmt.setInt(8, perfil.getMovcantidad());
+            
+            
+            stmt.setInt(1, perfil.getProdcodigo());
+            stmt.setInt(2, perfil.getConid());
+            stmt.setInt(3, perfil.getClicodigo());
+            stmt.setInt(4, perfil.getProcodigo());
+            stmt.setInt(5, perfil.getLincodigo());
+            stmt.setInt(6, perfil.getMarcodigo());
+            stmt.setInt(7, perfil.getMovcantidad());
+          
+            stmt.setInt(8,  perfil.getMovid());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
@@ -226,7 +230,7 @@ public class daoMovimientos {
 
         try {
             conn = clsConexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_DELETE);
+            System.out.println("Ejecutando query:" + SQL_DELETE2);
             stmt = conn.prepareStatement(SQL_DELETE2);
             stmt.setInt(1, perfil.getMovid());
              rows = stmt.executeUpdate();
@@ -250,18 +254,36 @@ public class daoMovimientos {
             conn = clsConexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, perfil.getProdcodigo()); //getId_perfil
+            stmt.setInt(1, perfil.getMovid()); //getId_perfil
             rs = stmt.executeQuery();
             while (rs.next()) {
                 
-                int Movid = rs.getInt("movid");
-                String Movfecha =rs.getString("movfecha");
-                String Movestado =rs.getString("movestado");
-                         
+               int Movid = rs.getInt("tbl_movimientoen.movid");
+                String Movfecha =rs.getString("tbl_movimientoen.movfecha");
+                String Movestado =rs.getString("tbl_movimientoen.movestado");
+                int ProdCodigo =rs.getInt("prodcodigo");
+                float Prodexistencia = rs.getFloat("prodexistencia");
+                int Movcantidad = rs.getInt("movcantidad");
+                int LinCodigo = rs.getInt("lincodigo");
+                int MarCodigo = rs.getInt("marcodigo");
+                int ConCodigo = rs.getInt("conid");
+                int CliCodigo = rs.getInt("clicodigo");
+                int ProCodigo = rs.getInt("procodigo");
+               
                 perfil = new clsMovimientos();
+                perfil.setProcodigo(ProCodigo);
                 perfil.setMovid(Movid);
                 perfil.setMovfecha(Movfecha);
                 perfil.setMovestado(Movestado);
+                perfil.setProdcodigo(ProdCodigo);
+                perfil.setProdexistencia(Prodexistencia);
+                perfil.setMovcantidad(Movcantidad);
+                perfil.setMarcodigo(MarCodigo);
+                perfil.setLincodigo(LinCodigo);
+                perfil.setConid(ConCodigo);
+                perfil.setClicodigo(CliCodigo);
+              
+                
            
             
             }
@@ -277,5 +299,10 @@ public class daoMovimientos {
         //return personas;  // Si se utiliza un ArrayList
         return perfil;
     }
+    
+    
+    
+  
+    
     
 }
